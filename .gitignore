@@ -1,0 +1,10 @@
+obj
+libs
+bin/
+local.properties
+assets/assets
+assets/uiassets
+assets/aassets
+.*.swp
+project.sh
+
