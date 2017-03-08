@@ -15,6 +15,10 @@
 #define true 1
 #define false 0
 
+PFNGLGENVERTEXARRAYSOESPROC glGenVertexArrays;
+PFNGLBINDVERTEXARRAYOESPROC glBindVertexArray;
+PFNGLDELETEVERTEXARRAYSOESPROC glDeleteVertexArrays;
+
 void initextensions(){
 	glGenVertexArrays=(PFNGLGENVERTEXARRAYSOESPROC)eglGetProcAddress("glGenVertexArraysOES");
 	glBindVertexArray=(PFNGLBINDVERTEXARRAYOESPROC)eglGetProcAddress("glBindVertexArrayOES");

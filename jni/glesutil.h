@@ -20,9 +20,9 @@
 extern "C" {
 #endif
 
-PFNGLGENVERTEXARRAYSOESPROC glGenVertexArrays;
-PFNGLBINDVERTEXARRAYOESPROC glBindVertexArray;
-PFNGLDELETEVERTEXARRAYSOESPROC glDeleteVertexArrays;
+extern PFNGLGENVERTEXARRAYSOESPROC glGenVertexArrays;
+extern PFNGLBINDVERTEXARRAYOESPROC glBindVertexArray;
+extern PFNGLDELETEVERTEXARRAYSOESPROC glDeleteVertexArrays;
 struct packtexture{
 	unsigned object;
 	unsigned size;
