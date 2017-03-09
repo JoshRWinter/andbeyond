@@ -1,8 +1,22 @@
 #include "glesutil.h"
 
+#include <vector>
+
+#define SHOW_FPS
+
 #define TID_SKY 0
+#define TID_PLATFORM 1
+#define TID_PLAYER 2
+
+#define PLAYER_UPWARD_VELOCITY 0.3f
+#define GRAVITY 0.01f
+#define TERMINAL_VELOCITY 0.3f
+
+struct state_s;
 
 struct base_s{
+	bool collide(const base_s&,float);
+
 	float x,y,w,h,rot;
 	int count,frame; // <frame> of <count> in a sprite sheet
 };
@@ -13,10 +27,20 @@ struct player_s:base_s{
 	float xv,yv;
 };
 
+#define PLATFORM_WIDTH 1.3f
+#define PLATFORM_HEIGHT 0.366666f
+#define PLATFORM_NORMAL 0
+struct platform_s:base_s{
+	platform_s(const state_s&,float,int);
+
+	int type;
+	bool xflip;
+};
+
 struct renderer_s{
 	void init(android_app*);
 	void term();
-	void draw(base_s&);
+	void draw(const base_s&,bool);
 
 	pack assets; // gameplay textures
 	pack uiassets; // ui textures
@@ -35,8 +59,10 @@ struct renderer_s{
 	// fonts
 	struct{ftfont *main;}font;
 
+	// opengl handles
 	unsigned vao,vbo,program;
 
+	// EGL handles
 	EGLDisplay display;
 	EGLSurface surface;
 	EGLContext context;
@@ -61,6 +87,7 @@ struct state_s{
 	// entities
 	base_s background;
 	player_s player;
+	std::vector<platform_s*> platform_list;
 };
 	
 bool process(android_app*);

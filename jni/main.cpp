@@ -1,6 +1,7 @@
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 #include <android_native_app_glue.h>
+#include <unistd.h>
 
 #include "defs.h"
 
@@ -65,7 +66,7 @@ void renderer_s::init(android_app *app){
 
 	// set up fonts
 	set_ftfont_params(screen.w,screen.h,rect.right*2.0f,rect.bottom*2.0f,uniform.vector,uniform.size,uniform.texcoords);
-	font.main=create_ftfont(app->activity->assetManager,0.3f,"arial.ttf");
+	font.main=create_ftfont(app->activity->assetManager,0.4f,"arial.ttf");
 }
 
 void renderer_s::term(){
@@ -101,6 +102,9 @@ int32_t inputproc(android_app *app,AInputEvent *event){
 void cmdproc(android_app *app, int32_t cmd){
 	state_s *state=(state_s*)app->userData;
 	switch(cmd){
+	case APP_CMD_START:
+		usleep(300000); // dont ask
+		break;
 	case APP_CMD_RESUME:
 		hidenavbars(&state->jni);
 		break;

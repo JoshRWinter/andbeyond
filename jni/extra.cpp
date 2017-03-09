@@ -4,8 +4,12 @@
 
 #include "defs.h"
 
-void renderer_s::draw(base_s &base){
-	glUniform4f(uniform.texcoords,0.0f,1.0f,0.0f,1.0f);
+bool base_s::collide(const base_s &b,float tolerance){
+	return x+w>b.x+tolerance&&x<b.x+b.w-tolerance&&y+h>b.y+tolerance&&y<b.y+b.h-tolerance;
+}
+
+void renderer_s::draw(const base_s &base,bool xflip){
+	glUniform4f(uniform.texcoords,xflip,!xflip,0.0f,1.0f);
 	glUniform2f(uniform.vector,base.x,base.y);
 	glUniform2f(uniform.size,base.w,base.h);
 	glUniform1f(uniform.rot,base.rot);

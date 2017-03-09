@@ -1,2 +1,2 @@
-sky.tga -o ../assets/assets
+sky.tga platform_normal.tga player.tga -o ../assets/assets
 
