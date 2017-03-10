@@ -39,7 +39,12 @@ bool state_s::core(){
 	if(player.yv>TERMINAL_VELOCITY)
 		player.yv=TERMINAL_VELOCITY;
 	player.y+=player.yv;
-	player.x-=0.01f;
+	targetf(&tilt,0.7f,accel.x);
+	player.x-=tilt/TILT_DIVISOR;
+	if(player.x+(PLAYER_WIDTH/2.0f)>renderer.rect.right)
+		player.x=renderer.rect.left-(PLAYER_WIDTH/2.0f);
+	else if(player.x<renderer.rect.left-(PLAYER_WIDTH/2.0f))
+		player.x=renderer.rect.right-(PLAYER_WIDTH/2.0f);
 	if(player.y>renderer.rect.bottom)
 		reset();
 
@@ -117,4 +122,6 @@ void state_s::reset(){
 	player.xv=0.0f;
 	player.yv=0.0f;
 	player.rot=0.0f;
+
+	tilt=0.0f;
 }

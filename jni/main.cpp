@@ -1,6 +1,7 @@
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 #include <android_native_app_glue.h>
+#include <time.h>
 #include <unistd.h>
 
 #include "defs.h"
@@ -119,6 +120,12 @@ void cmdproc(android_app *app, int32_t cmd){
 	case APP_CMD_DESTROY:
 		state->reset();
 		break;
+	case APP_CMD_GAINED_FOCUS:
+		enable_accel(&state->accel);
+		break;
+	case APP_CMD_LOST_FOCUS:
+		disable_accel(&state->accel);
+		break;
 	}
 }
 
@@ -128,6 +135,9 @@ int state_s::process(){
 	while((ident=ALooper_pollAll(running?0:-1,NULL,&events,(void**)&source))>=0){
 		if(source)
 			source->process(app,source);
+		if(ident==LOOPER_ID_USER){
+			handle_accel(&accel);
+		}
 		if(app->destroyRequested)
 			return false;
 	}
@@ -138,6 +148,7 @@ int state_s::process(){
 void android_main(android_app *app){
 	logcat("--- BEGIN NEW LOG ---");
 	app_dummy();
+	srand48(time(NULL));
 	state_s state;
 	state.reset();
 	state.app=app;
@@ -145,14 +156,14 @@ void android_main(android_app *app){
 	app->onInputEvent=inputproc;
 	app->userData=&state;
 	init_jni(app,&state.jni);
+	init_accel(app,&state.accel);
 
 	while(state.process()&&state.core()){
 		state.render();
 		eglSwapBuffers(state.renderer.display,state.renderer.surface);
-
 	}
 
+	term_accel(&state.accel);
 	term_jni(&state.jni);
 	logcat("--- END LOG ---");
 }
-

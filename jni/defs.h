@@ -9,6 +9,7 @@
 #define TID_PLAYER 2
 
 #define PLAYER_UPWARD_VELOCITY 0.3f
+#define TILT_DIVISOR 20.0f
 #define GRAVITY 0.01f
 #define TERMINAL_VELOCITY 0.3f
 
@@ -79,9 +80,11 @@ struct state_s{
 	renderer_s renderer;
 
 	bool running;
+	float tilt; // accelerometer
 
 	crosshair pointer[2]; // supports 2 fingers on the screen
 	jni_info jni; // java native interface
+	accel_info accel; // accelerometer info
 	android_app *app;
 
 	// entities

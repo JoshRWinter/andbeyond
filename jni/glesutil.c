@@ -992,3 +992,40 @@ void hidenavbars(struct jni_info *jni_info){
 	}
 }
 
+void init_accel(struct android_app *app,struct accel_info *accel_info){
+	accel_info->app=app;
+	accel_info->manager=ASensorManager_getInstance();
+	accel_info->sensor=ASensorManager_getDefaultSensor(accel_info->manager,ASENSOR_TYPE_ACCELEROMETER);
+	accel_info->queue=ASensorManager_createEventQueue(accel_info->manager,app->looper,LOOPER_ID_USER,NULL,NULL);
+	accel_info->x=0.0f;
+	accel_info->y=0.0f;
+	accel_info->z=0.0f;
+}
+
+void handle_accel(struct accel_info *accel_info){
+	if(accel_info->manager!=NULL){
+		ASensorEvent event;
+		while(ASensorEventQueue_getEvents(accel_info->queue,&event,1)>0){
+			accel_info->x=event.acceleration.x;
+			accel_info->y=event.acceleration.y;
+			accel_info->z=event.acceleration.z;
+		}
+	}
+}
+
+void enable_accel(struct accel_info *accel_info){
+	if(accel_info->sensor!=NULL){
+		ASensorEventQueue_enableSensor(accel_info->queue,accel_info->sensor);
+		ASensorEventQueue_setEventRate(accel_info->queue,accel_info->sensor,(1000L/60*1000));
+	}
+}
+
+void disable_accel(struct accel_info *accel_info){
+	if(accel_info->sensor!=NULL){
+		ASensorEventQueue_disableSensor(accel_info->queue,accel_info->sensor);
+	}
+}
+
+void term_accel(struct accel_info *accel_info){
+	ASensorManager_destroyEventQueue(accel_info->manager,accel_info->queue);
+}

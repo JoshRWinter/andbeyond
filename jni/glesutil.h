@@ -1,4 +1,5 @@
 #include <android/log.h>
+#include <android/sensor.h>
 #include <GLES2/gl2ext.h>
 #include <ft2build.h>
 #include <SLES/OpenSLES.h>
@@ -92,6 +93,13 @@ struct jni_info{
 	jobject lDecorView;
 	jmethodID MethodSetSystemUiVisibility;
 };
+struct accel_info{
+	struct android_app *app;
+	ASensorManager *manager;
+	const ASensor *sensor;
+	ASensorEventQueue *queue;
+	float x,y,z;
+};
 int loadpack(struct pack *asset,AAssetManager *mgr,const char *filename,const char *mode);
 unsigned char *convert_power_of_two(unsigned char *bytedata,int *size,int width,int height);
 void destroypack(struct pack *asset);
@@ -126,8 +134,12 @@ void init_jni(struct android_app *app,struct jni_info *jni_info);
 void vibratedevice(struct jni_info* jni_info,int mills);
 void hidenavbars(struct jni_info *jni_info);
 void term_jni(struct jni_info *jni_info);
+void init_accel(struct android_app *app,struct accel_info *accel_info);
+void handle_accel(struct accel_info *accel_info);
+void enable_accel(struct accel_info *accel_info);
+void disable_accel(struct accel_info *accel_info);
+void term_accel(struct accel_info *accel_indf);
 
 #ifdef __cplusplus
 }
 #endif
-
