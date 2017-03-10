@@ -18,6 +18,10 @@ bool state_s::core(){
 	for(std::vector<platform_s*>::iterator iter=platform_list.begin();iter!=platform_list.end();){
 		platform_s *platform=*iter;
 
+		// move the platforms down if player is above the baseline
+		if(player.y<PLAYER_BASELINE)
+			platform->y+=PLAYER_BASELINE-player.y;
+
 		// decide whether to delete a platform
 		if(platform->y>renderer.rect.bottom){
 			delete platform;
@@ -26,7 +30,7 @@ bool state_s::core(){
 		}
 
 		// check for platforms colliding with player
-		if(player.yv>0.0f&&platform->collide(player,0.0f)){
+		if(player.yv>0.0f&&platform->collide(player,0.0f)&&player.y+(PLAYER_WIDTH/1.5f)<platform->y+platform->h){
 			player.y=platform->y-PLAYER_HEIGHT;
 			player.yv=-PLAYER_UPWARD_VELOCITY;
 		}
@@ -35,12 +39,16 @@ bool state_s::core(){
 	}
 
 	// proc player
+	// keep the player below the baseline
+	if(player.y<PLAYER_BASELINE)
+		player.y=PLAYER_BASELINE;
 	player.yv+=GRAVITY;
 	if(player.yv>TERMINAL_VELOCITY)
 		player.yv=TERMINAL_VELOCITY;
 	player.y+=player.yv;
 	targetf(&tilt,0.7f,accel.x);
 	player.x-=tilt/TILT_DIVISOR;
+	// wrap the screen edges
 	if(player.x+(PLAYER_WIDTH/2.0f)>renderer.rect.right)
 		player.x=renderer.rect.left-(PLAYER_WIDTH/2.0f);
 	else if(player.x<renderer.rect.left-(PLAYER_WIDTH/2.0f))
