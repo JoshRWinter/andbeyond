@@ -1,2 +1,2 @@
-sky.tga platform_normal.tga player.tga -o ../assets/assets
+sky.tga platform_normal.tga player.tga backdrop_1.tga backdrop_2.tga backdrop_3.tga backdrop_4.tga backdrop_5.tga -o ../assets/assets
 

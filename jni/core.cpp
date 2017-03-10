@@ -51,6 +51,20 @@ bool state_s::core(){
 		++iter;
 	}
 
+	// proc backdrops
+	if(player.y<PLAYER_BASELINE){
+		backdrop_1.y+=PLAYER_BASELINE-player.y;
+		backdrop_2.y+=PLAYER_BASELINE-player.y;
+		if(backdrop_1.y>renderer.rect.bottom){
+			backdrop_1.y=backdrop_2.y-backdrop_1.h+0.05f;
+			backdrop_1.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
+		}
+		else if(backdrop_2.y>renderer.rect.bottom){
+			backdrop_2.y=backdrop_1.y-backdrop_2.h+0.05f;
+			backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
+		}
+	}
+
 	// proc player
 	{
 		// keep the player below the baseline
@@ -81,10 +95,16 @@ bool state_s::core(){
 }
 
 void state_s::render(){
-	glClear(GL_COLOR_BUFFER_BIT);
+	// draw the sky
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SKY].object);
 	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
 	renderer.draw(background,false);
+
+	// draw the backdrops (if any)
+	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[backdrop_1.tid].object);
+	renderer.draw(backdrop_1,false);
+	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[backdrop_2.tid].object);
+	renderer.draw(backdrop_2,false);
 
 	// render platforms
 	if(platform_list.size()!=0){
@@ -154,12 +174,26 @@ void state_s::reset(){
 		delete *iter;
 	platform_list.clear();
 
+	// player
 	player.x=-PLAYER_WIDTH/2.0f;
 	player.y=-PLAYER_HEIGHT/2.0f;
 	player.xv=0.0f;
 	player.yv=0.0f;
 	player.rot=0.0f;
 	player.apex=0.0f;
+
+	// backdrops
+	backdrop_1.tid=TID_BACKDROP_FIRST;
+	backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
+	backdrop_1.x=renderer.rect.left;
+	backdrop_1.y=renderer.rect.top;
+	backdrop_1.w=renderer.rect.right*2.0f;
+	backdrop_1.h=renderer.rect.bottom*2.0f;
+	backdrop_1.rot=0.0f;
+	backdrop_1.count=1.0f;
+	backdrop_1.frame=1.0f;
+	backdrop_2=backdrop_1;
+	backdrop_2.y=renderer.rect.top-backdrop_2.h;
 
 	tilt=0.0f;
 }

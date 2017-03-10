@@ -7,6 +7,8 @@
 #define TID_SKY 0
 #define TID_PLATFORM 1
 #define TID_PLAYER 2
+#define TID_BACKDROP_FIRST 3
+#define TID_BACKDROP_LAST 7
 
 #define PLAYER_UPWARD_VELOCITY 0.26f
 #define PLAYER_BASELINE -3.0f
@@ -40,6 +42,10 @@ struct platform_s:base_s{
 	int type;
 	bool xflip;
 	float xv;
+};
+
+struct backdrop_s:base_s{
+	int tid; // texture id
 };
 
 struct renderer_s{
@@ -93,6 +99,7 @@ struct state_s{
 
 	// entities
 	base_s background;
+	backdrop_s backdrop_1,backdrop_2;
 	player_s player;
 	std::vector<platform_s*> platform_list;
 };
