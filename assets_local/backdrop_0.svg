@@ -57,12 +57,51 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#68bff7;fill-opacity:0.27227723;fill-rule:evenodd;stroke:none;stroke-width:0.46499997;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="fill:#8f7ad4;fill-opacity:0.79207921;fill-rule:evenodd;stroke:none;stroke-width:0.46499997;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect12292"
        width="107.68542"
        height="166.62135"
        x="66.145836"
        y="74.75" />
+    <g
+       id="g12419"
+       style="stroke:#839bdc;stroke-opacity:1;fill:none;fill-opacity:0.79207921">
+      <rect
+         y="225.96259"
+         x="66.375618"
+         height="0.77174091"
+         width="96.836388"
+         id="rect12302"
+         style="fill:none;fill-opacity:0.79207921;fill-rule:evenodd;stroke:#839bdc;stroke-width:0.46499991;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         y="97.905594"
+         x="66.375618"
+         height="0.77174091"
+         width="100.50748"
+         id="rect12294"
+         style="fill:none;fill-opacity:0.79207921;fill-rule:evenodd;stroke:#839bdc;stroke-width:0.46499991;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         style="fill:none;fill-opacity:0.79207921;fill-rule:evenodd;stroke:#839bdc;stroke-width:0.46499991;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect12296"
+         width="100.50748"
+         height="0.77174091"
+         x="66.375618"
+         y="128.06807" />
+      <rect
+         y="161.40512"
+         x="66.375618"
+         height="0.77174091"
+         width="100.50748"
+         id="rect12298"
+         style="fill:none;fill-opacity:0.79207921;fill-rule:evenodd;stroke:#839bdc;stroke-width:0.46499991;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         style="fill:none;fill-opacity:0.79207921;fill-rule:evenodd;stroke:#839bdc;stroke-width:0.46499991;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect12300"
+         width="100.50748"
+         height="0.77174091"
+         x="66.375618"
+         y="194.21301" />
+    </g>
     <path
        style="fill:#d7ddd7;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.02362251;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="M 250 186.84961 L 250 282.51758 L 535.99023 282.51758 L 632.01172 313.50586 L 632.01172 824.30469 L 577.52148 912.51953 L 658.18945 912.51953 L 658.18945 186.84961 L 250 186.84961 z "
@@ -117,45 +156,6 @@
          id="path7803"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="cccc" />
-    </g>
-    <g
-       id="g12419"
-       style="stroke:#17afff;stroke-opacity:1">
-      <rect
-         y="225.96259"
-         x="66.375618"
-         height="0.77174091"
-         width="96.836388"
-         id="rect12302"
-         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#17afff;stroke-width:0.46499991;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-      <rect
-         y="97.905594"
-         x="66.375618"
-         height="0.77174091"
-         width="100.50748"
-         id="rect12294"
-         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#17afff;stroke-width:0.46499991;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-      <rect
-         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#17afff;stroke-width:0.46499991;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-         id="rect12296"
-         width="100.50748"
-         height="0.77174091"
-         x="66.375618"
-         y="128.06807" />
-      <rect
-         y="161.40512"
-         x="66.375618"
-         height="0.77174091"
-         width="100.50748"
-         id="rect12298"
-         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#17afff;stroke-width:0.46499991;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-      <rect
-         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#17afff;stroke-width:0.46499991;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-         id="rect12300"
-         width="100.50748"
-         height="0.77174091"
-         x="66.375618"
-         y="194.21301" />
     </g>
     <path
        inkscape:connector-curvature="0"
