@@ -183,8 +183,7 @@ void state_s::reset(){
 	player.apex=0.0f;
 
 	// backdrops
-	backdrop_1.tid=TID_BACKDROP_FIRST;
-	backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
+	backdrop_1.tid=TID_BACKDROPGROUND;
 	backdrop_1.x=renderer.rect.left;
 	backdrop_1.y=renderer.rect.top;
 	backdrop_1.w=renderer.rect.right*2.0f;
@@ -193,7 +192,8 @@ void state_s::reset(){
 	backdrop_1.count=1.0f;
 	backdrop_1.frame=1.0f;
 	backdrop_2=backdrop_1;
-	backdrop_2.y=renderer.rect.top-backdrop_2.h;
+	backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
+	backdrop_2.y=backdrop_1.y-backdrop_2.h;
 
 	tilt=0.0f;
 }
