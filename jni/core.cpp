@@ -96,6 +96,14 @@ void state_s::render(){
 	// render player
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLAYER].object);
 	renderer.draw(player,false);
+	if(player.x+PLAYER_WIDTH>renderer.rect.right){
+		base_s copy={renderer.rect.left-(renderer.rect.right-player.x),player.y,PLAYER_WIDTH,PLAYER_HEIGHT,0.0f,1.0f,0.0f};
+		renderer.draw(copy,false);
+	}
+	else if(player.x<renderer.rect.left){
+		base_s copy={renderer.rect.right+(player.x-renderer.rect.left),player.y,PLAYER_WIDTH,PLAYER_HEIGHT,0.0f,1.0f,0.0f};
+		renderer.draw(copy,false);
+	}
 
 #ifdef SHOW_FPS
 	// fps counter
