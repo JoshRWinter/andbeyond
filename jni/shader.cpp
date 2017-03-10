@@ -6,7 +6,7 @@ const char *vertexshader=
 "uniform float rot;\n"
 "varying vec2 ftexcoord;\n"
 "void main(){\n"
-"mat4 model=mat4(1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,vector.x+(size.x/2.0),vector.y+(size.y/2.0),0.0f,1.0);\n"
+"mat4 model=mat4(1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,vector.x+(size.x/2.0),vector.y+(size.y/2.0),0.0,1.0);\n"
 "mat4 rotation=mat4(cos(rot),sin(rot),0.0,0.0,-sin(rot),cos(rot),0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0);\n"
 "gl_Position=projection*model*rotation*vec4(pos.x*size.x,pos.y*size.y,0.0,1.0);\n"
 "if(pos.x<0.0&&pos.y<0.0)ftexcoord=vec2(texcoords[0],texcoords[3]);\n"
