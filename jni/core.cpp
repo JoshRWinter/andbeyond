@@ -5,6 +5,9 @@
 #include "defs.h"
 
 bool state_s::core(){
+	timer_game+=1.0f;
+	if(timer_game>200.0f)
+		timer_game=60.0f;
 	// spawn new platforms
 	float highest_y;
 	do{
@@ -43,9 +46,15 @@ bool state_s::core(){
 		}
 
 		// check for platforms colliding with player
-		if(player.yv>0.0f&&platform->collide(player,0.0f)&&player.apex+PLAYER_HEIGHT<platform->y+0.15f){
-			player.y=platform->y-PLAYER_HEIGHT;
-			player.yv=-PLAYER_UPWARD_VELOCITY;
+		if(player.yv>0.0f&&platform->collide(player,0.0f)&&player.apex+PLAYER_HEIGHT<platform->y+0.15f&&player.y+(PLAYER_HEIGHT/1.5f)<platform->y){
+			if(timer_game>60.0f){
+				player.y=platform->y-PLAYER_HEIGHT;
+				player.yv=-PLAYER_UPWARD_VELOCITY;
+			}
+			else{
+				player.y=platform->y-PLAYER_HEIGHT;
+				player.yv=0.1f;
+			}
 		}
 
 		++iter;
@@ -69,8 +78,10 @@ bool state_s::core(){
 	{
 		// keep the player below the baseline
 		bool going_up=player.yv<0.0f;
-		if(player.y<PLAYER_BASELINE)
+		if(player.y<PLAYER_BASELINE){
+			height+=PLAYER_BASELINE-player.y;
 			player.y=PLAYER_BASELINE;
+		}
 		player.yv+=GRAVITY;
 		if(going_up&&player.yv>0.0f) // player has reached the apex of the jump
 			player.apex=player.y;
@@ -79,8 +90,10 @@ bool state_s::core(){
 			player.yv=TERMINAL_VELOCITY;
 		player.y+=player.yv;
 
-		targetf(&tilt,0.7f,accel.x);
-		player.x-=tilt/TILT_DIVISOR;
+		if(timer_game>60.0f){
+			targetf(&tilt,0.7f,accel.x);
+			player.x-=tilt/TILT_DIVISOR;
+		}
 
 		// wrap the screen edges
 		if(player.x+(PLAYER_WIDTH/2.0f)>renderer.rect.right)
@@ -124,6 +137,12 @@ void state_s::render(){
 		base_s copy={renderer.rect.right+(player.x-renderer.rect.left),player.y,PLAYER_WIDTH,PLAYER_HEIGHT,0.0f,1.0f,0.0f};
 		renderer.draw(copy,false);
 	}
+
+	// render hud
+	glBindTexture(GL_TEXTURE_2D,renderer.font.main->atlas);
+	char height_string[20];
+	sprintf(height_string,"%um",(unsigned)height);
+	drawtextcentered(renderer.font.main,0.0f,renderer.rect.top+0.1f,height_string);
 
 #ifdef SHOW_FPS
 	// fps counter
@@ -176,7 +195,7 @@ void state_s::reset(){
 
 	// player
 	player.x=-PLAYER_WIDTH/2.0f;
-	player.y=-PLAYER_HEIGHT/2.0f;
+	player.y=6.3f;
 	player.xv=0.0f;
 	player.yv=0.0f;
 	player.rot=0.0f;
@@ -196,4 +215,6 @@ void state_s::reset(){
 	backdrop_2.y=backdrop_1.y-backdrop_2.h;
 
 	tilt=0.0f;
+	timer_game=0.0f;
+	height=0.0f;
 }

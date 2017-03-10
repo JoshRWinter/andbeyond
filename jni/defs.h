@@ -11,6 +11,7 @@
 #define TID_BACKDROP_FIRST 4
 #define TID_BACKDROP_LAST 10
 
+#define HEIGHT_INCREMENT 0.1f
 #define PLAYER_UPWARD_VELOCITY 0.26f
 #define PLAYER_BASELINE -3.0f
 #define TILT_DIVISOR 20.0f
@@ -92,6 +93,8 @@ struct state_s{
 
 	bool running;
 	float tilt; // accelerometer
+	float timer_game;
+	float height;
 
 	crosshair pointer[2]; // supports 2 fingers on the screen
 	jni_info jni; // java native interface

@@ -11,11 +11,14 @@ platform_s::platform_s(const state_s &state,float highest,int type){
 	else
 		first=false;
 	this->type=type;
-	if(first)
+	if(first){
 		x=-PLATFORM_WIDTH/2.0f;
-	else
+		y=7.3f;
+	}
+	else{
 		x=randomint(state.renderer.rect.left*10.0f,(state.renderer.rect.right-PLATFORM_WIDTH)*10.0f)/10.0f;
-	y=highest-randomint(90,150)/100.0f;
+		y=highest-randomint(90,150)/100.0f;
+	}
 	w=PLATFORM_WIDTH;
 	h=PLATFORM_HEIGHT;
 	rot=0.0f;
