@@ -7,12 +7,14 @@
 bool state_s::core(){
 	// spawn new platforms
 	float highest_y;
-	if(platform_list.size()==0)
-		highest_y=renderer.rect.bottom;
-	else
-		highest_y=platform_list[platform_list.size()-1]->y;
-	if(highest_y>renderer.rect.top)
-		platform_list.push_back(new platform_s(*this,highest_y,PLATFORM_NORMAL));
+	do{
+		if(platform_list.size()==0)
+			highest_y=renderer.rect.bottom;
+		else
+			highest_y=platform_list[platform_list.size()-1]->y;
+		if(highest_y>renderer.rect.top)
+			platform_list.push_back(new platform_s(*this,highest_y,PLATFORM_NORMAL));
+	}while(highest_y>renderer.rect.top);
 
 	// proc platforms
 	for(std::vector<platform_s*>::iterator iter=platform_list.begin();iter!=platform_list.end();){
@@ -27,6 +29,17 @@ bool state_s::core(){
 			delete platform;
 			iter=platform_list.erase(iter);
 			continue;
+		}
+
+		// some platforms slide across the screen
+		platform->x+=platform->xv;
+		if(platform->x<renderer.rect.left){
+			platform->x=renderer.rect.left;
+			platform->xv=-platform->xv;
+		}
+		else if(platform->x+PLATFORM_WIDTH>renderer.rect.right){
+			platform->x=renderer.rect.right-PLATFORM_WIDTH;
+			platform->xv=-platform->xv;
 		}
 
 		// check for platforms colliding with player

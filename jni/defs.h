@@ -12,7 +12,7 @@
 #define PLAYER_BASELINE -3.0f
 #define TILT_DIVISOR 20.0f
 #define GRAVITY 0.007f
-#define TERMINAL_VELOCITY 0.3f
+#define TERMINAL_VELOCITY 0.4f
 
 struct state_s;
 
@@ -32,11 +32,13 @@ struct player_s:base_s{
 #define PLATFORM_WIDTH 1.3f
 #define PLATFORM_HEIGHT 0.366666f
 #define PLATFORM_NORMAL 0
+#define PLATFORM_X_VELOCITY 0.05f
 struct platform_s:base_s{
 	platform_s(const state_s&,float,int);
 
 	int type;
 	bool xflip;
+	float xv;
 };
 
 struct renderer_s{
@@ -93,7 +95,7 @@ struct state_s{
 	player_s player;
 	std::vector<platform_s*> platform_list;
 };
-	
+
 bool process(android_app*);
 int32_t inputproc(android_app*,AInputEvent*);
 void cmdproc(android_app*,int32_t);

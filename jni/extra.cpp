@@ -13,6 +13,6 @@ void renderer_s::draw(const base_s &base,bool xflip){
 	glUniform2f(uniform.vector,base.x,base.y);
 	glUniform2f(uniform.size,base.w,base.h);
 	glUniform1f(uniform.rot,base.rot);
-	
+
 	glDrawArrays(GL_TRIANGLE_STRIP,0,4);
 }
