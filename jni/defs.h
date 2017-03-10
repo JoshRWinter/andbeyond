@@ -23,10 +23,11 @@ struct base_s{
 	int count,frame; // <frame> of <count> in a sprite sheet
 };
 
-#define PLAYER_WIDTH 1.0f
-#define PLAYER_HEIGHT 0.8f
+#define PLAYER_WIDTH 0.9f
+#define PLAYER_HEIGHT 1.025f
 struct player_s:base_s{
 	float xv,yv;
+	float apex; // highest point in the jump
 };
 
 #define PLATFORM_WIDTH 1.3f
