@@ -35,7 +35,7 @@ struct player_s:base_s{
 };
 
 #define PLATFORM_WIDTH 1.3f
-#define PLATFORM_HEIGHT 0.366666f
+#define PLATFORM_HEIGHT 0.3625f
 #define PLATFORM_NORMAL 0
 #define PLATFORM_X_VELOCITY 0.05f
 struct platform_s:base_s{

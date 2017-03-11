@@ -17,8 +17,8 @@
    inkscape:version="0.92.1 r"
    sodipodi:docname="platform_normal.svg"
    inkscape:export-filename="/home/josh/android/andbeyond/assets_local/platform_normal.png"
-   inkscape:export-xdpi="31.476542"
-   inkscape:export-ydpi="31.476542">
+   inkscape:export-xdpi="20.984362"
+   inkscape:export-ydpi="20.984362">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -29,16 +29,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="353.96411"
+     inkscape:cx="194.86508"
      inkscape:cy="403.2822"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-nodes="false"
      inkscape:window-width="1918"
-     inkscape:window-height="1059"
+     inkscape:window-height="1042"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="18"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata5">
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
