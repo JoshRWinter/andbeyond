@@ -5,6 +5,26 @@
 #include "defs.h"
 
 platform_s::platform_s(const state_s &state,float highest,int type){
+	// choose spacing
+	int closest;
+	int farthest;
+	if(state.height<40){
+		closest=100;
+		farthest=170;
+	}
+	else if(state.height<80){
+		closest=150;
+		farthest=235;
+	}
+	else if(state.height<150){
+		closest=255;
+		farthest=330;
+	}
+	else{
+		closest=340;
+		farthest=370;
+	}
+
 	bool first;
 	if(highest==state.renderer.rect.bottom)
 		first=true;
@@ -17,7 +37,7 @@ platform_s::platform_s(const state_s &state,float highest,int type){
 	}
 	else{
 		x=randomint(state.renderer.rect.left*10.0f,(state.renderer.rect.right-PLATFORM_WIDTH)*10.0f)/10.0f;
-		y=highest-randomint(90,150)/100.0f;
+		y=highest-randomint(closest,farthest)/100.0f;
 	}
 	w=PLATFORM_WIDTH;
 	h=PLATFORM_HEIGHT;
