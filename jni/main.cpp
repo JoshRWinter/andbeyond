@@ -19,7 +19,7 @@ void renderer_s::init(android_app *app){
 	eglInitialize(display,NULL,NULL);
 	EGLConfig config;
 	int configcount;
-	int config_attr[]={EGL_RED_SIZE,8,EGL_GREEN_SIZE,8,EGL_BLUE_SIZE,8,EGL_NONE};
+	int config_attr[]={EGL_SURFACE_TYPE,EGL_WINDOW_BIT,EGL_RED_SIZE,8,EGL_GREEN_SIZE,8,EGL_BLUE_SIZE,8,EGL_NONE};
 	eglChooseConfig(display,config_attr,&config,1,&configcount);
 	ANativeWindow_setBuffersGeometry(app->window,screen.w,screen.h,0);
 	surface=eglCreateWindowSurface(display,config,app->window,NULL);
@@ -162,6 +162,7 @@ void android_main(android_app *app){
 	app->userData=&state;
 	init_jni(app,&state.jni);
 	init_accel(app,&state.accel);
+	state.accel.x=0.0f;
 
 	while(state.process()&&state.core()){
 		state.render();

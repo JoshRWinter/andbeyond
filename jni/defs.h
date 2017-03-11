@@ -4,12 +4,12 @@
 
 #define SHOW_FPS
 
-#define TID_SKY 0
-#define TID_PLATFORM 1
-#define TID_PLAYER 2
-#define TID_BACKDROPGROUND 3
-#define TID_BACKDROP_FIRST 4
-#define TID_BACKDROP_LAST 10
+#define TID_PLATFORM 0
+#define TID_PLAYER 1
+#define TID_BACKDROPGROUND 2
+#define TID_BACKDROP_FIRST 3
+#define TID_BACKDROP_LAST 9
+#define TID_LOWERBACKDROP 10
 
 #define HEIGHT_INCREMENT 0.1f
 #define PLAYER_UPWARD_VELOCITY 0.26f
@@ -102,8 +102,7 @@ struct state_s{
 	android_app *app;
 
 	// entities
-	base_s background;
-	backdrop_s backdrop_1,backdrop_2;
+	backdrop_s lower_backdrop,backdrop_1,backdrop_2;
 	player_s player;
 	std::vector<platform_s*> platform_list;
 };

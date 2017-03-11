@@ -72,6 +72,8 @@ bool state_s::core(){
 			backdrop_2.y=backdrop_1.y-backdrop_2.h+0.05f;
 			backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
 		}
+		if(lower_backdrop.y>renderer.rect.bottom)
+			lower_backdrop.y+=(PLAYER_BASELINE-player.y)/50.0f;
 	}
 
 	// proc player
@@ -109,12 +111,14 @@ bool state_s::core(){
 
 void state_s::render(){
 	// draw the sky
-	glClear(GL_COLOR_BUFFER_BIT);
 	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
-	/*
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SKY].object);
-	renderer.draw(background,false);
-	*/
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	// draw the lower backdrop
+	if(lower_backdrop.y<renderer.rect.bottom){
+		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_LOWERBACKDROP].object);
+		renderer.draw(lower_backdrop,false);
+	}
 
 	// draw the backdrops (if any)
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[backdrop_1.tid].object);
@@ -151,6 +155,7 @@ void state_s::render(){
 #ifdef SHOW_FPS
 	// fps counter
 	{
+		glBindTexture(GL_TEXTURE_2D,renderer.font.main->atlas);
 		static char msg[30];
 		static int last_time=0;
 		static int fps=0;
@@ -175,13 +180,12 @@ state_s::state_s(){
 	renderer.rect.bottom=8.0f;
 	renderer.rect.top=-8.0f;
 
-	background.x=renderer.rect.left;
-	background.y=renderer.rect.top;
-	background.w=renderer.rect.right*2.0f;
-	background.h=renderer.rect.bottom*2.0f;
-	background.rot=0.0f;
-	background.count=1.0f;
-	background.frame=0.0f;
+	lower_backdrop.x=renderer.rect.left;
+	lower_backdrop.w=renderer.rect.right*2.0f;
+	lower_backdrop.h=(renderer.rect.bottom*2.0f)+2.0f;
+	lower_backdrop.rot=0.0f;
+	lower_backdrop.count=1.0f;
+	lower_backdrop.frame=0.0f;
 
 	player.w=PLAYER_WIDTH;
 	player.h=PLAYER_HEIGHT;
@@ -215,6 +219,7 @@ void state_s::reset(){
 	backdrop_2=backdrop_1;
 	backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
 	backdrop_2.y=backdrop_1.y-backdrop_2.h;
+	lower_backdrop.y=renderer.rect.top-2.0f;
 
 	tilt=0.0f;
 	timer_game=0.0f;
