@@ -72,7 +72,7 @@ bool state_s::core(){
 			backdrop_2.y=backdrop_1.y-backdrop_2.h+0.05f;
 			backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
 		}
-		if(lower_backdrop.y>renderer.rect.bottom)
+		if(lower_backdrop.y<renderer.rect.bottom)
 			lower_backdrop.y+=(PLAYER_BASELINE-player.y)/50.0f;
 	}
 
