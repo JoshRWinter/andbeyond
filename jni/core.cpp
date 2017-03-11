@@ -109,9 +109,12 @@ bool state_s::core(){
 
 void state_s::render(){
 	// draw the sky
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SKY].object);
+	glClear(GL_COLOR_BUFFER_BIT);
 	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
+	/*
+	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SKY].object);
 	renderer.draw(background,false);
+	*/
 
 	// draw the backdrops (if any)
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[backdrop_1.tid].object);
@@ -139,6 +142,7 @@ void state_s::render(){
 	}
 
 	// render hud
+	glUniform4f(renderer.uniform.rgba,0.0f,0.0f,0.0f,1.0f);
 	glBindTexture(GL_TEXTURE_2D,renderer.font.main->atlas);
 	char height_string[20];
 	sprintf(height_string,"%um",(unsigned)height);
@@ -147,8 +151,6 @@ void state_s::render(){
 #ifdef SHOW_FPS
 	// fps counter
 	{
-		glBindTexture(GL_TEXTURE_2D,renderer.font.main->atlas);
-		glUniform4f(renderer.uniform.rgba,0.0f,0.0f,0.0f,1.0f);
 		static char msg[30];
 		static int last_time=0;
 		static int fps=0;

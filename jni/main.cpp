@@ -63,7 +63,7 @@ void renderer_s::init(android_app *app){
 	// other settings
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-	glClearColor(1.0f,0.0f,0.0f,1.0f);
+	glClearColor(0.0627f,0.7412f,0.9294f,1.0f);
 
 	// set up fonts
 	set_ftfont_params(screen.w,screen.h,rect.right*2.0f,rect.bottom*2.0f,uniform.vector,uniform.size,uniform.texcoords);

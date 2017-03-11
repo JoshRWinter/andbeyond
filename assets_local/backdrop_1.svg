@@ -15,8 +15,8 @@
    version="1.1"
    id="svg8"
    inkscape:export-filename="/home/josh/android/andbeyond/assets_local/backdrop_1.png"
-   inkscape:export-xdpi="254"
-   inkscape:export-ydpi="254"
+   inkscape:export-xdpi="169.33331"
+   inkscape:export-ydpi="169.33331"
    inkscape:version="0.92.1 r"
    sodipodi:docname="backdrop_1.svg">
   <defs
@@ -29,7 +29,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="397.47369"
+     inkscape:cx="59.47369"
      inkscape:cy="544.80174"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
