@@ -45,6 +45,18 @@ bool state_s::core(){
 			platform->xv=-platform->xv;
 		}
 
+		// proc springs
+		if(platform->has_spring){
+			platform->spring.x=platform->x+platform->spring.xoffset;
+			platform->spring.y=platform->y-SPRING_HEIGHT;
+
+			// check for player colliding with spring
+			if(platform->spring.collide(player,0.0f)&&player.apex+PLAYER_HEIGHT<platform->spring.y&&player.yv>0.0f){
+				player.y=platform->spring.y-PLAYER_HEIGHT;
+				player.yv=-PLAYER_SUPER_UPWARD_VELOCITY;
+			}
+		}
+
 		// check for platforms colliding with player
 		if(player.yv>0.0f&&platform->collide(player,0.0f)&&player.apex+PLAYER_HEIGHT<platform->y+0.15f&&player.y+(PLAYER_HEIGHT/1.5f)<platform->y){
 			if(timer_game>60.0f){
@@ -131,6 +143,12 @@ void state_s::render(){
 		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLATFORM].object);
 		for(std::vector<platform_s*>::const_iterator iter=platform_list.begin();iter!=platform_list.end();++iter)
 			renderer.draw(**iter,(*iter)->xflip);
+		// render springs
+		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SPRING].object);
+		for(std::vector<platform_s*>::const_iterator iter=platform_list.begin();iter!=platform_list.end();++iter){
+			if((*iter)->has_spring)
+				renderer.draw((*iter)->spring,false);
+		}
 	}
 
 	// render player

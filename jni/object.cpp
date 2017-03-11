@@ -45,8 +45,28 @@ platform_s::platform_s(const state_s &state,float highest,int type){
 	count=1.0f;
 	frame=type;
 	xflip=randomint(0,1)==0;
+
+	// potentially give this platform a spring
+	if(type==PLATFORM_NORMAL&&!first){
+		has_spring=onein(6)==1;
+		spring.x=x+spring.xoffset;
+		spring.y=y-SPRING_HEIGHT;
+	}
+	else
+		has_spring=false;
+
+	// possibly make the spring move side to side
 	if(onein(7)&&!first)
 		xv=PLATFORM_X_VELOCITY*(onein(2)?1.0f:-1.0f);
 	else
 		xv=0.0f;
+}
+
+spring_s::spring_s(){
+	w=SPRING_WIDTH;
+	h=SPRING_HEIGHT;
+	rot=0.0f;
+	frame=0.0f;
+	count=1.0f;
+	xoffset=randomint(0,(PLATFORM_WIDTH-SPRING_WIDTH)*10.0f)/10.0f;
 }

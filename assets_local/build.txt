@@ -1,2 +1,1 @@
-platform_normal.tga player.tga backdrop_0.tga backdrop_1.tga backdrop_2.tga backdrop_3.tga backdrop_4.tga backdrop_5.tga backdrop_6.tga backdrop_7.tga lower_backdrop.tga -o ../assets/assets
-
+platform_normal.tga player.tga backdrop_0.tga backdrop_1.tga backdrop_2.tga backdrop_3.tga backdrop_4.tga backdrop_5.tga backdrop_6.tga backdrop_7.tga lower_backdrop.tga spring.tga -o ../assets/assets
