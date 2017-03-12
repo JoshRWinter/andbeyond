@@ -11,6 +11,8 @@
 #define TID_BACKDROP_LAST 9
 #define TID_LOWERBACKDROP 10
 #define TID_SPRING 11
+#define TID_OBSTACLE 12
+#define TID_OBSTACLERAIL 13
 
 #define HEIGHT_INCREMENT 0.1f
 #define PLAYER_UPWARD_VELOCITY 0.26f
@@ -34,6 +36,7 @@ struct base_s{
 struct player_s:base_s{
 	float xv,yv;
 	float apex; // highest point in the jump
+	bool dead;
 };
 
 #define SPRING_WIDTH 0.3f
@@ -55,6 +58,17 @@ struct platform_s:base_s{
 	spring_s spring;
 	int type;
 	bool xflip;
+	float xv;
+};
+
+#define OBSTACLE_SIZE 1.35f
+#define OBSTACLERAIL_HEIGHT 0.1f
+#define OBSTACLE_VELOCITY 0.1f
+#define OBSTACLE_SPIN_SPEED 0.15f
+struct obstacle_s:base_s{
+	obstacle_s(const state_s&);
+
+	base_s rail;
 	float xv;
 };
 
@@ -117,6 +131,7 @@ struct state_s{
 	backdrop_s lower_backdrop,backdrop_1,backdrop_2;
 	player_s player;
 	std::vector<platform_s*> platform_list;
+	std::vector<obstacle_s*> obstacle_list;
 };
 
 bool process(android_app*);

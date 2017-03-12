@@ -70,3 +70,23 @@ spring_s::spring_s(){
 	count=1.0f;
 	xoffset=randomint(0,(PLATFORM_WIDTH-SPRING_WIDTH)*10.0f)/10.0f;
 }
+
+obstacle_s::obstacle_s(const state_s &state){
+	w=OBSTACLE_SIZE;
+	h=OBSTACLE_SIZE;
+	x=state.renderer.rect.left;
+	y=state.renderer.rect.top-OBSTACLE_SIZE;
+	xv=OBSTACLE_VELOCITY;
+	rot=0.0f;
+	count=1.0f;
+	frame=0.0f;
+	
+	// the saw will slide down a rail
+	rail.w=state.renderer.rect.right*2.0f;
+	rail.h=OBSTACLERAIL_HEIGHT;
+	rail.rot=0.0f;
+	rail.x=state.renderer.rect.left;
+	rail.y=y+(OBSTACLE_SIZE/2.0f)-(OBSTACLERAIL_HEIGHT/2.0f);
+	rail.count=1.0f;
+	rail.frame=0.0f;
+}

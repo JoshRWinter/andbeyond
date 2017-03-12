@@ -72,6 +72,49 @@ bool state_s::core(){
 		++iter;
 	}
 
+	// proc obstacles
+	if(obstacle_list.size()<2&&onein(120)&&(obstacle_list.size()==0||obstacle_list[0]->y-renderer.rect.top>4.0f))
+		obstacle_list.push_back(new obstacle_s(*this));
+	for(std::vector<obstacle_s*>::iterator iter=obstacle_list.begin();iter!=obstacle_list.end();){
+		obstacle_s *obstacle=*iter;
+
+		if(player.y<PLAYER_BASELINE){
+			obstacle->y+=PLAYER_BASELINE-player.y;
+			obstacle->rail.y+=PLAYER_BASELINE-player.y;
+		}
+
+		// check for obstacles colliding with player
+		if(obstacle->collide(player,0.25f)){
+			player.dead=true;
+		}
+
+		// slide the saw down the rail
+		obstacle->x+=obstacle->xv;
+		if(obstacle->x+OBSTACLE_SIZE>renderer.rect.right){
+			obstacle->x=renderer.rect.right-OBSTACLE_SIZE;
+			obstacle->xv=-obstacle->xv;
+		}
+		else if(obstacle->x<renderer.rect.left){
+			obstacle->x=renderer.rect.left;
+			obstacle->xv=-obstacle->xv;
+		}
+
+		// rotate the obstacle
+		if(obstacle->xv>0.0f)
+			obstacle->rot+=OBSTACLE_SPIN_SPEED;
+		else
+			obstacle->rot-=OBSTACLE_SPIN_SPEED;
+
+		// delete if obstacle goes below the screen
+		if(obstacle->y>renderer.rect.bottom){
+			delete obstacle;
+			iter=obstacle_list.erase(iter);
+			continue;
+		}
+
+		++iter;
+	}
+
 	// proc backdrops
 	if(player.y<PLAYER_BASELINE){
 		backdrop_1.y+=PLAYER_BASELINE-player.y;
@@ -108,13 +151,14 @@ bool state_s::core(){
 			targetf(&tilt,0.7f,accel.x);
 			player.x-=tilt/TILT_DIVISOR;
 		}
-
 		// wrap the screen edges
 		if(player.x+(PLAYER_WIDTH/2.0f)>renderer.rect.right)
 			player.x=renderer.rect.left-(PLAYER_WIDTH/2.0f);
 		else if(player.x<renderer.rect.left-(PLAYER_WIDTH/2.0f))
 			player.x=renderer.rect.right-(PLAYER_WIDTH/2.0f);
 		if(player.y>renderer.rect.bottom)
+			player.dead=true;
+		if(player.dead)
 			reset();
 	}
 
@@ -137,6 +181,17 @@ void state_s::render(){
 	renderer.draw(backdrop_1,false);
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[backdrop_2.tid].object);
 	renderer.draw(backdrop_2,false);
+
+	// render obstacles
+	if(obstacle_list.size()!=0){
+		// render rails
+		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_OBSTACLERAIL].object);
+		for(std::vector<obstacle_s*>::const_iterator iter=obstacle_list.begin();iter!=obstacle_list.end();++iter)
+			renderer.draw((*iter)->rail,false);
+		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_OBSTACLE].object);
+		for(std::vector<obstacle_s*>::const_iterator iter=obstacle_list.begin();iter!=obstacle_list.end();++iter)
+			renderer.draw(**iter,(*iter)->xv>0.0f?true:false);
+	}
 
 	// render platforms
 	if(platform_list.size()!=0){
@@ -216,6 +271,10 @@ void state_s::reset(){
 	for(std::vector<platform_s*>::iterator iter=platform_list.begin();iter!=platform_list.end();++iter)
 		delete *iter;
 	platform_list.clear();
+	// clear obstacles
+	for(std::vector<obstacle_s*>::iterator iter=obstacle_list.begin();iter!=obstacle_list.end();++iter)
+		delete *iter;
+	obstacle_list.clear();
 
 	// player
 	player.x=-PLAYER_WIDTH/2.0f;
@@ -224,6 +283,7 @@ void state_s::reset(){
 	player.yv=0.0f;
 	player.rot=0.0f;
 	player.apex=0.0f;
+	player.dead=false;
 
 	// backdrops
 	backdrop_1.tid=TID_BACKDROPGROUND;
