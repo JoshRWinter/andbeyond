@@ -15,8 +15,8 @@
    version="1.1"
    id="svg2072"
    inkscape:export-filename="/home/josh/android/andbeyond/assets_local/rail.png"
-   inkscape:export-xdpi="264.39023"
-   inkscape:export-ydpi="264.39023"
+   inkscape:export-xdpi="264.75992"
+   inkscape:export-ydpi="264.75992"
    inkscape:version="0.92.1 r"
    sodipodi:docname="rail.svg">
   <defs
@@ -28,9 +28,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.959798"
-     inkscape:cx="250.38959"
-     inkscape:cy="670.22858"
+     inkscape:zoom="5.6"
+     inkscape:cx="207.06379"
+     inkscape:cy="673.41549"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -56,12 +56,11 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="opacity:1;fill:#c97460;fill-opacity:1;stroke:#000000;stroke-width:0.32029444;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#919692;fill-opacity:1;stroke:#27282b;stroke-width:0.22371364;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect2074"
        width="68.850189"
-       height="1.0354832"
+       height="0.50516027"
        x="29.627501"
-       y="112.87867"
-       ry="0.51774162" />
+       y="113.40899" />
   </g>
 </svg>
