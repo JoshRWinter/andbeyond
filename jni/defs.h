@@ -57,6 +57,8 @@ struct spring_s:base_s{
 #define PLATFORM_DONTCARE -1
 #define PLATFORM_NORMAL 0
 #define PLATFORM_SLIDING 1
+#define PLATFORM_DISAPPEARING 2
+#define PLATFORM_DISAPPEARING_FADE 0.07f
 #define PLATFORM_WIDTH 1.3f
 #define PLATFORM_HEIGHT 0.2625f
 #define PLATFORM_X_VELOCITY 0.05f
@@ -67,6 +69,7 @@ struct platform_s:base_s{
 	spring_s spring;
 	int type;
 	bool xflip;
+	float alpha;
 	float xv;
 };
 

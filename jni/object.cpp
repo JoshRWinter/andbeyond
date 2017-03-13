@@ -33,10 +33,17 @@ platform_s::platform_s(const state_s &state,float highest,int platform_type){
 	else
 		first=false;
 
+	// the last platform spawned was a PLATFORM_DISAPPEARING
+	bool last_disappearing=false;
+	if(!first&&state.platform_list[state.platform_list.size()-1]->type==PLATFORM_DISAPPEARING)
+		last_disappearing=true;
+
 	// set platform type
 	if(platform_type==PLATFORM_DONTCARE){
 		if(onein(7)&&!first)
 			type=PLATFORM_SLIDING;
+		else if(((last_disappearing&&!onein(5))||onein(20))&&!first)
+			type=PLATFORM_DISAPPEARING;
 		else
 			type=PLATFORM_NORMAL;
 	}
@@ -54,9 +61,10 @@ platform_s::platform_s(const state_s &state,float highest,int platform_type){
 	w=PLATFORM_WIDTH;
 	h=PLATFORM_HEIGHT;
 	rot=0.0f;
-	count=2.0f;
+	count=3.0f;
 	frame=type;
 	xflip=randomint(0,1)==0;
+	alpha=1.0f;
 	// sliding platforms move side to side
 	if(type==PLATFORM_SLIDING)
 		xv=PLATFORM_X_VELOCITY*(onein(2)?1.0f:-1.0f);

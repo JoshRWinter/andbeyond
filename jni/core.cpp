@@ -78,6 +78,31 @@ bool state_s::core(){
 				player.y=platform->y-PLAYER_HEIGHT;
 				player.yv=0.1f;
 			}
+
+			// PLATFORM_DISAPPEARING platforms disappear after the player jumps on them
+			if(platform->type==PLATFORM_DISAPPEARING)
+				platform->alpha-=PLATFORM_DISAPPEARING_FADE;
+		}
+
+		// PLATFORM_DISAPPEARING platforms fade out and then get deleted
+		if(platform->alpha<1.0f){
+			if((platform->alpha-=PLATFORM_DISAPPEARING_FADE)<0.0f){
+				delete platform;
+				iter=platform_list.erase(iter);
+				continue;
+			}
+		}
+
+		// PLATFORM_DISAPPEARING platforms will delete all obstacles above it
+		if(platform->type==PLATFORM_DISAPPEARING){
+			for(std::vector<obstacle_s*>::iterator iter=obstacle_list.begin();iter!=obstacle_list.end();){
+				if((*iter)->y<platform->y){
+					delete *iter;
+					iter=obstacle_list.erase(iter);
+					continue;
+				}
+				++iter;
+			}
 		}
 
 		++iter;
@@ -278,8 +303,10 @@ void state_s::render(){
 	// render platforms
 	if(platform_list.size()!=0){
 		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLATFORM].object);
-		for(std::vector<platform_s*>::const_iterator iter=platform_list.begin();iter!=platform_list.end();++iter)
+		for(std::vector<platform_s*>::const_iterator iter=platform_list.begin();iter!=platform_list.end();++iter){
+			glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,(*iter)->alpha);
 			renderer.draw(**iter,(*iter)->xflip);
+		}
 		// render springs
 		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SPRING].object);
 		for(std::vector<platform_s*>::const_iterator iter=platform_list.begin();iter!=platform_list.end();++iter){
