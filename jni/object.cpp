@@ -5,7 +5,7 @@
 
 #include "defs.h"
 
-platform_s::platform_s(const state_s &state,float highest,int type){
+platform_s::platform_s(const state_s &state,float highest,int platform_type){
 	// choose spacing
 	int closest;
 	int farthest;
@@ -26,12 +26,23 @@ platform_s::platform_s(const state_s &state,float highest,int type){
 		farthest=370;
 	}
 
+	// first platform of the level
 	bool first;
 	if(highest==state.renderer.rect.bottom)
 		first=true;
 	else
 		first=false;
-	this->type=type;
+
+	// set platform type
+	if(platform_type==PLATFORM_DONTCARE){
+		if(onein(7)&&!first)
+			type=PLATFORM_SLIDING;
+		else
+			type=PLATFORM_NORMAL;
+	}
+	else
+		type=platform_type;
+
 	if(first){
 		x=-PLATFORM_WIDTH/2.0f;
 		y=7.3f;
@@ -43,24 +54,23 @@ platform_s::platform_s(const state_s &state,float highest,int type){
 	w=PLATFORM_WIDTH;
 	h=PLATFORM_HEIGHT;
 	rot=0.0f;
-	count=1.0f;
+	count=2.0f;
 	frame=type;
 	xflip=randomint(0,1)==0;
+	// sliding platforms move side to side
+	if(type==PLATFORM_SLIDING)
+		xv=PLATFORM_X_VELOCITY*(onein(2)?1.0f:-1.0f);
+	else
+		xv=0.0f;
 
 	// potentially give this platform a spring
-	if(type==PLATFORM_NORMAL&&!first){
+	if((type==PLATFORM_NORMAL||type==PLATFORM_SLIDING)&&!first){
 		has_spring=onein(6)==1;
 		spring.x=x+spring.xoffset;
 		spring.y=y-SPRING_HEIGHT;
 	}
 	else
 		has_spring=false;
-
-	// possibly make the spring move side to side
-	if(onein(7)&&!first)
-		xv=PLATFORM_X_VELOCITY*(onein(2)?1.0f:-1.0f);
-	else
-		xv=0.0f;
 }
 
 spring_s::spring_s(){

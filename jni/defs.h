@@ -54,9 +54,11 @@ struct spring_s:base_s{
 	float xoffset;
 };
 
+#define PLATFORM_DONTCARE -1
+#define PLATFORM_NORMAL 0
+#define PLATFORM_SLIDING 1
 #define PLATFORM_WIDTH 1.3f
 #define PLATFORM_HEIGHT 0.2625f
-#define PLATFORM_NORMAL 0
 #define PLATFORM_X_VELOCITY 0.05f
 struct platform_s:base_s{
 	platform_s(const state_s&,float,int);

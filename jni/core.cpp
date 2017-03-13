@@ -17,7 +17,7 @@ bool state_s::core(){
 		else
 			highest_y=platform_list[platform_list.size()-1]->y;
 		if(highest_y>renderer.rect.top)
-			platform_list.push_back(new platform_s(*this,highest_y,PLATFORM_NORMAL));
+			platform_list.push_back(new platform_s(*this,highest_y,PLATFORM_DONTCARE));
 	}while(highest_y>renderer.rect.top);
 
 	// proc platforms
@@ -368,7 +368,7 @@ void state_s::reset(){
 	backdrop_1.h=renderer.rect.bottom*2.0f;
 	backdrop_1.rot=0.0f;
 	backdrop_1.count=1.0f;
-	backdrop_1.frame=1.0f;
+	backdrop_1.frame=0.0f;
 	backdrop_2=backdrop_1;
 	backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
 	backdrop_2.y=backdrop_1.y-backdrop_2.h;

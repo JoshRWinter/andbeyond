@@ -47,7 +47,14 @@ int base_s::correct(const base_s &b){
 }
 
 void renderer_s::draw(const base_s &base,bool xflip){
-	glUniform4f(uniform.texcoords,xflip,!xflip,0.0f,1.0f);
+	const float size=1.0f/base.count;
+	float left=size*base.frame;
+	float right=left+size;
+
+	if(xflip)
+		glUniform4f(uniform.texcoords,right,left,0.0f,1.0f);
+	else
+		glUniform4f(uniform.texcoords,left,right,0.0f,1.0f);
 	glUniform2f(uniform.vector,base.x,base.y);
 	glUniform2f(uniform.size,base.w,base.h);
 	glUniform1f(uniform.rot,base.rot);

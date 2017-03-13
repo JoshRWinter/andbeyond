@@ -14,11 +14,11 @@
    viewBox="0 0 210 297"
    version="1.1"
    id="svg8"
-   inkscape:export-filename="/home/josh/android/andbeyond/assets_local/platform_normal.png"
+   inkscape:export-filename="/home/josh/android/andbeyond/assets_local/platform_sliding.png"
    inkscape:export-xdpi="17.333639"
    inkscape:export-ydpi="17.333639"
    inkscape:version="0.92.1 r"
-   sodipodi:docname="platform_normal.svg">
+   sodipodi:docname="platform_sliding.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -56,7 +56,7 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="opacity:1;fill:#586ea2;fill-opacity:1;stroke:#000000;stroke-width:4.197;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#5a8597;fill-opacity:1;stroke:#000000;stroke-width:4.197;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect10"
        width="148.20059"
        height="25.925833"

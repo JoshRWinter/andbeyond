@@ -11,3 +11,5 @@ done
 
 rm *.png
 
+# combine some textures into sprite sheets
+convert platform_normal.tga platform_sliding.tga +append platform.tga
