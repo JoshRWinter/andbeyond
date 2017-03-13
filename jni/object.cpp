@@ -87,7 +87,7 @@ spring_s::spring_s(){
 	rot=0.0f;
 	frame=0.0f;
 	count=1.0f;
-	xoffset=randomint(0,(PLATFORM_WIDTH-SPRING_WIDTH)*10.0f)/10.0f;
+	xoffset=randomint(1,((PLATFORM_WIDTH-SPRING_WIDTH-0.1f))*10.0f)/10.0f;
 }
 
 obstacle_s::obstacle_s(const state_s &state){
