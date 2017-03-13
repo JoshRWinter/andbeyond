@@ -13,6 +13,7 @@
 #define TID_SPRING 11
 #define TID_OBSTACLE 12
 #define TID_OBSTACLERAIL 13
+#define TID_PARTICLE 14
 
 #define HEIGHT_INCREMENT 0.1f
 #define PLAYER_UPWARD_VELOCITY 0.26f
@@ -22,10 +23,16 @@
 #define GRAVITY 0.007f
 #define TERMINAL_VELOCITY 0.4f
 
+#define COLLIDE_TOP 1
+#define COLLIDE_LEFT 2
+#define COLLIDE_RIGHT 3
+#define COLLIDE_BOTTOM 4
+
 struct state_s;
 
 struct base_s{
 	bool collide(const base_s&,float);
+	int correct(const base_s&);
 
 	float x,y,w,h,rot;
 	int count,frame; // <frame> of <count> in a sprite sheet
@@ -70,6 +77,19 @@ struct obstacle_s:base_s{
 
 	base_s rail;
 	float xv;
+};
+
+#define PARTICLE_TERMINAL_VELOCITY 0.15f
+#define PARTICLE_TTL 7,18
+#define PARTICLE_SPEED 0.275f
+#define PARTICLE_WIDTH 0.5f
+#define PARTICLE_HEIGHT 0.035f
+#define PARTICLE_DRAG 0.001f
+struct particle_s:base_s{
+	particle_s(const state_s&,float,float,bool);
+
+	float xv,yv;
+	float ttl;
 };
 
 struct backdrop_s:base_s{
@@ -132,6 +152,7 @@ struct state_s{
 	player_s player;
 	std::vector<platform_s*> platform_list;
 	std::vector<obstacle_s*> obstacle_list;
+	std::vector<particle_s*> particle_list;
 };
 
 bool process(android_app*);
@@ -141,4 +162,3 @@ void init_display(state_s&);
 void term_display(state_s&);
 bool core(state_s&);
 void render(state_s&);
-

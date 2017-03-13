@@ -8,6 +8,7 @@ bool state_s::core(){
 	timer_game+=1.0f;
 	if(timer_game>200.0f)
 		timer_game=60.0f;
+
 	// spawn new platforms
 	float highest_y;
 	do{
@@ -105,11 +106,74 @@ bool state_s::core(){
 		else
 			obstacle->rot-=OBSTACLE_SPIN_SPEED;
 
+		// generate a particle
+		particle_list.push_back(new particle_s(*this,obstacle->x+(OBSTACLE_SIZE/2.0f),obstacle->y+(OBSTACLE_SIZE/2.0f),obstacle->xv>0.0f));
+
 		// delete if obstacle goes below the screen
 		if(obstacle->y>renderer.rect.bottom){
 			delete obstacle;
 			iter=obstacle_list.erase(iter);
 			continue;
+		}
+
+		++iter;
+	}
+
+	// proc particles
+	for(std::vector<particle_s*>::iterator iter=particle_list.begin();iter!=particle_list.end();){
+		particle_s *particle=*iter;
+
+		particle->ttl-=1.0f;
+		if(particle->ttl<0.0f){
+			delete particle;
+			iter=particle_list.erase(iter);
+			continue;
+		}
+
+		if(player.y<PLAYER_BASELINE)
+			particle->y+=PLAYER_BASELINE-player.y;
+
+		particle->x+=particle->xv;
+		particle->y+=particle->yv;
+		// gravity
+		particle->yv+=GRAVITY;
+		if(particle->yv>PARTICLE_TERMINAL_VELOCITY)
+			particle->yv=PARTICLE_TERMINAL_VELOCITY;
+		// faster particles are elongated
+		const float SPEED=sqrtf(particle->xv*particle->xv+particle->yv*particle->yv);
+		particle->w=SPEED;
+		particle->rot=atan2f((particle->y+(PARTICLE_HEIGHT/2.0f))-((particle->y+particle->yv)+(PARTICLE_HEIGHT/2.0f)),
+			(particle->x+(PARTICLE_WIDTH/2.0f))-((particle->x+particle->xv)+(PARTICLE_WIDTH/2.0f)));
+		// air drag reduces x velocity
+		zerof(&particle->xv,PARTICLE_DRAG);
+
+		// check for particles colliding with platforms
+		for(std::vector<platform_s*>::const_iterator iter=platform_list.begin();iter!=platform_list.end();++iter){
+			int side;
+			if((side=particle->correct(**iter))){
+				switch(side){
+				case COLLIDE_TOP:
+					particle->yv=-particle->yv/2.0f;
+					if(fabs(particle->yv)<0.02f)
+						particle->yv=0.0f;
+					zerof(&particle->xv,PARTICLE_DRAG);
+					break;
+				case COLLIDE_LEFT:
+				case COLLIDE_RIGHT:
+					particle->xv=-particle->xv;
+					break;
+				}
+			}
+		}
+
+		// bounce particles off side walls
+		if(particle->x+PARTICLE_HEIGHT>renderer.rect.right){
+			particle->x=renderer.rect.right-PARTICLE_HEIGHT;
+			particle->xv=-particle->xv;
+		}
+		else if(particle->x<renderer.rect.left){
+			particle->x=renderer.rect.left;
+			particle->xv=-particle->xv;
 		}
 
 		++iter;
@@ -181,6 +245,13 @@ void state_s::render(){
 	renderer.draw(backdrop_1,false);
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[backdrop_2.tid].object);
 	renderer.draw(backdrop_2,false);
+
+	// render particles
+	if(particle_list.size()!=0){
+		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PARTICLE].object);
+		for(std::vector<particle_s*>::const_iterator iter=particle_list.begin();iter!=particle_list.end();++iter)
+			renderer.draw(**iter,false);
+	}
 
 	// render obstacles
 	if(obstacle_list.size()!=0){
@@ -275,6 +346,10 @@ void state_s::reset(){
 	for(std::vector<obstacle_s*>::iterator iter=obstacle_list.begin();iter!=obstacle_list.end();++iter)
 		delete *iter;
 	obstacle_list.clear();
+	// clear particles
+	for(std::vector<particle_s*>::iterator iter=particle_list.begin();iter!=particle_list.end();++iter)
+		delete *iter;
+	particle_list.clear();
 
 	// player
 	player.x=-PLAYER_WIDTH/2.0f;

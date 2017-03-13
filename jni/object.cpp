@@ -1,6 +1,7 @@
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 #include <android_native_app_glue.h>
+#include <math.h>
 
 #include "defs.h"
 
@@ -89,4 +90,17 @@ obstacle_s::obstacle_s(const state_s &state){
 	rail.y=y+(OBSTACLE_SIZE/2.0f)-(OBSTACLERAIL_HEIGHT/2.0f);
 	rail.count=1.0f;
 	rail.frame=0.0f;
+}
+
+particle_s::particle_s(const state_s &state,float x,float y,bool right){
+	w=PARTICLE_WIDTH;
+	h=PARTICLE_HEIGHT;
+	this->x=x-(PARTICLE_WIDTH/2.0f);
+	this->y=y-(PARTICLE_HEIGHT/2.0f);
+	rot=(right?M_PI+0.6f:(M_PI+2.5f))+(randomint(-20,20)*(M_PI/180.0f));//randomint(1,360)*(M_PI/180.0f);
+	xv=-cosf(rot)*PARTICLE_SPEED;
+	yv=-sinf(rot)*PARTICLE_SPEED;
+	count=1.0f;
+	frame=0.0f;
+	ttl=onein(20)?150.0f:randomint(PARTICLE_TTL);
 }
