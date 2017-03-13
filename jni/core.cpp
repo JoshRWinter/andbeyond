@@ -53,6 +53,16 @@ bool state_s::core(){
 
 			// check for player colliding with spring
 			if(platform->spring.collide(player,0.0f)&&player.apex+PLAYER_HEIGHT<platform->spring.y&&player.yv>0.0f){
+				// delete any obstacles that have spawned but are still offscreen
+				for(std::vector<obstacle_s*>::iterator iter=obstacle_list.begin();iter!=obstacle_list.end();){
+					if((*iter)->y+OBSTACLE_SIZE<renderer.rect.top){
+						delete *iter;
+						iter=obstacle_list.erase(iter);
+						continue;
+					}
+					++iter;
+				}
+
 				player.y=platform->spring.y-PLAYER_HEIGHT;
 				player.yv=-PLAYER_SUPER_UPWARD_VELOCITY;
 			}
@@ -74,8 +84,6 @@ bool state_s::core(){
 	}
 
 	// proc obstacles
-	if(obstacle_list.size()<2&&onein(120)&&(obstacle_list.size()==0||obstacle_list[0]->y-renderer.rect.top>4.0f))
-		obstacle_list.push_back(new obstacle_s(*this));
 	for(std::vector<obstacle_s*>::iterator iter=obstacle_list.begin();iter!=obstacle_list.end();){
 		obstacle_s *obstacle=*iter;
 
@@ -200,6 +208,9 @@ bool state_s::core(){
 		// keep the player below the baseline
 		bool going_up=player.yv<0.0f;
 		if(player.y<PLAYER_BASELINE){
+			// maybe spawn a new obstacle
+			if(obstacle_list.size()<2&&onein(120)&&(obstacle_list.size()==0||obstacle_list[0]->y-renderer.rect.top>4.0f))
+				obstacle_list.push_back(new obstacle_s(*this));
 			height+=PLAYER_BASELINE-player.y;
 			player.y=PLAYER_BASELINE;
 		}

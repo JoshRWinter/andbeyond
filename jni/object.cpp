@@ -86,7 +86,7 @@ obstacle_s::obstacle_s(const state_s &state){
 	w=OBSTACLE_SIZE;
 	h=OBSTACLE_SIZE;
 	x=state.renderer.rect.left;
-	y=state.renderer.rect.top-OBSTACLE_SIZE;
+	y=state.renderer.rect.top-OBSTACLE_SIZE-5.0f;
 	xv=OBSTACLE_VELOCITY;
 	rot=0.0f;
 	count=1.0f;
