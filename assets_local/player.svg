@@ -15,8 +15,8 @@
    version="1.1"
    id="svg8"
    inkscape:export-filename="/home/josh/android/andbeyond/assets_local/player.png"
-   inkscape:export-xdpi="23.68375"
-   inkscape:export-ydpi="23.68375"
+   inkscape:export-xdpi="26.315277"
+   inkscape:export-ydpi="26.315277"
    inkscape:version="0.92.1 r"
    sodipodi:docname="player.svg">
   <defs
@@ -28,9 +28,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="288.33821"
-     inkscape:cy="540.30559"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="139.19466"
+     inkscape:cy="565.02958"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -58,7 +58,7 @@
      id="layer1">
     <g
        id="g4925"
-       transform="translate(1.5875,-3.1750001)">
+       transform="matrix(1.1231017,0,0,1.1231017,-9.7713103,-18.097982)">
       <path
          inkscape:connector-curvature="0"
          id="path4903"
@@ -194,7 +194,7 @@
     <path
        transform="scale(-1)"
        id="path4489"
-       style="fill:#8582a3;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.22479904;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="fill:#a27cce;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.22479904;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="m -56.875671,-160.30251 a 37.996353,28.009527 0 0 1 -18.998177,24.25697 37.996353,28.009527 0 0 1 -37.996352,0 37.996353,28.009527 0 0 1 -18.99818,-24.25697"
        sodipodi:type="arc"
        sodipodi:open="true"

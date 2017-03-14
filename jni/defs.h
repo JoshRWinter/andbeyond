@@ -38,8 +38,8 @@ struct base_s{
 	int count,frame; // <frame> of <count> in a sprite sheet
 };
 
-#define PLAYER_WIDTH 0.9f
-#define PLAYER_HEIGHT 1.025f
+#define PLAYER_WIDTH 1.0f
+#define PLAYER_HEIGHT 1.1375f
 struct player_s:base_s{
 	float xv,yv;
 	float apex; // highest point in the jump
@@ -75,7 +75,7 @@ struct platform_s:base_s{
 
 #define OBSTACLE_SIZE 1.35f
 #define OBSTACLERAIL_HEIGHT 0.1f
-#define OBSTACLE_VELOCITY 0.1f
+#define OBSTACLE_VELOCITY 0.095f
 #define OBSTACLE_SPIN_SPEED 0.15f
 struct obstacle_s:base_s{
 	obstacle_s(const state_s&);
