@@ -29,7 +29,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="397.47369"
+     inkscape:cx="217.97369"
      inkscape:cy="544.80174"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -56,31 +56,32 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <rect
+       style="fill:#b8b8b6;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.80000013;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4485"
+       width="108"
+       height="192"
+       x="66.145836"
+       y="49.437511" />
     <g
-       id="g6886">
-      <rect
-         y="49.437511"
-         x="66.145836"
-         height="192"
-         width="108"
-         id="rect4485"
-         style="fill:#d7ddd7;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.80000013;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+       id="g9112"
+       style="stroke:#b3b3b1;stroke-opacity:1">
       <rect
          y="145.84109"
          x="66.479805"
          height="0.8767519"
          width="107.33207"
          id="rect6773"
-         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#c2c9c3;stroke-width:0.66500002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.31" />
+         style="fill:#b8b8b6;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b1;stroke-width:0.66500002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
       <rect
-         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#c2c9c3;stroke-width:0.66500002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.31"
+         style="fill:#b8b8b6;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b1;stroke-width:0.66500002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
          id="rect6775"
          width="107.33207"
          height="0.8767519"
          x="66.479805"
          y="114.09101" />
       <rect
-         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#c2c9c3;stroke-width:0.66500002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.31"
+         style="fill:#b8b8b6;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b1;stroke-width:0.66500002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
          id="rect6777"
          width="107.33207"
          height="0.8767519"
@@ -92,16 +93,16 @@
          height="0.8767519"
          width="107.33207"
          id="rect6779"
-         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#c2c9c3;stroke-width:0.66500002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.31" />
+         style="fill:#b8b8b6;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b1;stroke-width:0.66500002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
       <rect
          y="82.341026"
          x="66.479805"
          height="0.8767519"
          width="107.33207"
          id="rect6781"
-         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#c2c9c3;stroke-width:0.66500002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.31" />
+         style="fill:#b8b8b6;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b1;stroke-width:0.66500002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
       <rect
-         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#c2c9c3;stroke-width:0.66500002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.31"
+         style="fill:#b8b8b6;fill-opacity:1;fill-rule:evenodd;stroke:#b3b3b1;stroke-width:0.66500002;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
          id="rect6783"
          width="107.33207"
          height="0.8767519"
@@ -111,13 +112,13 @@
     <path
        inkscape:connector-curvature="0"
        id="path4561"
-       d="M 88.375761,241.43704 V 223.70995 L 75.715832,201.78232 V 145.4378 89.093132 L 88.375761,67.165559 V 49.438493 h 63.586949 l -0.0468,17.727066 12.65995,21.927573 v 56.344668 56.34452 l -12.65995,21.92763 v 17.72709 z"
-       style="fill:#5f6e7d;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       d="M 86.111148,241.43704 V 223.70995 L 72.548816,201.78232 V 145.4378 89.093132 L 86.111148,67.165559 V 49.438493 H 154.2306 l -0.0501,17.727066 13.56236,21.927573 v 56.344668 56.34452 l -13.56236,21.92763 v 17.72709 z"
+       style="fill:#5f6e7d;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        sodipodi:nodetypes="cccccccccccccc" />
     <path
        sodipodi:nodetypes="cccccccccccccc"
-       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.465;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 151.96271,49.438493 -0.0468,17.727066 12.65995,21.927573 v 56.344668 56.34452 l -12.65995,21.92763 v 17.72709 m -63.540149,0 V 223.70995 L 75.715832,201.78232 V 145.4378 89.093132 L 88.375761,67.165559 V 49.438493"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.46499997;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 154.2306,49.438493 -0.0501,17.727066 13.56236,21.927573 v 56.344668 56.34452 l -13.56236,21.92763 v 17.72709 m -68.069312,0 V 223.70995 L 72.548816,201.78232 V 145.4378 89.093132 L 86.111148,67.165559 V 49.438493"
        id="path4571"
        inkscape:connector-curvature="0"
        inkscape:export-xdpi="253.99997"
