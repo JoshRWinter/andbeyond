@@ -60,7 +60,7 @@ struct spring_s:base_s{
 #define PLATFORM_DISAPPEARING 2
 #define PLATFORM_DISAPPEARING_FADE 0.07f
 #define PLATFORM_WIDTH 1.3f
-#define PLATFORM_HEIGHT 0.2625f
+#define PLATFORM_HEIGHT 0.45f
 #define PLATFORM_X_VELOCITY 0.05f
 struct platform_s:base_s{
 	platform_s(const state_s&,float,int);
