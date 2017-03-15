@@ -140,7 +140,8 @@ bool state_s::core(){
 			obstacle->rot-=OBSTACLE_SPIN_SPEED;
 
 		// generate a particle
-		particle_list.push_back(new particle_s(*this,obstacle->x+(OBSTACLE_SIZE/2.0f),obstacle->y+(OBSTACLE_SIZE/2.0f),obstacle->xv>0.0f));
+		if(obstacle->y+OBSTACLE_SIZE+1.5>renderer.rect.top)
+			particle_list.push_back(new particle_s(*this,obstacle->x+(OBSTACLE_SIZE/2.0f),obstacle->y+(OBSTACLE_SIZE/2.0f),obstacle->xv>0.0f));
 
 		// delete if obstacle goes below the screen
 		if(obstacle->y>renderer.rect.bottom){
@@ -336,11 +337,11 @@ void state_s::render(){
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLAYER].object);
 	renderer.draw(player,false);
 	if(player.x+PLAYER_WIDTH>renderer.rect.right){
-		base_s copy={renderer.rect.left-(renderer.rect.right-player.x),player.y,PLAYER_WIDTH,PLAYER_HEIGHT,0.0f,1.0f,0.0f};
+		base_s copy={renderer.rect.left-(renderer.rect.right-player.x),player.y,PLAYER_WIDTH,PLAYER_HEIGHT,0.0f,3.0f,player.frame};
 		renderer.draw(copy,false);
 	}
 	else if(player.x<renderer.rect.left){
-		base_s copy={renderer.rect.right+(player.x-renderer.rect.left),player.y,PLAYER_WIDTH,PLAYER_HEIGHT,0.0f,1.0f,0.0f};
+		base_s copy={renderer.rect.right+(player.x-renderer.rect.left),player.y,PLAYER_WIDTH,PLAYER_HEIGHT,0.0f,3.0f,player.frame};
 		renderer.draw(copy,false);
 	}
 
