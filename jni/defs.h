@@ -18,7 +18,7 @@
 #define HEIGHT_INCREMENT 0.1f
 #define PLAYER_UPWARD_VELOCITY 0.26f
 #define PLAYER_SUPER_UPWARD_VELOCITY 0.4f
-#define PLAYER_BASELINE -3.0f
+#define PLAYER_BASELINE -1.0f
 #define TILT_DIVISOR 20.0f
 #define GRAVITY 0.007f
 #define TERMINAL_VELOCITY 0.4f
@@ -38,8 +38,8 @@ struct base_s{
 	int count,frame; // <frame> of <count> in a sprite sheet
 };
 
-#define PLAYER_WIDTH 1.0f
-#define PLAYER_HEIGHT 1.1375f
+#define PLAYER_WIDTH 1.05f
+#define PLAYER_HEIGHT 1.2f
 struct player_s:base_s{
 	float xv,yv;
 	float apex; // highest point in the jump
