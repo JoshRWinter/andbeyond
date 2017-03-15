@@ -260,6 +260,23 @@ bool state_s::core(){
 			player.dead=true;
 		if(player.dead)
 			reset();
+
+		// animation
+		if(onein(250))
+			player.timer_frame=15.0f;
+		if(player.timer_frame>10.0f)
+			player.frame=1.0f;
+		else if(player.timer_frame>5.0)
+			player.frame=2.0f;
+		else if(player.timer_frame>0.0f)
+			player.frame=1.0f;
+		else
+			player.frame=0.0f;
+		if(player.timer_frame>0.0f){
+			player.timer_frame-=1.0f;
+			if(player.timer_frame<0.0f)
+				player.timer_frame=0.0f;
+		}
 	}
 
 	return true;
@@ -371,7 +388,7 @@ state_s::state_s(){
 
 	player.w=PLAYER_WIDTH;
 	player.h=PLAYER_HEIGHT;
-	player.count=1.0f;
+	player.count=3.0f;
 	player.frame=0.0f;
 }
 
@@ -397,6 +414,7 @@ void state_s::reset(){
 	player.rot=0.0f;
 	player.apex=0.0f;
 	player.dead=false;
+	player.timer_frame=0.0f;
 
 	// backdrops
 	backdrop_1.tid=TID_BACKDROPGROUND;

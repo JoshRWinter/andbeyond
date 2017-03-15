@@ -44,6 +44,7 @@ struct player_s:base_s{
 	float xv,yv;
 	float apex; // highest point in the jump
 	bool dead;
+	float timer_frame; // animation queues
 };
 
 #define SPRING_WIDTH 0.3f

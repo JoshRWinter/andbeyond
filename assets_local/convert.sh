@@ -13,3 +13,5 @@ rm *.png
 
 # combine some textures into sprite sheets
 convert platform_normal.tga platform_sliding.tga platform_disappearing.tga +append platform.tga
+
+convert player_normal.tga player_midblink.tga player_blink.tga +append player.tga
