@@ -258,9 +258,17 @@ bool state_s::core(){
 		else if(player.x<renderer.rect.left-(PLAYER_WIDTH/2.0f))
 			player.x=renderer.rect.right-(PLAYER_WIDTH/2.0f);
 		if(player.y>renderer.rect.bottom)
+#ifdef INVINCIBLE
+			player.yv=-PLAYER_SUPER_UPWARD_VELOCITY*1.5f;
+#else
 			player.dead=true;
+#endif
 		if(player.dead)
+#ifdef INVINCIBLE
+			player.dead=false;
+#else
 			reset();
+#endif
 
 		// animation
 		if(onein(250))
@@ -296,7 +304,7 @@ void state_s::render(){
 	// draw the upper backdrop
 	else{
 		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_UPPERBACKDROP].object);
-		const float alpha=height/UPPER_BACKDROP_FULL_TRANSITION;
+		const float alpha=(height-UPPER_BACKDROP_START_TRANSITION)/UPPER_BACKDROP_FULL_TRANSITION;
 		glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,alpha>1.0f?1.0f:alpha);
 		renderer.draw(upper_backdrop,false);
 		glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
