@@ -226,7 +226,7 @@ bool state_s::core(){
 			backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
 		}
 		if(lower_backdrop.y<renderer.rect.bottom)
-			lower_backdrop.y+=(PLAYER_BASELINE-player.y)/50.0f;
+			lower_backdrop.y+=(PLAYER_BASELINE-player.y)/15.0f;
 	}
 
 	// proc player
@@ -293,12 +293,22 @@ void state_s::render(){
 		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_LOWERBACKDROP].object);
 		renderer.draw(lower_backdrop,false);
 	}
+	// draw the upper backdrop
+	else{
+		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_UPPERBACKDROP].object);
+		const float alpha=height/UPPER_BACKDROP_FULL_TRANSITION;
+		glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,alpha>1.0f?1.0f:alpha);
+		renderer.draw(upper_backdrop,false);
+		glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
+	}
 
+/*
 	// draw the backdrops (if any)
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[backdrop_1.tid].object);
 	renderer.draw(backdrop_1,false);
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[backdrop_2.tid].object);
 	renderer.draw(backdrop_2,false);
+*/
 
 	// render particles
 	if(particle_list.size()!=0){
@@ -375,18 +385,30 @@ void state_s::render(){
 
 state_s::state_s(){
 	running=false;
+
+	// world rectangle
 	renderer.rect.right=4.5f;
 	renderer.rect.left=-4.5f;
 	renderer.rect.bottom=8.0f;
 	renderer.rect.top=-8.0f;
 
+	// lower backdrop
 	lower_backdrop.x=renderer.rect.left;
 	lower_backdrop.w=renderer.rect.right*2.0f;
-	lower_backdrop.h=(renderer.rect.bottom*2.0f)+2.0f;
+	lower_backdrop.h=renderer.rect.bottom*2.0f;
 	lower_backdrop.rot=0.0f;
 	lower_backdrop.count=1.0f;
 	lower_backdrop.frame=0.0f;
 
+	// upper backdrop
+	upper_backdrop.x=renderer.rect.left;
+	upper_backdrop.w=renderer.rect.right*2.0f;
+	upper_backdrop.h=renderer.rect.bottom*2.0f;
+	upper_backdrop.rot=0.0f;
+	upper_backdrop.count=1.0f;
+	upper_backdrop.frame=0.0f;
+
+	// player
 	player.w=PLAYER_WIDTH;
 	player.h=PLAYER_HEIGHT;
 	player.count=3.0f;
@@ -429,7 +451,8 @@ void state_s::reset(){
 	backdrop_2=backdrop_1;
 	backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
 	backdrop_2.y=backdrop_1.y-backdrop_2.h;
-	lower_backdrop.y=renderer.rect.top-2.0f;
+	lower_backdrop.y=renderer.rect.top;
+	upper_backdrop.y=renderer.rect.top;
 
 	tilt=0.0f;
 	timer_game=0.0f;
