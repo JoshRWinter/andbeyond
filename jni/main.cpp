@@ -164,6 +164,10 @@ void android_main(android_app *app){
 	init_accel(app,&state.accel);
 	state.accel.x=0.0f;
 
+	// three parts to a happy Main Loop:
+	// state.process() -- synchronously dispatch system messages (onStart(), onResume(), touch input events etc)
+	// state.core() -- allow entities to "think"
+	// state.render() -- draw everything
 	while(state.process()&&state.core()){
 		state.render();
 		eglSwapBuffers(state.renderer.display,state.renderer.surface);

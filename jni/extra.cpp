@@ -46,7 +46,7 @@ int base_s::correct(const base_s &b){
 	}
 }
 
-void renderer_s::draw(const base_s &base,bool xflip){
+void renderer_s::draw(const base_s &base,bool xflip)const{
 	const float size=1.0f/base.count;
 	float left=size*base.frame;
 	float right=left+size;

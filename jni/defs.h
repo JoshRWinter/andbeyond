@@ -11,12 +11,12 @@
 #define TID_BACKDROP_LAST 9
 #define TID_LOWERBACKDROP 10
 #define TID_SPRING 11
-#define TID_OBSTACLE 12
-#define TID_OBSTACLERAIL 13
+#define TID_SAW 12
+#define TID_SAWRAIL 13
 #define TID_PARTICLE 14
 #define TID_UPPERBACKDROP 15
 
-#define INVINCIBLE
+//#define INVINCIBLE
 
 #define HEIGHT_INCREMENT 0.1f
 #define PLAYER_UPWARD_VELOCITY 0.26f
@@ -34,6 +34,7 @@
 #define COLLIDE_BOTTOM 4
 
 struct state_s;
+struct renderer_s;
 
 struct base_s{
 	bool collide(const base_s&,float);
@@ -46,6 +47,9 @@ struct base_s{
 #define PLAYER_WIDTH 1.05f
 #define PLAYER_HEIGHT 1.2f
 struct player_s:base_s{
+	void process(state_s&);
+	void render(const renderer_s&);
+
 	float xv,yv;
 	float apex; // highest point in the jump
 	bool dead;
@@ -70,6 +74,8 @@ struct spring_s:base_s{
 #define PLATFORM_X_VELOCITY 0.05f
 struct platform_s:base_s{
 	platform_s(const state_s&,float,int);
+	static void process(state_s&);
+	static void render(const renderer_s&,std::vector<platform_s*>&);
 
 	bool has_spring;
 	spring_s spring;
@@ -79,12 +85,15 @@ struct platform_s:base_s{
 	float xv;
 };
 
-#define OBSTACLE_SIZE 1.35f
-#define OBSTACLERAIL_HEIGHT 0.1f
-#define OBSTACLE_VELOCITY 0.095f
-#define OBSTACLE_SPIN_SPEED 0.15f
-struct obstacle_s:base_s{
-	obstacle_s(const state_s&);
+#define SAW_SIZE 1.35f
+#define SAWRAIL_HEIGHT 0.1f
+#define SAW_VELOCITY 0.095f
+#define SAW_SPIN_SPEED 0.15f
+struct saw_s:base_s{
+	saw_s(const state_s&);
+	static void process(state_s&);
+	static void render(const renderer_s&,std::vector<saw_s*>&);
+	static void clear_all_ahead(std::vector<saw_s*>&,float);
 
 	base_s rail;
 	float xv;
@@ -98,6 +107,8 @@ struct obstacle_s:base_s{
 #define PARTICLE_DRAG 0.001f
 struct particle_s:base_s{
 	particle_s(const state_s&,float,float,bool);
+	static void process(state_s&);
+	static void render(const renderer_s&,std::vector<particle_s*>&);
 
 	float xv,yv;
 	float ttl;
@@ -110,7 +121,7 @@ struct backdrop_s:base_s{
 struct renderer_s{
 	void init(android_app*);
 	void term();
-	void draw(const base_s&,bool);
+	void draw(const base_s&,bool)const;
 
 	pack assets; // gameplay textures
 	pack uiassets; // ui textures
@@ -162,7 +173,7 @@ struct state_s{
 	backdrop_s lower_backdrop,upper_backdrop,backdrop_1,backdrop_2;
 	player_s player;
 	std::vector<platform_s*> platform_list;
-	std::vector<obstacle_s*> obstacle_list;
+	std::vector<saw_s*> saw_list;
 	std::vector<particle_s*> particle_list;
 };
 
