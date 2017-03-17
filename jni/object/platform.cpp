@@ -46,12 +46,21 @@ platform_s::platform_s(const state_s &state,float highest,int platform_type){
 
 	// set platform type
 	if(platform_type==PLATFORM_DONTCARE){
-		if(onein(7)&&!first)
-			type=PLATFORM_SLIDING;
-		else if(((last_disappearing&&!onein(5))||onein(20))&&!first)
+		// choose PLATFORM_DISAPPEARING
+		if(((last_disappearing&&!onein(5))||onein(20))&&!first)
 			type=PLATFORM_DISAPPEARING;
-		else
-			type=PLATFORM_NORMAL;
+		// most likely choose PLATFORM_NORMAL or PLATFORM_SLIDING
+		else{
+			int sliding_probability;
+			if(stage>3)
+				sliding_probability=3;
+			else
+				sliding_probability=7;
+			if(onein(sliding_probability)&&!first)
+				type=PLATFORM_SLIDING;
+			else
+				type=PLATFORM_NORMAL;
+		}
 	}
 	else
 		type=platform_type;
@@ -70,7 +79,7 @@ platform_s::platform_s(const state_s &state,float highest,int platform_type){
 	count=3.0f;
 	frame=type;
 	xflip=randomint(0,1)==0;
-	alpha=1.0f;
+	yv=0.0f;
 	// sliding platforms move side to side
 	if(type==PLATFORM_SLIDING)
 		xv=PLATFORM_X_VELOCITY*(onein(2)?1.0f:-1.0f);
@@ -132,6 +141,10 @@ void platform_s::process(state_s &state){
 			platform->x=state.renderer.rect.right-PLATFORM_WIDTH;
 			platform->xv=-platform->xv;
 		}
+		if(platform->yv>0.0f){
+			platform->yv+=GRAVITY;
+			platform->y+=platform->yv;
+		}
 
 		// proc springs
 		if(platform->has_spring){
@@ -160,16 +173,7 @@ void platform_s::process(state_s &state){
 
 			// PLATFORM_DISAPPEARING platforms disappear after the player jumps on them
 			if(platform->type==PLATFORM_DISAPPEARING)
-				platform->alpha-=PLATFORM_DISAPPEARING_FADE;
-		}
-
-		// PLATFORM_DISAPPEARING platforms fade out and then get deleted
-		if(platform->alpha<1.0f){
-			if((platform->alpha-=PLATFORM_DISAPPEARING_FADE)<0.0f){
-				delete platform;
-				iter=state.platform_list.erase(iter);
-				continue;
-			}
+				platform->yv+=GRAVITY;
 		}
 
 		// PLATFORM_DISAPPEARING platforms will delete all obstacles above it
@@ -183,10 +187,8 @@ void platform_s::process(state_s &state){
 
 void platform_s::render(const renderer_s &renderer,std::vector<platform_s*> &platform_list){
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLATFORM].object);
-	for(std::vector<platform_s*>::const_iterator iter=platform_list.begin();iter!=platform_list.end();++iter){
-		glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,(*iter)->alpha);
+	for(std::vector<platform_s*>::const_iterator iter=platform_list.begin();iter!=platform_list.end();++iter)
 		renderer.draw(**iter,(*iter)->xflip);
-	}
 	// render springs
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SPRING].object);
 	for(std::vector<platform_s*>::const_iterator iter=platform_list.begin();iter!=platform_list.end();++iter){
