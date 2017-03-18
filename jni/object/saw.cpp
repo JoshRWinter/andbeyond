@@ -83,7 +83,7 @@ void saw_s::clear_all_ahead(std::vector<saw_s*> &saw_list,float boundary){
 	}
 }
 
-void saw_s::render(const renderer_s &renderer,std::vector<saw_s*> &saw_list){
+void saw_s::render(const renderer_s &renderer,const std::vector<saw_s*> &saw_list){
 	// render rails
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SAWRAIL].object);
 	for(std::vector<saw_s*>::const_iterator iter=saw_list.begin();iter!=saw_list.end();++iter)

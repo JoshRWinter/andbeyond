@@ -37,7 +37,7 @@ struct state_s;
 struct renderer_s;
 
 struct base_s{
-	bool collide(const base_s&,float);
+	bool collide(const base_s&,float)const;
 	int correct(const base_s&);
 
 	float x,y,w,h,rot;
@@ -48,7 +48,7 @@ struct base_s{
 #define PLAYER_HEIGHT 1.2f
 struct player_s:base_s{
 	void process(state_s&);
-	void render(const renderer_s&);
+	void render(const renderer_s&)const;
 
 	float xv,yv;
 	float apex; // highest point in the jump
@@ -75,7 +75,7 @@ struct spring_s:base_s{
 struct platform_s:base_s{
 	platform_s(const state_s&,float,int);
 	static void process(state_s&);
-	static void render(const renderer_s&,std::vector<platform_s*>&);
+	static void render(const renderer_s&,const std::vector<platform_s*>&);
 
 	bool has_spring;
 	spring_s spring;
@@ -91,7 +91,7 @@ struct platform_s:base_s{
 struct saw_s:base_s{
 	saw_s(const state_s&);
 	static void process(state_s&);
-	static void render(const renderer_s&,std::vector<saw_s*>&);
+	static void render(const renderer_s&,const std::vector<saw_s*>&);
 	static void clear_all_ahead(std::vector<saw_s*>&,float);
 
 	base_s rail;
@@ -101,7 +101,7 @@ struct saw_s:base_s{
 #define ELECTRO_WIDTH 3.75f
 #define ELECTRO_HEIGHT 1.0125f
 struct electro_s:base_s{
-	electro_s(state_s&);
+	electro_s(const state_s&);
 	static void process(state_s&);
 	static void render(const renderer_s&,const std::vector<electro_s*>&);
 	static void clear_all_ahead(std::vector<electro_s*>&,float);
@@ -118,7 +118,7 @@ struct electro_s:base_s{
 struct particle_s:base_s{
 	particle_s(const state_s&,float,float,bool);
 	static void process(state_s&);
-	static void render(const renderer_s&,std::vector<particle_s*>&);
+	static void render(const renderer_s&,const std::vector<particle_s*>&);
 
 	float xv,yv;
 	float ttl;
@@ -163,7 +163,7 @@ struct state_s{
 	state_s();
 	void reset();
 	bool core();
-	void render();
+	void render()const;
 	int process();
 
 	// renderer information
@@ -188,10 +188,5 @@ struct state_s{
 	std::vector<electro_s*> electro_list;
 };
 
-bool process(android_app*);
 int32_t inputproc(android_app*,AInputEvent*);
 void cmdproc(android_app*,int32_t);
-void init_display(state_s&);
-void term_display(state_s&);
-bool core(state_s&);
-void render(state_s&);

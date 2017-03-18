@@ -207,7 +207,7 @@ void platform_s::process(state_s &state){
 	}
 }
 
-void platform_s::render(const renderer_s &renderer,std::vector<platform_s*> &platform_list){
+void platform_s::render(const renderer_s &renderer,const std::vector<platform_s*> &platform_list){
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLATFORM].object);
 	for(std::vector<platform_s*>::const_iterator iter=platform_list.begin();iter!=platform_list.end();++iter)
 		renderer.draw(**iter,(*iter)->xflip);

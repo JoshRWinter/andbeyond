@@ -6,7 +6,7 @@
 
 #include "defs.h"
 
-electro_s::electro_s(state_s &state){
+electro_s::electro_s(const state_s &state){
 	w=ELECTRO_WIDTH;
 	h=ELECTRO_HEIGHT;
 	x=randomint(state.renderer.rect.left*10.0f,(state.renderer.rect.right-w)*10.0f)/10.0f;

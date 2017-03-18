@@ -5,7 +5,7 @@
 
 #include "defs.h"
 
-bool base_s::collide(const base_s &b,float tolerance){
+bool base_s::collide(const base_s &b,float tolerance)const{
 	return x+w>b.x+tolerance&&x<b.x+b.w-tolerance&&y+h>b.y+tolerance&&y<b.y+b.h-tolerance;
 }
 
@@ -48,8 +48,8 @@ int base_s::correct(const base_s &b){
 
 void renderer_s::draw(const base_s &base,bool xflip)const{
 	const float size=1.0f/base.count;
-	float left=size*base.frame;
-	float right=left+size;
+	const float left=size*base.frame;
+	const float right=left+size;
 
 	if(xflip)
 		glUniform4f(uniform.texcoords,right,left,0.0f,1.0f);

@@ -45,7 +45,7 @@ bool state_s::core(){
 	return true;
 }
 
-void state_s::render(){
+void state_s::render()const{
 	// draw the sky
 	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);

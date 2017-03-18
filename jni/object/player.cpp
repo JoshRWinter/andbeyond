@@ -62,7 +62,7 @@ void player_s::process(state_s &state){
 	}
 }
 
-void player_s::render(const renderer_s &renderer){
+void player_s::render(const renderer_s &renderer)const{
 	// render player
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLAYER].object);
 	renderer.draw(*this,false);

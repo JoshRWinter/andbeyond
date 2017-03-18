@@ -81,7 +81,7 @@ void particle_s::process(state_s &state){
 	}
 }
 
-void particle_s::render(const renderer_s &renderer,std::vector<particle_s*> &particle_list){
+void particle_s::render(const renderer_s &renderer,const std::vector<particle_s*> &particle_list){
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PARTICLE].object);
 	for(std::vector<particle_s*>::const_iterator iter=particle_list.begin();iter!=particle_list.end();++iter)
 		renderer.draw(**iter,false);
