@@ -16,6 +16,7 @@
 #define TID_SAWRAIL 13
 #define TID_PARTICLE 14
 #define TID_UPPERBACKDROP 15
+#define TID_ELECTRO 16
 
 #define HEIGHT_INCREMENT 0.1f
 #define PLAYER_UPWARD_VELOCITY 0.26f
@@ -97,6 +98,17 @@ struct saw_s:base_s{
 	float xv;
 };
 
+#define ELECTRO_WIDTH 3.75f
+#define ELECTRO_HEIGHT 1.0125f
+struct electro_s:base_s{
+	electro_s(state_s&);
+	static void process(state_s&);
+	static void render(const renderer_s&,const std::vector<electro_s*>&);
+	static void clear_all_ahead(std::vector<electro_s*>&,float);
+
+	float timer_frame;
+};
+
 #define PARTICLE_TERMINAL_VELOCITY 0.15f
 #define PARTICLE_TTL 7,18
 #define PARTICLE_SPEED 0.275f
@@ -173,6 +185,7 @@ struct state_s{
 	std::vector<platform_s*> platform_list;
 	std::vector<saw_s*> saw_list;
 	std::vector<particle_s*> particle_list;
+	std::vector<electro_s*> electro_list;
 };
 
 bool process(android_app*);

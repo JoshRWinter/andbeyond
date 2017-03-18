@@ -15,3 +15,5 @@ rm *.png
 convert platform_normal.tga platform_sliding.tga platform_disappearing.tga +append platform.tga
 
 convert player_normal.tga player_midblink.tga player_blink.tga +append player.tga
+
+convert electro_1.tga electro_2.tga electro_3.tga electro_4.tga electro_5.tga +append electro.tga

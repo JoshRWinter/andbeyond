@@ -94,6 +94,25 @@ platform_s::platform_s(const state_s &state,float highest,int platform_type){
 	}
 	else
 		has_spring=false;
+
+	// move platform to the side if it is near an electro
+	if(type!=PLATFORM_SLIDING){
+		float Y_TOLERANCE=4.5f;
+		for(std::vector<electro_s*>::const_iterator iter=state.electro_list.begin();iter!=state.electro_list.end();++iter){
+			electro_s &electro=**iter;
+			if(y+PLATFORM_HEIGHT+Y_TOLERANCE>electro.y&&y<electro.y+ELECTRO_HEIGHT+Y_TOLERANCE){
+				if(x+PLATFORM_WIDTH>electro.x&&x<electro.x+ELECTRO_WIDTH){
+					// try to move left first
+					x=electro.x-PLATFORM_WIDTH;
+					if(x<state.renderer.rect.left){
+						// that didn't work, move it to the right
+						x=electro.x+ELECTRO_WIDTH;
+					}
+				}
+			}
+		}
+	}
+
 }
 
 spring_s::spring_s(){
@@ -155,6 +174,8 @@ void platform_s::process(state_s &state){
 			if(platform->spring.collide(state.player,0.0f)&&state.player.apex+PLAYER_HEIGHT<platform->spring.y&&state.player.yv>0.0f){
 				// delete any obstacles that have spawned but are still offscreen
 				saw_s::clear_all_ahead(state.saw_list,state.renderer.rect.top);
+				electro_s::clear_all_ahead(state.electro_list,state.renderer.rect.top);
+
 				state.player.y=platform->spring.y-PLAYER_HEIGHT;
 				state.player.yv=-PLAYER_SUPER_UPWARD_VELOCITY;
 			}
@@ -177,8 +198,9 @@ void platform_s::process(state_s &state){
 		}
 
 		// PLATFORM_DISAPPEARING platforms will delete all obstacles above it
-		if(platform->type==PLATFORM_DISAPPEARING){
+		if(platform->type==PLATFORM_DISAPPEARING&&platform->yv==0.0f){
 			saw_s::clear_all_ahead(state.saw_list,platform->y);
+			electro_s::clear_all_ahead(state.electro_list,platform->y);
 		}
 
 		++iter;

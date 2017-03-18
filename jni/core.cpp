@@ -18,6 +18,9 @@ bool state_s::core(){
 	// proc saws
 	saw_s::process(*this);
 
+	// proc electros
+	electro_s::process(*this);
+
 	// proc backdrops
 	if(player.y<PLAYER_BASELINE){
 		backdrop_1.y+=PLAYER_BASELINE-player.y;
@@ -70,6 +73,11 @@ void state_s::render(){
 	// render particles
 	if(particle_list.size()!=0){
 		particle_s::render(renderer,particle_list);
+	}
+
+	// render electros
+	if(electro_list.size()!=0){
+		electro_s::render(renderer,electro_list);
 	}
 
 	// render saws
@@ -154,6 +162,10 @@ void state_s::reset(){
 	for(std::vector<saw_s*>::iterator iter=saw_list.begin();iter!=saw_list.end();++iter)
 		delete *iter;
 	saw_list.clear();
+	// clear electros
+	for(std::vector<electro_s*>::iterator iter=electro_list.begin();iter!=electro_list.end();++iter)
+		delete *iter;
+	electro_list.clear();
 	// clear particles
 	for(std::vector<particle_s*>::iterator iter=particle_list.begin();iter!=particle_list.end();++iter)
 		delete *iter;
