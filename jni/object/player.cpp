@@ -48,13 +48,13 @@ void player_s::process(state_s &state){
 	if(onein(250))
 		timer_frame=15.0f;
 	if(timer_frame>10.0f)
-		frame=1.0f;
+		frame=1;
 	else if(timer_frame>5.0)
-		frame=2.0f;
+		frame=2;
 	else if(timer_frame>0.0f)
-		frame=1.0f;
+		frame=1;
 	else
-		frame=0.0f;
+		frame=0;
 	if(timer_frame>0.0f){
 		timer_frame-=1.0f;
 		if(timer_frame<0.0f)

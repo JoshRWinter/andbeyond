@@ -38,9 +38,9 @@ void electro_s::process(state_s &state){
 		electro->timer_frame-=1.0f;
 		if(electro->timer_frame<=0.0f){
 			electro->timer_frame=2.0f;
-			electro->frame+=1.0f;
-			if(electro->frame>4.5f)
-				electro->frame=0.0f;
+			++electro->frame;
+			if(electro->frame>4)
+				electro->frame=0;
 		}
 
 		// check for electro colliding with player
