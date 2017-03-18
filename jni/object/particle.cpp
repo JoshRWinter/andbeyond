@@ -14,8 +14,8 @@ particle_s::particle_s(const state_s &state,float x,float y,bool right){
 	rot=(right?M_PI+0.6f:(M_PI+2.5f))+(randomint(-20,20)*(M_PI/180.0f));//randomint(1,360)*(M_PI/180.0f);
 	xv=-cosf(rot)*PARTICLE_SPEED;
 	yv=-sinf(rot)*PARTICLE_SPEED;
-	count=1.0f;
-	frame=0.0f;
+	count=1;
+	frame=0;
 	ttl=onein(20)?150.0f:randomint(PARTICLE_TTL);
 }
 

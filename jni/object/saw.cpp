@@ -13,8 +13,8 @@ saw_s::saw_s(const state_s &state){
 	y=state.renderer.rect.top-SAW_SIZE-5.0f;
 	xv=SAW_VELOCITY;
 	rot=0.0f;
-	count=1.0f;
-	frame=0.0f;
+	count=1;
+	frame=0;
 
 	// the saw will slide down a rail
 	rail.w=state.renderer.rect.right*2.0f;

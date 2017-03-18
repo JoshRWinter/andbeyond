@@ -12,8 +12,8 @@ electro_s::electro_s(const state_s &state){
 	x=randomint(state.renderer.rect.left*10.0f,(state.renderer.rect.right-w)*10.0f)/10.0f;
 	y=state.renderer.rect.top-8.0f;
 	rot=0.0f;
-	count=5.0f;
-	frame=0.0f;
+	count=5;
+	frame=0;
 	timer_frame=0.0f;
 
 	// if too close to other electro, move it up

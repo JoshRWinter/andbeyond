@@ -135,22 +135,22 @@ state_s::state_s(){
 	lower_backdrop.w=renderer.rect.right*2.0f;
 	lower_backdrop.h=renderer.rect.bottom*2.0f;
 	lower_backdrop.rot=0.0f;
-	lower_backdrop.count=1.0f;
-	lower_backdrop.frame=0.0f;
+	lower_backdrop.count=1;
+	lower_backdrop.frame=0;
 
 	// upper backdrop
 	upper_backdrop.x=renderer.rect.left;
 	upper_backdrop.w=renderer.rect.right*2.0f;
 	upper_backdrop.h=renderer.rect.bottom*2.0f;
 	upper_backdrop.rot=0.0f;
-	upper_backdrop.count=1.0f;
-	upper_backdrop.frame=0.0f;
+	upper_backdrop.count=1;
+	upper_backdrop.frame=0;
 
 	// player
 	player.w=PLAYER_WIDTH;
 	player.h=PLAYER_HEIGHT;
-	player.count=3.0f;
-	player.frame=0.0f;
+	player.count=3;
+	player.frame=0;
 }
 
 void state_s::reset(){
@@ -188,8 +188,8 @@ void state_s::reset(){
 	backdrop_1.w=renderer.rect.right*2.0f;
 	backdrop_1.h=renderer.rect.bottom*2.0f;
 	backdrop_1.rot=0.0f;
-	backdrop_1.count=1.0f;
-	backdrop_1.frame=0.0f;
+	backdrop_1.count=1;
+	backdrop_1.frame=0;
 	backdrop_2=backdrop_1;
 	backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
 	backdrop_2.y=backdrop_1.y-backdrop_2.h;

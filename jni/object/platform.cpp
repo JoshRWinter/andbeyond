@@ -76,7 +76,7 @@ platform_s::platform_s(const state_s &state,float highest,int platform_type){
 	w=PLATFORM_WIDTH;
 	h=PLATFORM_HEIGHT;
 	rot=0.0f;
-	count=3.0f;
+	count=3;
 	frame=type;
 	xflip=randomint(0,1)==0;
 	yv=0.0f;
