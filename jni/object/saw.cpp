@@ -24,6 +24,12 @@ saw_s::saw_s(const state_s &state){
 	rail.y=y+(SAW_SIZE/2.0f)-(SAWRAIL_HEIGHT/2.0f);
 	rail.count=1.0f;
 	rail.frame=0.0f;
+
+	// if too close to an electro, move it up
+	for(std::vector<electro_s*>::const_iterator iter=state.electro_list.begin();iter!=state.electro_list.end();++iter){
+		if(collide(**iter,-4.0f))
+			y-=8.0f;
+	}
 }
 
 void saw_s::process(state_s &state){

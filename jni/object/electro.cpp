@@ -21,6 +21,11 @@ electro_s::electro_s(const state_s &state){
 		if(collide(**iter,-4.0f))
 			y-=8.0f;
 	}
+	// if too close to a saw, move it up
+	for(std::vector<saw_s*>::const_iterator iter=state.saw_list.begin();iter!=state.saw_list.end();++iter){
+		if(collide(**iter,-4.0f))
+			y-=8.0f;
+	}
 }
 
 void electro_s::process(state_s &state){
