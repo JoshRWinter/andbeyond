@@ -36,10 +36,11 @@ void saw_s::process(state_s &state){
 	for(std::vector<saw_s*>::iterator iter=state.saw_list.begin();iter!=state.saw_list.end();){
 		saw_s *saw=*iter;
 
-		if(state.player.y<PLAYER_BASELINE){
+		if(state.player.y<PLAYER_BASELINE)
 			saw->y+=PLAYER_BASELINE-state.player.y;
-			saw->rail.y+=PLAYER_BASELINE-state.player.y;
-		}
+
+		// the rail follows the saw
+		saw->rail.y=saw->y+(SAW_SIZE/2.0f)-(SAWRAIL_HEIGHT/2.0f);
 
 		// check for obstacles colliding with player
 		if(saw->collide(state.player,0.25f)){
