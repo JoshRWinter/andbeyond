@@ -9,6 +9,10 @@ bool state_s::core(){
 	if(timer_game>200.0f)
 		timer_game=60.0f;
 
+	// proc smashers
+	// must be first
+	smasher_s::process(*this);
+
 	// proc platforms
 	platform_s::process(*this);
 
@@ -40,7 +44,6 @@ bool state_s::core(){
 	// needs to be last
 	// proc player
 	player.process(*this);
-
 
 	return true;
 }
@@ -88,6 +91,11 @@ void state_s::render()const{
 	// render platforms
 	if(platform_list.size()!=0){
 		platform_s::render(renderer,platform_list);
+	}
+
+	// render smashers
+	if(smasher_list.size()!=0){
+		smasher_s::render(renderer,smasher_list);
 	}
 
 	// render player
@@ -166,6 +174,10 @@ void state_s::reset(){
 	for(std::vector<electro_s*>::iterator iter=electro_list.begin();iter!=electro_list.end();++iter)
 		delete *iter;
 	electro_list.clear();
+	// clear smashers
+	for(std::vector<smasher_s*>::iterator iter=smasher_list.begin();iter!=smasher_list.end();++iter)
+		delete *iter;
+	smasher_list.clear();
 	// clear particles
 	for(std::vector<particle_s*>::iterator iter=particle_list.begin();iter!=particle_list.end();++iter)
 		delete *iter;

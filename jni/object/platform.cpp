@@ -111,8 +111,17 @@ platform_s::platform_s(const state_s &state,float highest,int platform_type){
 				}
 			}
 		}
-	}
 
+		// move platform towards the center if near a smasher
+		for(std::vector<smasher_s*>::const_iterator iter=state.smasher_list.begin();iter!=state.smasher_list.end();++iter){
+			smasher_s &smasher=**iter;
+			if(y>smasher.left.y&&y<smasher.left.y+Y_TOLERANCE){
+				// bring it in towards the center
+				const float bound=3.0f;
+				x=randomint((state.renderer.rect.left+bound)*10.0f,(state.renderer.rect.right-bound-PLATFORM_WIDTH)*10.0f)/10.0f;
+			}
+		}
+	}
 }
 
 spring_s::spring_s(){
@@ -175,6 +184,7 @@ void platform_s::process(state_s &state){
 				// delete any obstacles that have spawned but are still offscreen
 				saw_s::clear_all_ahead(state.saw_list,state.renderer.rect.top);
 				electro_s::clear_all_ahead(state.electro_list,state.renderer.rect.top);
+				smasher_s::clear_all_ahead(state.smasher_list,state.renderer.rect.top);
 
 				state.player.y=platform->spring.y-PLAYER_HEIGHT;
 				state.player.yv=-PLAYER_SUPER_UPWARD_VELOCITY;
@@ -201,6 +211,7 @@ void platform_s::process(state_s &state){
 		if(platform->type==PLATFORM_DISAPPEARING&&platform->yv==0.0f){
 			saw_s::clear_all_ahead(state.saw_list,platform->y);
 			electro_s::clear_all_ahead(state.electro_list,platform->y);
+			smasher_s::clear_all_ahead(state.smasher_list,platform->y);
 		}
 
 		++iter;

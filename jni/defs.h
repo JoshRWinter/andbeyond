@@ -17,6 +17,7 @@
 #define TID_PARTICLE 14
 #define TID_UPPERBACKDROP 15
 #define TID_ELECTRO 16
+#define TID_SMASHER 17
 
 #define HEIGHT_INCREMENT 0.1f
 #define PLAYER_UPWARD_VELOCITY 0.26f
@@ -109,6 +110,25 @@ struct electro_s:base_s{
 	float timer_frame;
 };
 
+#define SMASHER_WIDTH 4.5f
+#define SMASHER_HEIGHT 1.5f
+#define SMASHER_RETRACT 3.675f
+#define SMASHER_SMASH_TIMER 110.0f
+#define SMASHER_RETRACT_TIMER 50.0f
+#define SMASHER_SMASH_VELOCITY 0.2f
+#define SMASHER_RETRACT_VELOCITY 0.05f 
+struct smasher_s{
+	smasher_s(const state_s&);
+	static void process(state_s&);
+	static void render(const renderer_s&,const std::vector<smasher_s*>&);
+	static void clear_all_ahead(std::vector<smasher_s*>&,float);
+
+	base_s left,right;
+	bool retracting; // direction
+	bool smashed; // currently smashed
+	float timer;
+};
+
 #define PARTICLE_TERMINAL_VELOCITY 0.15f
 #define PARTICLE_TTL 7,18
 #define PARTICLE_SPEED 0.275f
@@ -186,6 +206,7 @@ struct state_s{
 	std::vector<saw_s*> saw_list;
 	std::vector<particle_s*> particle_list;
 	std::vector<electro_s*> electro_list;
+	std::vector<smasher_s*> smasher_list;
 };
 
 int32_t inputproc(android_app*,AInputEvent*);

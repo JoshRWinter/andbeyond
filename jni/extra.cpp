@@ -13,7 +13,7 @@ int base_s::correct(const base_s &b){
 	if(!this->collide(b,0.0f))
 		return 0;
 
-	// this object collides with the <left|right|bottom|top> side
+	// this object collides with the <left|right|bottom|top> side of <b>
 	float left,right,bottom,top;
 	left=fabs((x+w)-b.x);
 	right=fabs(x-(b.x+b.w));
@@ -41,7 +41,7 @@ int base_s::correct(const base_s &b){
 		return COLLIDE_LEFT;
 	}
 	else{
-		y=b.y+h;
+		y=b.y+b.h;
 		return COLLIDE_BOTTOM;
 	}
 }
