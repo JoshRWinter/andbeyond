@@ -28,9 +28,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="45.254834"
-     inkscape:cx="315.4564"
-     inkscape:cy="943.4663"
+     inkscape:zoom="2"
+     inkscape:cx="422.93997"
+     inkscape:cy="593.78458"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -150,34 +150,34 @@
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.465;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        sodipodi:nodetypes="ccccc" />
     <rect
-       style="fill:#d7ddd7;fill-opacity:1;fill-rule:evenodd;stroke:#000019;stroke-width:0.36500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.69801983"
+       style="fill:#d7ddd7;fill-opacity:1;fill-rule:evenodd;stroke:#000019;stroke-width:0.37099349;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.69801983"
        id="rect12304"
-       width="72.495834"
-       height="43.656254"
-       x="80.168747"
-       y="95.122917" />
+       width="72.489838"
+       height="45.105465"
+       x="80.171745"
+       y="95.125916" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:7.76111126px;line-height:6.61458302px;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="115.67097"
-       y="106.76458"
+       x="116.06784"
+       y="104.9125"
        id="text12308"><tspan
          sodipodi:role="line"
          id="tspan12306"
-         x="115.67097"
-         y="106.76458"
-         style="font-size:7.76111126px;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+         x="116.06784"
+         y="104.9125"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111126px;font-family:'Arabic Typesetting';-inkscape-font-specification:'Arabic Typesetting';text-align:center;text-anchor:middle;stroke-width:0.26458332px"
          dy="-2.3899996">WELCOME TO</tspan><tspan
          sodipodi:role="line"
-         x="115.67097"
-         y="113.37917"
-         style="font-size:7.76111126px;text-align:center;text-anchor:middle;stroke-width:0.26458332px;-inkscape-font-specification:'Century Gothic';font-family:'Century Gothic';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+         x="116.06784"
+         y="112.96318"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111126px;font-family:'DejaVu Math TeX Gyre';-inkscape-font-specification:'DejaVu Math TeX Gyre';text-align:center;text-anchor:middle;stroke-width:0.26458332px"
          id="tspan12310"
          dy="3.7499983">Joe's</tspan><tspan
          sodipodi:role="line"
-         x="115.67097"
-         y="119.99374"
-         style="font-size:7.76111126px;text-align:center;text-anchor:middle;stroke-width:0.26458332px;-inkscape-font-specification:'Century Gothic';font-family:'Century Gothic';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+         x="116.06784"
+         y="119.82793"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111126px;font-family:'DejaVu Math TeX Gyre';-inkscape-font-specification:'DejaVu Math TeX Gyre';text-align:center;text-anchor:middle;stroke-width:0.26458332px"
          id="tspan12312"
          dy="7.0400019">Space Elevator</tspan></text>
     <g
@@ -205,22 +205,21 @@
            sodipodi:role="line">CONDEMNED</tspan></text>
     </g>
     <g
-       id="g9349"
-       transform="translate(-18.625628,45.564768)">
+       id="g5807">
       <rect
-         y="4.1126876"
-         x="104.72935"
+         y="49.677456"
+         x="86.103722"
          height="16.744436"
          width="68.084351"
          id="rect9343"
-         style="fill:#5f6e7d;fill-opacity:1;stroke:#000006;stroke-width:0.48100004;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.98999999" />
+         style="fill:#5e524e;fill-opacity:1;stroke:#000006;stroke-width:0.48100004;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.98999999" />
       <rect
-         y="3.8721249"
-         x="104.96844"
+         y="49.436893"
+         x="86.342812"
          height="1.2160764"
          width="67.606171"
          id="rect9345"
-         style="fill:#5f6e7d;fill-opacity:1;stroke:none;stroke-width:0.48100001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.98999999" />
+         style="fill:#5e524e;fill-opacity:1;stroke:none;stroke-width:0.48100001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.98999999" />
     </g>
   </g>
 </svg>
