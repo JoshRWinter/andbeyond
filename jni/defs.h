@@ -211,3 +211,5 @@ struct state_s{
 
 int32_t inputproc(android_app*,AInputEvent*);
 void cmdproc(android_app*,int32_t);
+
+bool too_close(const base_s&,const std::vector<saw_s*>&,const std::vector<electro_s*>&,const std::vector<smasher_s*>&);

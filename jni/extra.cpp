@@ -3,7 +3,35 @@
 #include <android_native_app_glue.h>
 #include <math.h>
 
+#include <vector>
+
 #include "defs.h"
+
+struct obstacle_s{
+	const base_s *base;
+	const int obstacle_id;
+};
+
+bool too_close(const base_s &base,const std::vector<saw_s*> &saw_list,const std::vector<electro_s*> &electro_list,const std::vector<smasher_s*> &smasher_list){
+	const float tolerance=-5.0f;
+
+	for(std::vector<saw_s*>::const_iterator iter=saw_list.begin();iter!=saw_list.end();++iter){
+		if(base.collide(**iter,tolerance))
+			return true;
+	}
+
+	for(std::vector<electro_s*>::const_iterator iter=electro_list.begin();iter!=electro_list.end();++iter){
+		if(base.collide(**iter,tolerance))
+			return true;
+	}
+
+	for(std::vector<smasher_s*>::const_iterator iter=smasher_list.begin();iter!=smasher_list.end();++iter){
+		if(base.collide((*iter)->left,tolerance))
+			return true;
+	}
+
+	return false;
+}
 
 bool base_s::collide(const base_s &b,float tolerance)const{
 	return x+w>b.x+tolerance&&x<b.x+b.w-tolerance&&y+h>b.y+tolerance&&y<b.y+b.h-tolerance;

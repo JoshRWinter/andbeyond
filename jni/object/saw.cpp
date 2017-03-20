@@ -25,11 +25,12 @@ saw_s::saw_s(const state_s &state){
 	rail.count=1.0f;
 	rail.frame=0.0f;
 
-	// if too close to an electro, move it up
-	for(std::vector<electro_s*>::const_iterator iter=state.electro_list.begin();iter!=state.electro_list.end();++iter){
-		if(collide(**iter,-4.0f))
-			y-=8.0f;
-	}
+	bool result;
+	do{
+		result=too_close(*this,state.saw_list,state.electro_list,state.smasher_list);
+		if(result)
+			y-=5.1f;
+	}while(result);
 }
 
 void saw_s::process(state_s &state){

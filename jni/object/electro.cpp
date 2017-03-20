@@ -16,16 +16,12 @@ electro_s::electro_s(const state_s &state){
 	frame=0;
 	timer_frame=0.0f;
 
-	// if too close to other electro, move it up
-	for(std::vector<electro_s*>::const_iterator iter=state.electro_list.begin();iter!=state.electro_list.end();++iter){
-		if(collide(**iter,-4.0f))
-			y-=8.0f;
-	}
-	// if too close to a saw, move it up
-	for(std::vector<saw_s*>::const_iterator iter=state.saw_list.begin();iter!=state.saw_list.end();++iter){
-		if(collide(**iter,-4.0f))
-			y-=8.0f;
-	}
+	bool result;
+	do{
+		result=too_close(*this,state.saw_list,state.electro_list,state.smasher_list);
+		if(result)
+			y-=5.1f;
+	}while(result);
 }
 
 void electro_s::process(state_s &state){

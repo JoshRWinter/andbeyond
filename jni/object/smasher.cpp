@@ -20,6 +20,15 @@ smasher_s::smasher_s(const state_s &state){
 
 	right=left;
 	right.x=state.renderer.rect.right-SMASHER_WIDTH+SMASHER_RETRACT;
+
+	bool result;
+	do{
+		result=too_close(left,state.saw_list,state.electro_list,state.smasher_list);
+		if(result){
+			left.y-=5.1f;
+			right.y=left.y;
+		}
+	}while(result);
 }
 
 void smasher_s::process(state_s &state){

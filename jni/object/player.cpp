@@ -9,7 +9,7 @@ void player_s::process(state_s &state){
 	bool going_up=yv<0.0f;
 	if(y<PLAYER_BASELINE){
 		// maybe spawn a new saw
-		if(state.saw_list.size()<2&&onein(120)&&(state.saw_list.size()==0||state.saw_list[0]->y-state.renderer.rect.top>4.0f))
+		if(state.saw_list.size()<2&&onein(120)&&state.saw_list.size()<2)
 			state.saw_list.push_back(new saw_s(state));
 		state.height+=PLAYER_BASELINE-y;
 		y=PLAYER_BASELINE;
