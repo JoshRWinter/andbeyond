@@ -11,7 +11,7 @@ void player_s::process(state_s &state){
 		// maybe spawn a new saw
 		if(state.saw_list.size()<2&&onein(120)&&state.saw_list.size()<2)
 			state.saw_list.push_back(new saw_s(state));
-		state.height+=PLAYER_BASELINE-y;
+		state.height+=(PLAYER_BASELINE-y)*1.1675f;
 		y=PLAYER_BASELINE;
 	}
 	yv+=GRAVITY;

@@ -4,30 +4,34 @@
 
 #define SHOW_FPS
 //#define INVINCIBLE
+//#define START_HIGH
 
 #define TID_PLATFORM 0
 #define TID_PLAYER 1
 #define TID_BACKDROPGROUND 2
 #define TID_BACKDROP_FIRST 3
 #define TID_BACKDROP_LAST 9
-#define TID_LOWERBACKDROP 10
-#define TID_SPRING 11
-#define TID_SAW 12
-#define TID_SAWRAIL 13
-#define TID_PARTICLE 14
-#define TID_UPPERBACKDROP 15
-#define TID_ELECTRO 16
-#define TID_SMASHER 17
+#define TID_BACKDROP_TRANSITION 10
+#define TID_LOWERBACKDROP 11
+#define TID_SPRING 12
+#define TID_SAW 13
+#define TID_SAWRAIL 14
+#define TID_PARTICLE 15
+#define TID_UPPERBACKDROP 16
+#define TID_ELECTRO 17
+#define TID_SMASHER 18
 
-#define HEIGHT_INCREMENT 0.1f
+#define TRANSITION_SPACE_HEIGHT 520.0f
 #define PLAYER_UPWARD_VELOCITY 0.26f
 #define PLAYER_SUPER_UPWARD_VELOCITY 0.4f
 #define PLAYER_BASELINE -1.0f
-#define UPPER_BACKDROP_FULL_TRANSITION 500.0f
+#define UPPER_BACKDROP_FULL_TRANSITION 430.0f
 #define UPPER_BACKDROP_START_TRANSITION 405.0f
 #define TILT_DIVISOR 20.0f
 #define GRAVITY 0.007f
 #define TERMINAL_VELOCITY 0.4f
+
+#define  in_space(h) (h>TRANSITION_SPACE_HEIGHT)
 
 #define COLLIDE_TOP 1
 #define COLLIDE_LEFT 2
@@ -39,6 +43,7 @@ struct renderer_s;
 
 struct base_s{
 	bool collide(const base_s&,float)const;
+	bool collide_y(const base_s&,float)const;
 	int correct(const base_s&);
 
 	float x,y,w,h,rot;

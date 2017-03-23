@@ -30,15 +30,23 @@ bool state_s::core(){
 		backdrop_1.y+=PLAYER_BASELINE-player.y;
 		backdrop_2.y+=PLAYER_BASELINE-player.y;
 		if(backdrop_1.y>renderer.rect.bottom){
-			backdrop_1.y=backdrop_2.y-backdrop_1.h+0.05f;
-			backdrop_1.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
+			if(backdrop_2.tid!=TID_BACKDROP_TRANSITION&&backdrop_1.tid!=TID_BACKDROP_TRANSITION)
+				backdrop_1.y=backdrop_2.y-backdrop_1.h+0.05f;
+			if(in_space(height))
+				backdrop_1.tid=TID_BACKDROP_TRANSITION;
+			else
+				backdrop_1.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
 		}
 		else if(backdrop_2.y>renderer.rect.bottom){
-			backdrop_2.y=backdrop_1.y-backdrop_2.h+0.05f;
-			backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
+			if(backdrop_2.tid!=TID_BACKDROP_TRANSITION&&backdrop_1.tid!=TID_BACKDROP_TRANSITION)
+				backdrop_2.y=backdrop_1.y-backdrop_2.h+0.05f;
+			if(in_space(height))
+				backdrop_2.tid=TID_BACKDROP_TRANSITION;
+			else
+				backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
 		}
 		if(lower_backdrop.y<renderer.rect.bottom)
-			lower_backdrop.y+=(PLAYER_BASELINE-player.y)/25.0f;
+			lower_backdrop.y+=(PLAYER_BASELINE-player.y)/22.5f;
 	}
 
 	// needs to be last
@@ -67,11 +75,13 @@ void state_s::render()const{
 		glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
 	}
 
-	// draw the backdrops (if any)
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[backdrop_1.tid].object);
-	renderer.draw(backdrop_1,false);
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[backdrop_2.tid].object);
-	renderer.draw(backdrop_2,false);
+	// draw the backdrops
+	if(height<TRANSITION_SPACE_HEIGHT+90.0f){
+		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[backdrop_1.tid].object);
+		renderer.draw(backdrop_1,false);
+		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[backdrop_2.tid].object);
+		renderer.draw(backdrop_2,false);
+	}
 
 	// render particles
 	if(particle_list.size()!=0){
@@ -210,5 +220,9 @@ void state_s::reset(){
 
 	tilt=0.0f;
 	timer_game=0.0f;
+#ifdef START_HIGH
+	height=320.0f;
+#else
 	height=0.0f;
+#endif
 }
