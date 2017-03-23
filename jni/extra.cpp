@@ -12,7 +12,6 @@ bool too_close(const base_s &base,const std::vector<saw_s*> &saw_list,const std:
 
 	for(std::vector<saw_s*>::const_iterator iter=saw_list.begin();iter!=saw_list.end();++iter){
 		if(base.collide_y(**iter,tolerance)){
-			logcat("this.y==%.2f, base.y==%.2f",base.y,(*iter)->y);
 			return true;
 		}
 	}
