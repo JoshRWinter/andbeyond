@@ -117,7 +117,7 @@ platform_s::platform_s(const state_s &state,float highest,int platform_type){
 			smasher_s &smasher=**iter;
 			if(y>smasher.left.y&&y<smasher.left.y+Y_TOLERANCE){
 				// bring it in towards the center
-				const float bound=3.0f;
+				const float bound=5.0f;
 				x=randomint((state.renderer.rect.left+bound)*10.0f,(state.renderer.rect.right-bound-PLATFORM_WIDTH)*10.0f)/10.0f;
 			}
 		}
