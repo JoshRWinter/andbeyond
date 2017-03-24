@@ -15,8 +15,8 @@
    version="1.1"
    id="svg8"
    inkscape:export-filename="/home/josh/android/andbeyond/assets_local/backdrop_transition_0.png"
-   inkscape:export-xdpi="169.33316"
-   inkscape:export-ydpi="169.33316"
+   inkscape:export-xdpi="135.46651"
+   inkscape:export-ydpi="135.46651"
    inkscape:version="0.92.1 r"
    sodipodi:docname="backdrop_transition_0.svg">
   <defs
@@ -43,7 +43,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="410.93555"
+     inkscape:cx="232.43555"
      inkscape:cy="518.83057"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -124,22 +124,25 @@
        d="m 66.145832,228.54108 v 12.89637 H 174.14596 v -12.89637 z"
        id="rect4485"
        inkscape:connector-curvature="0" />
-    <rect
-       y="-241.19522"
-       x="86.103661"
-       height="5.9626656"
-       width="68.084351"
-       id="rect9351"
-       style="fill:#5e524e;fill-opacity:1;stroke:#000006;stroke-width:0.48100004;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.98999999"
-       transform="scale(1,-1)" />
-    <rect
-       y="-241.43579"
-       x="86.342751"
-       height="1.2160764"
-       width="67.606171"
-       id="rect9353"
-       style="fill:#5e524e;fill-opacity:1;stroke:none;stroke-width:0.48100001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.98999999"
-       transform="scale(1,-1)" />
+    <g
+       id="g6424">
+      <rect
+         transform="scale(1,-1)"
+         style="fill:#51413a;fill-opacity:1;stroke:#000006;stroke-width:0.48100004;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.98999999"
+         id="rect9351"
+         width="68.084351"
+         height="5.9626656"
+         x="86.103661"
+         y="-241.19522" />
+      <rect
+         transform="scale(1,-1)"
+         style="fill:#51413a;fill-opacity:1;stroke:none;stroke-width:0.48100001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.98999999"
+         id="rect9353"
+         width="67.606171"
+         height="1.2160764"
+         x="86.342751"
+         y="-241.43579" />
+    </g>
     <ellipse
        style="fill:#ff4115;fill-opacity:1;stroke:#170000;stroke-width:0.26458332;stroke-opacity:1"
        id="path1107"

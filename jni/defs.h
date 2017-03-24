@@ -50,8 +50,8 @@ struct base_s{
 	int count,frame; // <frame> of <count> in a sprite sheet
 };
 
-#define PLAYER_WIDTH 1.05f
-#define PLAYER_HEIGHT 1.2f
+#define PLAYER_WIDTH 1.075f
+#define PLAYER_HEIGHT 1.225f
 struct player_s:base_s{
 	void process(state_s&);
 	void render(const renderer_s&)const;
