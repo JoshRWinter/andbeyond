@@ -11,25 +11,30 @@ platform_s::platform_s(const state_s &state,float highest,int platform_type){
 	int closest;
 	int farthest;
 	int stage;
-	if(state.height<40){
+	if(state.height<60){
 		closest=100;
 		farthest=170;
 		stage=1;
 	}
-	else if(state.height<80){
+	else if(state.height<120){
 		closest=150;
 		farthest=235;
 		stage=2;
 	}
-	else if(state.height<150){
-		closest=255;
-		farthest=330;
+	else if(state.height<190){
+		closest=215;
+		farthest=240;
 		stage=3;
+	}
+	else if(state.height<250){
+		closest=270;
+		farthest=320;
+		stage=4;
 	}
 	else{
 		closest=340;
 		farthest=370;
-		stage=4;
+		stage=5;
 	}
 
 	// first platform of the level
@@ -47,13 +52,15 @@ platform_s::platform_s(const state_s &state,float highest,int platform_type){
 	// set platform type
 	if(platform_type==PLATFORM_DONTCARE){
 		// choose PLATFORM_DISAPPEARING
-		if(((last_disappearing&&!onein(5))||onein(20))&&!first)
+		if(((last_disappearing&&!onein(4))||onein(25))&&!first)
 			type=PLATFORM_DISAPPEARING;
 		// most likely choose PLATFORM_NORMAL or PLATFORM_SLIDING
 		else{
 			int sliding_probability;
-			if(stage>3)
-				sliding_probability=3;
+			if(stage==3)
+				sliding_probability=5;
+			else if(stage>3)
+				sliding_probability=2;
 			else
 				sliding_probability=7;
 			if(onein(sliding_probability)&&!first)
