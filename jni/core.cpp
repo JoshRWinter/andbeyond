@@ -25,6 +25,9 @@ bool state_s::core(){
 	// proc electros
 	electro_s::process(*this);
 
+	// proc scenery
+	scenery_s::process(*this);
+
 	// proc backdrops
 	if(player.y<PLAYER_BASELINE){
 		backdrop_1.y+=PLAYER_BASELINE-player.y;
@@ -53,6 +56,13 @@ bool state_s::core(){
 	// proc player
 	player.process(*this);
 
+	if(scenery_list.size()==0){
+		if(around(height,150.0f))
+			scenery_list.push_back(new scenery_s(*this,SCENERY_BLIMP));
+		else if(around(height,500.0f))
+			scenery_list.push_back(new scenery_s(*this,SCENERY_MOON));
+	}
+
 	return true;
 }
 
@@ -73,6 +83,11 @@ void state_s::render()const{
 		glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,alpha>1.0f?1.0f:alpha);
 		renderer.draw(upper_backdrop,false);
 		glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
+	}
+
+	// render scenery
+	if(scenery_list.size()!=0){
+		scenery_s::render(renderer,scenery_list);
 	}
 
 	// draw the backdrops
@@ -188,6 +203,10 @@ void state_s::reset(){
 	for(std::vector<smasher_s*>::iterator iter=smasher_list.begin();iter!=smasher_list.end();++iter)
 		delete *iter;
 	smasher_list.clear();
+	// clear scenery
+	for(std::vector<scenery_s*>::iterator iter=scenery_list.begin();iter!=scenery_list.end();++iter)
+		delete *iter;
+	scenery_list.clear();
 	// clear particles
 	for(std::vector<particle_s*>::iterator iter=particle_list.begin();iter!=particle_list.end();++iter)
 		delete *iter;

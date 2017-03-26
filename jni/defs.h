@@ -20,6 +20,8 @@
 #define TID_UPPERBACKDROP 16
 #define TID_ELECTRO 17
 #define TID_SMASHER 18
+#define TID_SCENERY_BLIMP 19
+#define TID_SCENERY_MOON 20
 
 #define TRANSITION_SPACE_HEIGHT 520.0f
 #define PLAYER_UPWARD_VELOCITY 0.26f
@@ -31,7 +33,8 @@
 #define GRAVITY 0.007f
 #define TERMINAL_VELOCITY 0.4f
 
-#define  in_space(h) (h>TRANSITION_SPACE_HEIGHT)
+#define in_space(h) (h>TRANSITION_SPACE_HEIGHT)
+#define around(h,m) (h>m-1.0f&&h<m+1.0f)
 
 #define COLLIDE_TOP 1
 #define COLLIDE_LEFT 2
@@ -134,6 +137,22 @@ struct smasher_s{
 	float timer;
 };
 
+#define SCENERY_PARALLAX 15.0f
+#define SCENERY_BLIMP 1
+#define SCENERY_MOON 2
+#define SCENERY_BLIMP_WIDTH 2.75f
+#define SCENERY_BLIMP_HEIGHT 1.025f
+#define SCENERY_MOON_SIZE 3.5f
+struct scenery_s:base_s{
+	scenery_s(const state_s&,int);
+	static void process(state_s&);
+	static void render(const renderer_s&,const std::vector<scenery_s*>&);
+
+	int type;
+	int tid; // texture id
+	bool xflip;
+};
+
 #define PARTICLE_TERMINAL_VELOCITY 0.15f
 #define PARTICLE_TTL 7,18
 #define PARTICLE_SPEED 0.275f
@@ -212,6 +231,7 @@ struct state_s{
 	std::vector<particle_s*> particle_list;
 	std::vector<electro_s*> electro_list;
 	std::vector<smasher_s*> smasher_list;
+	std::vector<scenery_s*> scenery_list;
 };
 
 int32_t inputproc(android_app*,AInputEvent*);
