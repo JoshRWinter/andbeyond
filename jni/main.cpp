@@ -13,8 +13,8 @@ extern const char *vertexshader,*fragmentshader;
 void renderer_s::init(android_app *app){
 	initextensions(); // opengl extensions
 	getdims(&dev,app->window,DIMS_PORT);
-	screen.w=dev.w>720?720:dev.w;
-	screen.h=dev.h>1280?1280:dev.h;
+	screen.w=dev.w>720?720:504;
+	screen.h=dev.h>1280?1280:896;
 	display=eglGetDisplay(EGL_DEFAULT_DISPLAY);
 	eglInitialize(display,NULL,NULL);
 	EGLConfig config;
