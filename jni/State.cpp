@@ -1,32 +1,28 @@
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
-#include <android_native_app_glue.h>
+#include "andbeyond.h"
 
-#include "defs.h"
-
-bool state_s::core(){
+bool State::core(){
 	timer_game+=1.0f;
 	if(timer_game>200.0f)
 		timer_game=60.0f;
 
 	// proc smashers
 	// must be first
-	smasher_s::process(*this);
+	Smasher::process(*this);
 
 	// proc platforms
-	platform_s::process(*this);
+	Platform::process(*this);
 
 	// proc particles
-	particle_s::process(*this);
+	Particle::process(*this);
 
 	// proc saws
-	saw_s::process(*this);
+	Saw::process(*this);
 
 	// proc electros
-	electro_s::process(*this);
+	Electro::process(*this);
 
 	// proc scenery
-	scenery_s::process(*this);
+	Scenery::process(*this);
 
 	// proc backdrops
 	if(player.y<PLAYER_BASELINE){
@@ -58,15 +54,15 @@ bool state_s::core(){
 
 	if(scenery_list.size()==0){
 		if(around(height,150.0f))
-			scenery_list.push_back(new scenery_s(*this,SCENERY_BLIMP));
+			scenery_list.push_back(new Scenery(*this,SCENERY_BLIMP));
 		else if(around(height,500.0f))
-			scenery_list.push_back(new scenery_s(*this,SCENERY_MOON));
+			scenery_list.push_back(new Scenery(*this,SCENERY_MOON));
 	}
 
 	return true;
 }
 
-void state_s::render()const{
+void State::render()const{
 	// draw the sky
 	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -87,7 +83,7 @@ void state_s::render()const{
 
 	// render scenery
 	if(scenery_list.size()!=0){
-		scenery_s::render(renderer,scenery_list);
+		Scenery::render(renderer,scenery_list);
 	}
 
 	// draw the backdrops
@@ -100,27 +96,27 @@ void state_s::render()const{
 
 	// render particles
 	if(particle_list.size()!=0){
-		particle_s::render(renderer,particle_list);
+		Particle::render(renderer,particle_list);
 	}
 
 	// render electros
 	if(electro_list.size()!=0){
-		electro_s::render(renderer,electro_list);
+		Electro::render(renderer,electro_list);
 	}
 
 	// render saws
 	if(saw_list.size()!=0){
-		saw_s::render(renderer,saw_list);
+		Saw::render(renderer,saw_list);
 	}
 
 	// render platforms
 	if(platform_list.size()!=0){
-		platform_s::render(renderer,platform_list);
+		Platform::render(renderer,platform_list);
 	}
 
 	// render smashers
 	if(smasher_list.size()!=0){
-		smasher_s::render(renderer,smasher_list);
+		Smasher::render(renderer,smasher_list);
 	}
 
 	// render player
@@ -154,7 +150,7 @@ void state_s::render()const{
 #endif // SHOW_FPS
 }
 
-state_s::state_s(){
+State::State(){
 	running=false;
 
 	// world rectangle
@@ -186,29 +182,29 @@ state_s::state_s(){
 	player.frame=0;
 }
 
-void state_s::reset(){
+void State::reset(){
 	// clear platforms
-	for(std::vector<platform_s*>::iterator iter=platform_list.begin();iter!=platform_list.end();++iter)
+	for(std::vector<Platform*>::iterator iter=platform_list.begin();iter!=platform_list.end();++iter)
 		delete *iter;
 	platform_list.clear();
 	// clear saws
-	for(std::vector<saw_s*>::iterator iter=saw_list.begin();iter!=saw_list.end();++iter)
+	for(std::vector<Saw*>::iterator iter=saw_list.begin();iter!=saw_list.end();++iter)
 		delete *iter;
 	saw_list.clear();
 	// clear electros
-	for(std::vector<electro_s*>::iterator iter=electro_list.begin();iter!=electro_list.end();++iter)
+	for(std::vector<Electro*>::iterator iter=electro_list.begin();iter!=electro_list.end();++iter)
 		delete *iter;
 	electro_list.clear();
 	// clear smashers
-	for(std::vector<smasher_s*>::iterator iter=smasher_list.begin();iter!=smasher_list.end();++iter)
+	for(std::vector<Smasher*>::iterator iter=smasher_list.begin();iter!=smasher_list.end();++iter)
 		delete *iter;
 	smasher_list.clear();
 	// clear scenery
-	for(std::vector<scenery_s*>::iterator iter=scenery_list.begin();iter!=scenery_list.end();++iter)
+	for(std::vector<Scenery*>::iterator iter=scenery_list.begin();iter!=scenery_list.end();++iter)
 		delete *iter;
 	scenery_list.clear();
 	// clear particles
-	for(std::vector<particle_s*>::iterator iter=particle_list.begin();iter!=particle_list.end();++iter)
+	for(std::vector<Particle*>::iterator iter=particle_list.begin();iter!=particle_list.end();++iter)
 		delete *iter;
 	particle_list.clear();
 
@@ -244,4 +240,19 @@ void state_s::reset(){
 #else
 	height=0.0f;
 #endif
+}
+
+int State::process(){
+	int ident,events;
+	android_poll_source *source;
+	while((ident=ALooper_pollAll(running?0:-1,NULL,&events,(void**)&source))>=0){
+		if(source)
+			source->process(app,source);
+		if(ident==LOOPER_ID_USER){
+			handle_accel(&accel);
+		}
+		if(app->destroyRequested)
+			return false;
+	}
+	return true;
 }

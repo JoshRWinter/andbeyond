@@ -1,12 +1,6 @@
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
-#include <android_native_app_glue.h>
+#include "../andbeyond.h"
 
-#include <vector>
-
-#include "defs.h"
-
-scenery_s::scenery_s(const state_s &state,int scenery_type){
+Scenery::Scenery(const State &state,int scenery_type){
 	switch(scenery_type){
 	case SCENERY_BLIMP:
 		w=SCENERY_BLIMP_WIDTH;
@@ -28,9 +22,9 @@ scenery_s::scenery_s(const state_s &state,int scenery_type){
 	type=scenery_type;
 }
 
-void scenery_s::process(state_s &state){
-	for(std::vector<scenery_s*>::iterator iter=state.scenery_list.begin();iter!=state.scenery_list.end();){
-		scenery_s &scenery=**iter;
+void Scenery::process(State &state){
+	for(std::vector<Scenery*>::iterator iter=state.scenery_list.begin();iter!=state.scenery_list.end();){
+		Scenery &scenery=**iter;
 
 		if(state.player.y<PLAYER_BASELINE)
 			scenery.y+=(PLAYER_BASELINE-state.player.y)/SCENERY_PARALLAX;
@@ -45,8 +39,8 @@ void scenery_s::process(state_s &state){
 	}
 }
 
-void scenery_s::render(const renderer_s &renderer,const std::vector<scenery_s*> &scenery_list){
-	for(std::vector<scenery_s*>::const_iterator iter=scenery_list.begin();iter!=scenery_list.end();++iter){
+void Scenery::render(const Renderer &renderer,const std::vector<Scenery*> &scenery_list){
+	for(std::vector<Scenery*>::const_iterator iter=scenery_list.begin();iter!=scenery_list.end();++iter){
 		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[(*iter)->tid].object);
 		renderer.draw(**iter,(*iter)->xflip);
 	}

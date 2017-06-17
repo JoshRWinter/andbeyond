@@ -1,12 +1,6 @@
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
-#include <android_native_app_glue.h>
+#include "andbeyond.h"
 
-#include <vector>
-
-#include "defs.h"
-
-electro_s::electro_s(const state_s &state){
+Electro::Electro(const State &state){
 	w=ELECTRO_WIDTH;
 	h=ELECTRO_HEIGHT;
 	x=randomint(state.renderer.rect.left*10.0f,(state.renderer.rect.right-w)*10.0f)/10.0f;
@@ -18,19 +12,19 @@ electro_s::electro_s(const state_s &state){
 
 	bool result;
 	do{
-		result=too_close(*this,state.saw_list,state.electro_list,state.smasher_list);
+		result=too_close(state.saw_list,state.electro_list,state.smasher_list);
 		if(result)
 			y-=5.1f;
 	}while(result);
 }
 
-void electro_s::process(state_s &state){
+void Electro::process(State &state){
 	// maybe spawn a new electro
 	if(onein(300)&&state.electro_list.size()<2)
-		state.electro_list.push_back(new electro_s(state));
+		state.electro_list.push_back(new Electro(state));
 
-	for(std::vector<electro_s*>::iterator iter=state.electro_list.begin();iter!=state.electro_list.end();){
-		electro_s *electro=*iter;
+	for(std::vector<Electro*>::iterator iter=state.electro_list.begin();iter!=state.electro_list.end();){
+		Electro *electro=*iter;
 
 		if(state.player.y<PLAYER_BASELINE)
 			electro->y+=PLAYER_BASELINE-state.player.y;
@@ -60,8 +54,8 @@ void electro_s::process(state_s &state){
 	}
 }
 
-void electro_s::clear_all_ahead(std::vector<electro_s*> &electro_list,float level){
-	for(std::vector<electro_s*>::iterator iter=electro_list.begin();iter!=electro_list.end();){
+void Electro::clear_all_ahead(std::vector<Electro*> &electro_list,float level){
+	for(std::vector<Electro*>::iterator iter=electro_list.begin();iter!=electro_list.end();){
 		if((*iter)->y+ELECTRO_HEIGHT<level){
 			delete *iter;
 			iter=electro_list.erase(iter);
@@ -72,8 +66,8 @@ void electro_s::clear_all_ahead(std::vector<electro_s*> &electro_list,float leve
 	}
 }
 
-void electro_s::render(const renderer_s &renderer,const std::vector<electro_s*> &electro_list){
+void Electro::render(const Renderer &renderer,const std::vector<Electro*> &electro_list){
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_ELECTRO].object);
-	for(std::vector<electro_s*>::const_iterator iter=electro_list.begin();iter!=electro_list.end();++iter)
-		renderer.draw(**iter,false);
+	for(const Electro *electro:electro_list)
+		renderer.draw(*electro,false);
 }

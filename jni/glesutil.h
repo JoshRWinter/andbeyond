@@ -1,10 +1,8 @@
 #include <android/log.h>
 #include <android/sensor.h>
 #include <GLES2/gl2ext.h>
-#include <ft2build.h>
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_Android.h>
-#include FT_FREETYPE_H
 
 #define GLESUTIL_DEBUG
 
@@ -50,11 +48,19 @@ typedef struct{
 	unsigned atlas;
 }ftfont;
 struct audioplayer;
+struct sl_entity_position{
+	float x,y;
+};
+typedef void (*SL_CONFIG_FN)(const struct sl_entity_position*,const struct sl_entity_position*,float*,float*);
 typedef struct{
 	SLObjectItf engine,outputmix;
 	SLEngineItf engineinterface;
 	struct audioplayer *audioplayerlist;
 	int enabled;
+	int sound_count;
+	int last_id;
+	SL_CONFIG_FN sound_config_fn;
+	struct sl_entity_position listener;
 }slesenv;
 struct audioplayer{
 	SLObjectItf playerobject;
@@ -64,6 +70,10 @@ struct audioplayer{
 	slesenv *engine;
 	struct apacksound *sound;
 	int loop,destroy,initial;
+	int id;
+	int panning; // boolean stereo positioning enabled
+	struct sl_entity_position source;
+
 	struct audioplayer *next;
 };
 struct crosshair{
@@ -80,11 +90,11 @@ struct jni_info{
 	JavaVM *vm;
 	jobject clazz;
 	jobject sys_svc;
-	
+
 	int hasvb;
 	jclass vb_svc;
 	jmethodID vbmethod;
-	
+
 	jmethodID MethodGetWindow;
 	jobject lWindow;
 	jclass cWindow;
@@ -117,19 +127,26 @@ float textlen(ftfont *font,const char *text);
 float textheight(ftfont *font,const char *text);
 void drawtext(ftfont *font,float xpos,float ypos,const char *output);
 void drawtextcentered(ftfont *font,float xpos,float ypos,const char *output);
-slesenv *initOpenSL();
+slesenv *initOpenSL(SL_CONFIG_FN fn);
 void termOpenSL(slesenv *soundengine);
-struct audioplayer *playsound(slesenv *engine,struct apacksound *sound,int loop);
-void stopsound(slesenv *engine,struct audioplayer *audioplayer);
-void stopallsounds(slesenv *engine);
-void disablesound(slesenv *engine);
-void enablesound(slesenv *engine);
+int sl_play(slesenv *engine,struct apacksound *sound);
+int sl_play_loop(slesenv *engine,struct apacksound *sound);
+int sl_play_stereo(slesenv *engine,struct apacksound *sound,float x,float y);
+int sl_play_stereo_loop(slesenv *engine,struct apacksound *sound,float x,float y);
+void sl_set_source_position(slesenv *engine,int id,float position,float intensity);
+void sl_set_listener_position(slesenv *engine,float x,float y);
+int sl_check(slesenv *engine,int id);
+void sl_stop(slesenv *engine,int id);
+void sl_stop_all(slesenv *engine);
+void sl_disable(slesenv *engine);
+void sl_enable(slesenv *engine);
 int randomint(int low,int high);
 float zerof(float *val,float step);
 float targetf(float *val,float step,float target);
 float align(float *rot,float step,float target);
 unsigned screenshot(int w,int h,int darken);
 unsigned screenshotblur(int w,int h,int resize,int intensity);
+void get_nano_time(long long*);
 void init_jni(struct android_app *app,struct jni_info *jni_info);
 void vibratedevice(struct jni_info* jni_info,int mills);
 void hidenavbars(struct jni_info *jni_info);

@@ -1,12 +1,6 @@
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
-#include <android_native_app_glue.h>
+#include "../andbeyond.h"
 
-#include <vector>
-
-#include "../defs.h"
-
-saw_s::saw_s(const state_s &state){
+Saw::Saw(const State &state){
 	w=SAW_SIZE;
 	h=SAW_SIZE;
 	x=state.renderer.rect.left;
@@ -27,15 +21,15 @@ saw_s::saw_s(const state_s &state){
 
 	bool result;
 	do{
-		result=too_close(*this,state.saw_list,state.electro_list,state.smasher_list);
+		result=too_close(state.saw_list,state.electro_list,state.smasher_list);
 		if(result)
 			y-=5.1f;
 	}while(result);
 }
 
-void saw_s::process(state_s &state){
-	for(std::vector<saw_s*>::iterator iter=state.saw_list.begin();iter!=state.saw_list.end();){
-		saw_s *saw=*iter;
+void Saw::process(State &state){
+	for(std::vector<Saw*>::iterator iter=state.saw_list.begin();iter!=state.saw_list.end();){
+		Saw *saw=*iter;
 
 		if(state.player.y<PLAYER_BASELINE)
 			saw->y+=PLAYER_BASELINE-state.player.y;
@@ -67,7 +61,7 @@ void saw_s::process(state_s &state){
 
 		// generate a particle
 		if(saw->y+SAW_SIZE+1.5>state.renderer.rect.top)
-			state.particle_list.push_back(new particle_s(state,saw->x+(SAW_SIZE/2.0f),saw->y+(SAW_SIZE/2.0f),saw->xv>0.0f));
+			state.particle_list.push_back(new Particle(state,saw->x+(SAW_SIZE/2.0f),saw->y+(SAW_SIZE/2.0f),saw->xv>0.0f));
 
 		// delete if obstacle goes below the screen
 		if(saw->y>state.renderer.rect.bottom){
@@ -80,8 +74,8 @@ void saw_s::process(state_s &state){
 	}
 }
 
-void saw_s::clear_all_ahead(std::vector<saw_s*> &saw_list,float boundary){
-	for(std::vector<saw_s*>::iterator iter=saw_list.begin();iter!=saw_list.end();){
+void Saw::clear_all_ahead(std::vector<Saw*> &saw_list,float boundary){
+	for(std::vector<Saw*>::iterator iter=saw_list.begin();iter!=saw_list.end();){
 		if((*iter)->y+SAW_SIZE<boundary){
 			delete *iter;
 			iter=saw_list.erase(iter);
@@ -91,12 +85,12 @@ void saw_s::clear_all_ahead(std::vector<saw_s*> &saw_list,float boundary){
 	}
 }
 
-void saw_s::render(const renderer_s &renderer,const std::vector<saw_s*> &saw_list){
+void Saw::render(const Renderer &renderer,const std::vector<Saw*> &saw_list){
 	// render rails
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SAWRAIL].object);
-	for(std::vector<saw_s*>::const_iterator iter=saw_list.begin();iter!=saw_list.end();++iter)
+	for(std::vector<Saw*>::const_iterator iter=saw_list.begin();iter!=saw_list.end();++iter)
 		renderer.draw((*iter)->rail,false);
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SAW].object);
-	for(std::vector<saw_s*>::const_iterator iter=saw_list.begin();iter!=saw_list.end();++iter)
+	for(std::vector<Saw*>::const_iterator iter=saw_list.begin();iter!=saw_list.end();++iter)
 		renderer.draw(**iter,(*iter)->xv>0.0f?true:false);
 }

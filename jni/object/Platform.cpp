@@ -1,12 +1,6 @@
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
-#include <android_native_app_glue.h>
+#include "../andbeyond.h"
 
-#include <vector>
-
-#include "../defs.h"
-
-platform_s::platform_s(const state_s &state,float highest,int platform_type){
+Platform::Platform(const State &state,float highest,int platform_type){
 	// choose spacing
 	int closest;
 	int farthest;
@@ -105,8 +99,9 @@ platform_s::platform_s(const state_s &state,float highest,int platform_type){
 	// move platform to the side if it is near an electro
 	if(type!=PLATFORM_SLIDING){
 		float Y_TOLERANCE=4.5f;
-		for(std::vector<electro_s*>::const_iterator iter=state.electro_list.begin();iter!=state.electro_list.end();++iter){
-			electro_s &electro=**iter;
+		for(const Electro *e:state.electro_list){
+			const Electro &electro=*e;
+
 			if(y+PLATFORM_HEIGHT+Y_TOLERANCE>electro.y&&y<electro.y+ELECTRO_HEIGHT+Y_TOLERANCE){
 				if(x+PLATFORM_WIDTH>electro.x&&x<electro.x+ELECTRO_WIDTH){
 					// try to move left first
@@ -120,8 +115,8 @@ platform_s::platform_s(const state_s &state,float highest,int platform_type){
 		}
 
 		// move platform towards the center if near a smasher
-		for(std::vector<smasher_s*>::const_iterator iter=state.smasher_list.begin();iter!=state.smasher_list.end();++iter){
-			smasher_s &smasher=**iter;
+		for(const Smasher *s:state.smasher_list){
+			const Smasher &smasher=*s;
 			if(y>smasher.left.y&&y<smasher.left.y+Y_TOLERANCE){
 				// bring it in towards the center
 				const float bound=5.0f;
@@ -131,7 +126,7 @@ platform_s::platform_s(const state_s &state,float highest,int platform_type){
 	}
 }
 
-spring_s::spring_s(){
+Spring::Spring(){
 	w=SPRING_WIDTH;
 	h=SPRING_HEIGHT;
 	rot=0.0f;
@@ -140,7 +135,7 @@ spring_s::spring_s(){
 	xoffset=randomint(1,((PLATFORM_WIDTH-SPRING_WIDTH-0.1f))*10.0f)/10.0f;
 }
 
-void platform_s::process(state_s &state){
+void Platform::process(State &state){
 	// spawn new platforms
 	float highest_y;
 	do{
@@ -149,11 +144,11 @@ void platform_s::process(state_s &state){
 		else
 			highest_y=state.platform_list[state.platform_list.size()-1]->y;
 		if(highest_y>state.renderer.rect.top)
-			state.platform_list.push_back(new platform_s(state,highest_y,PLATFORM_DONTCARE));
+			state.platform_list.push_back(new Platform(state,highest_y,PLATFORM_DONTCARE));
 	}while(highest_y>state.renderer.rect.top);
 
-	for(std::vector<platform_s*>::iterator iter=state.platform_list.begin();iter!=state.platform_list.end();){
-		platform_s *platform=*iter;
+	for(std::vector<Platform*>::iterator iter=state.platform_list.begin();iter!=state.platform_list.end();){
+		Platform *platform=*iter;
 
 		// move the platforms down if player is above the baseline
 		if(state.player.y<PLAYER_BASELINE)
@@ -189,9 +184,9 @@ void platform_s::process(state_s &state){
 			// check for player colliding with spring
 			if(platform->spring.collide(state.player,0.0f)&&state.player.apex+PLAYER_HEIGHT<platform->spring.y&&state.player.yv>0.0f){
 				// delete any obstacles that have spawned but are still offscreen
-				saw_s::clear_all_ahead(state.saw_list,state.renderer.rect.top);
-				electro_s::clear_all_ahead(state.electro_list,state.renderer.rect.top);
-				smasher_s::clear_all_ahead(state.smasher_list,state.renderer.rect.top);
+				Saw::clear_all_ahead(state.saw_list,state.renderer.rect.top);
+				Electro::clear_all_ahead(state.electro_list,state.renderer.rect.top);
+				Smasher::clear_all_ahead(state.smasher_list,state.renderer.rect.top);
 
 				state.player.y=platform->spring.y-PLAYER_HEIGHT;
 				state.player.yv=-PLAYER_SUPER_UPWARD_VELOCITY;
@@ -216,23 +211,23 @@ void platform_s::process(state_s &state){
 
 		// PLATFORM_DISAPPEARING platforms will delete all obstacles above it
 		if(platform->type==PLATFORM_DISAPPEARING&&platform->yv==0.0f){
-			saw_s::clear_all_ahead(state.saw_list,platform->y);
-			electro_s::clear_all_ahead(state.electro_list,platform->y);
-			smasher_s::clear_all_ahead(state.smasher_list,platform->y);
+			Saw::clear_all_ahead(state.saw_list,platform->y);
+			Electro::clear_all_ahead(state.electro_list,platform->y);
+			Smasher::clear_all_ahead(state.smasher_list,platform->y);
 		}
 
 		++iter;
 	}
 }
 
-void platform_s::render(const renderer_s &renderer,const std::vector<platform_s*> &platform_list){
+void Platform::render(const Renderer &renderer,const std::vector<Platform*> &platform_list){
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLATFORM].object);
-	for(std::vector<platform_s*>::const_iterator iter=platform_list.begin();iter!=platform_list.end();++iter)
-		renderer.draw(**iter,(*iter)->xflip);
+	for(const Platform *platform:platform_list)
+		renderer.draw(*platform,platform->xflip);
 	// render springs
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SPRING].object);
-	for(std::vector<platform_s*>::const_iterator iter=platform_list.begin();iter!=platform_list.end();++iter){
-		if((*iter)->has_spring)
-			renderer.draw((*iter)->spring,false);
+	for(const Platform *platform:platform_list){
+		if(platform->has_spring)
+			renderer.draw(platform->spring,false);
 	}
 }

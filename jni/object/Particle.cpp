@@ -1,12 +1,6 @@
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
-#include <android_native_app_glue.h>
+#include "../andbeyond.h"
 
-#include <vector>
-
-#include "../defs.h"
-
-particle_s::particle_s(const state_s &state,float x,float y,bool right){
+Particle::Particle(const State &state,float x,float y,bool right){
 	w=PARTICLE_WIDTH;
 	h=PARTICLE_HEIGHT;
 	this->x=x-(PARTICLE_WIDTH/2.0f);
@@ -19,10 +13,10 @@ particle_s::particle_s(const state_s &state,float x,float y,bool right){
 	ttl=onein(20)?150.0f:randomint(PARTICLE_TTL);
 }
 
-void particle_s::process(state_s &state){
+void Particle::process(State &state){
 	// proc particles
-	for(std::vector<particle_s*>::iterator iter=state.particle_list.begin();iter!=state.particle_list.end();){
-		particle_s *particle=*iter;
+	for(std::vector<Particle*>::iterator iter=state.particle_list.begin();iter!=state.particle_list.end();){
+		Particle *particle=*iter;
 
 		particle->ttl-=1.0f;
 		if(particle->ttl<0.0f){
@@ -49,9 +43,11 @@ void particle_s::process(state_s &state){
 		zerof(&particle->xv,PARTICLE_DRAG);
 
 		// check for particles colliding with platforms
-		for(std::vector<platform_s*>::const_iterator iter=state.platform_list.begin();iter!=state.platform_list.end();++iter){
+		for(const Platform *p:state.platform_list){
+			const Platform &platform=*p;
+
 			int side;
-			if((side=particle->correct(**iter))){
+			if((side=particle->correct(platform))){
 				switch(side){
 				case COLLIDE_TOP:
 					particle->yv=-particle->yv/2.0f;
@@ -81,8 +77,8 @@ void particle_s::process(state_s &state){
 	}
 }
 
-void particle_s::render(const renderer_s &renderer,const std::vector<particle_s*> &particle_list){
+void Particle::render(const Renderer &renderer,const std::vector<Particle*> &particle_list){
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PARTICLE].object);
-	for(std::vector<particle_s*>::const_iterator iter=particle_list.begin();iter!=particle_list.end();++iter)
-		renderer.draw(**iter,false);
+	for(const Particle *particle:particle_list)
+		renderer.draw(*particle,false);
 }

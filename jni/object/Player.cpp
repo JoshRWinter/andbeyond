@@ -1,16 +1,12 @@
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
-#include <android_native_app_glue.h>
+#include "../andbeyond.h"
 
-#include "../defs.h"
-
-void player_s::process(state_s &state){
+void Player::process(State &state){
 	// keep the player below the baseline
 	bool going_up=yv<0.0f;
 	if(y<PLAYER_BASELINE){
 		// maybe spawn a new saw
 		if(state.saw_list.size()<2&&onein(120)&&state.saw_list.size()<2)
-			state.saw_list.push_back(new saw_s(state));
+			state.saw_list.push_back(new Saw(state));
 		state.height+=(PLAYER_BASELINE-y)*1.1675f;
 		y=PLAYER_BASELINE;
 	}
@@ -62,16 +58,16 @@ void player_s::process(state_s &state){
 	}
 }
 
-void player_s::render(const renderer_s &renderer)const{
+void Player::render(const Renderer &renderer)const{
 	// render player
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLAYER].object);
 	renderer.draw(*this,false);
 	if(x+PLAYER_WIDTH>renderer.rect.right){
-		base_s copy={renderer.rect.left-(renderer.rect.right-x),y,PLAYER_WIDTH,PLAYER_HEIGHT,0.0f,3.0f,frame};
+		Base copy={renderer.rect.left-(renderer.rect.right-x),y,PLAYER_WIDTH,PLAYER_HEIGHT,0.0f,3,frame};
 		renderer.draw(copy,false);
 	}
 	else if(x<renderer.rect.left){
-		base_s copy={renderer.rect.right+(x-renderer.rect.left),y,PLAYER_WIDTH,PLAYER_HEIGHT,0.0f,3.0f,frame};
+		Base copy={renderer.rect.right+(x-renderer.rect.left),y,PLAYER_WIDTH,PLAYER_HEIGHT,0.0f,3,frame};
 		renderer.draw(copy,false);
 	}
 }

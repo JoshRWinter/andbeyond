@@ -1,12 +1,6 @@
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
-#include <android_native_app_glue.h>
+#include "andbeyond.h"
 
-#include <vector>
-
-#include "defs.h"
-
-smasher_s::smasher_s(const state_s &state){
+Smasher::Smasher(const State &state){
 	left.w=SMASHER_WIDTH;
 	left.h=SMASHER_HEIGHT;
 	left.x=state.renderer.rect.left-SMASHER_RETRACT;
@@ -23,7 +17,7 @@ smasher_s::smasher_s(const state_s &state){
 
 	bool result;
 	do{
-		result=too_close(left,state.saw_list,state.electro_list,state.smasher_list);
+		result=left.too_close(state.saw_list,state.electro_list,state.smasher_list);
 		if(result){
 			left.y-=5.1f;
 			right.y=left.y;
@@ -31,13 +25,13 @@ smasher_s::smasher_s(const state_s &state){
 	}while(result);
 }
 
-void smasher_s::process(state_s &state){
+void Smasher::process(State &state){
 	// maybe make a new smasher
 	if(state.player.y<PLAYER_BASELINE&&onein(500)&&state.smasher_list.size()==0)
-		state.smasher_list.push_back(new smasher_s(state));
+		state.smasher_list.push_back(new Smasher(state));
 
-	for(std::vector<smasher_s*>::iterator iter=state.smasher_list.begin();iter!=state.smasher_list.end();){
-		smasher_s &smasher=**iter;
+	for(std::vector<Smasher*>::iterator iter=state.smasher_list.begin();iter!=state.smasher_list.end();){
+		Smasher &smasher=**iter;
 
 		// check for smasher colliding with player
 		int left_collide=state.player.correct(smasher.left);
@@ -114,16 +108,16 @@ void smasher_s::process(state_s &state){
 	}
 }
 
-void smasher_s::render(const renderer_s &renderer,const std::vector<smasher_s*> &smasher_list){
+void Smasher::render(const Renderer &renderer,const std::vector<Smasher*> &smasher_list){
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SMASHER].object);
-	for(std::vector<smasher_s*>::const_iterator iter=smasher_list.begin();iter!=smasher_list.end();++iter){
+	for(std::vector<Smasher*>::const_iterator iter=smasher_list.begin();iter!=smasher_list.end();++iter){
 		renderer.draw((*iter)->left,false);
 		renderer.draw((*iter)->right,true);
 	}
 }
 
-void smasher_s::clear_all_ahead(std::vector<smasher_s*> &smasher_list,float level){
-	for(std::vector<smasher_s*>::iterator iter=smasher_list.begin();iter!=smasher_list.end();){
+void Smasher::clear_all_ahead(std::vector<Smasher*> &smasher_list,float level){
+	for(std::vector<Smasher*>::iterator iter=smasher_list.begin();iter!=smasher_list.end();){
 		if((*iter)->left.y+SMASHER_HEIGHT<level){
 			delete *iter;
 			iter=smasher_list.erase(iter);
