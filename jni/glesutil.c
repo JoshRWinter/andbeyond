@@ -1185,6 +1185,13 @@ void vibratedevice(struct jni_info *jni_info,int mills){
 		(*jni_info->env)->CallVoidMethod(jni_info->env,jni_info->vb_svc,jni_info->vbmethod,v1);
 	}
 }
+void keep_screen_on(struct jni_info *jni_info){
+	jmethodID mid=(*jni_info->env)->GetMethodID(jni_info->env,jni_info->cWindow,"addFlags","(I)V");
+	(*jni_info->env)->CallVoidMethod(jni_info->env,jni_info->lWindow,mid,128); // FLAG_KEEP_SCREEN_ON
+	if((*jni_info->env)->ExceptionCheck){
+		(*jni_info->env)->ExceptionClear(jni_info->env);
+	}
+}
 void term_jni(struct jni_info *jni_info){
 	(*jni_info->env)->DeleteLocalRef(jni_info->env,jni_info->sys_svc);
 	(*jni_info->env)->DeleteLocalRef(jni_info->env,jni_info->lWindow);

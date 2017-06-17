@@ -32,6 +32,7 @@ void cmdproc(android_app *app, int32_t cmd){
 		break;
 	case APP_CMD_RESUME:
 		hidenavbars(&state->jni);
+		keep_screen_on(&state->jni);
 		break;
 	case APP_CMD_INIT_WINDOW:
 		state->running=true;

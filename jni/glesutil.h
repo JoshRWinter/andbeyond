@@ -150,6 +150,7 @@ void get_nano_time(long long*);
 void init_jni(struct android_app *app,struct jni_info *jni_info);
 void vibratedevice(struct jni_info* jni_info,int mills);
 void hidenavbars(struct jni_info *jni_info);
+void keep_screen_on(struct jni_info *jni_info);
 void term_jni(struct jni_info *jni_info);
 void init_accel(struct android_app *app,struct accel_info *accel_info);
 void handle_accel(struct accel_info *accel_info);
