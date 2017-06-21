@@ -8,6 +8,20 @@ bool Base::collide_y(const Base &b,float tolerance)const{
 	return y+h>b.y+tolerance&&y<b.y+b.h-tolerance;
 }
 
+void Base::background(const Renderer &renderer){
+	x=renderer.rect.left;
+	y=renderer.rect.top;
+	w=renderer.rect.right*2.0f;
+	h=renderer.rect.bottom*2.0f;
+	rot=0.0f;
+	frame=0;
+	count=1;
+}
+
+bool Base::touching(const crosshair *pointer)const{
+	return pointer[0].x>x&&pointer[0].x<x+w&&pointer[0].y>y&&pointer[0].y<y+h;
+}
+
 int Base::correct(const Base &b){
 	if(!this->collide(b,0.0f))
 		return 0;

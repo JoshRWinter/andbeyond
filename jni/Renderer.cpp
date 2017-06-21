@@ -25,9 +25,8 @@ void Renderer::init(android_app *app){
 	if(!loadpack(&assets,app->activity->assetManager,"assets",NULL))
 		logcat("texture init error");
 	// load ui textures
-	/*if(!loadpack(&uiassets,app->activity->assetManager,"uiassets",NULL))
+	if(!loadpack(&uiassets,app->activity->assetManager,"uiassets",NULL))
 		logcat("ui texture init error");
-		*/
 
 	// shader uniforms
 	program=initshaders(vertexshader,fragmentshader);
@@ -62,15 +61,17 @@ void Renderer::init(android_app *app){
 	// set up fonts
 	set_ftfont_params(screen.w,screen.h,rect.right*2.0f,rect.bottom*2.0f,uniform.vector,uniform.size,uniform.texcoords);
 	font.main=create_ftfont(app->activity->assetManager,0.4f,"arial.ttf");
+	font.button=create_ftfont(app->activity->assetManager,0.6f,"arial.ttf");
 }
 
 void Renderer::term(){
 	destroy_ftfont(font.main);
+	destroy_ftfont(font.button);
 	glDeleteBuffers(1,&vbo);
 	glDeleteVertexArrays(1,&vao);
 	glDeleteProgram(program);
 	destroypack(&assets);
-	//destroypack(&uiassets);
+	destroypack(&uiassets);
 
 	eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);
 	eglDestroyContext(display,context);
@@ -88,6 +89,19 @@ void Renderer::draw(const Base &base,bool xflip)const{
 	else
 		glUniform4f(uniform.texcoords,left,right,0.0f,1.0f);
 	glUniform2f(uniform.vector,base.x,base.y);
+	glUniform2f(uniform.size,base.w,base.h);
+	glUniform1f(uniform.rot,base.rot);
+
+	glDrawArrays(GL_TRIANGLE_STRIP,0,4);
+}
+
+void Renderer::draw(const Base &base,float yoffset)const{
+	const float size=1.0f/base.count;
+	const float left=size*base.frame;
+	const float right=left+size;
+
+	glUniform4f(uniform.texcoords,left,right,0.0f,1.0f);
+	glUniform2f(uniform.vector,base.x,base.y+yoffset);
 	glUniform2f(uniform.size,base.w,base.h);
 	glUniform1f(uniform.rot,base.rot);
 

@@ -413,7 +413,7 @@ void drawtext(ftfont *font,float xpos,float ypos,const char *output){
 		character++;
 	}
 }
-static float linelength(ftfont *font,const char *line){
+static float linelength(const ftfont *font,const char *line){
 	int character=0;
 	float length=0.0f;
 	while(line[character]!=0&&line[character]!='\n'){
@@ -422,7 +422,7 @@ static float linelength(ftfont *font,const char *line){
 	}
 	return length;
 }
-void drawtextcentered(ftfont *font,float xpos,float ypos,const char *output){
+void drawtextcentered(const ftfont *font,float xpos,float ypos,const char *output){
 	glUniform2f(ftglobal_size,font->fontsize,font->fontsize);
 	float xoffset=0.0f,yoffset=0.0f;
 	float adjustedxpos=xpos-(linelength(font,output)/2.0f);

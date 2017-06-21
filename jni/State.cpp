@@ -1,6 +1,12 @@
 #include "andbeyond.h"
 
 bool State::core(){
+	if(show_menu){
+		if(!menu.main.exec(*this))
+			return false;
+		show_menu=false;
+	}
+
 	timer_game+=1.0f;
 	if(timer_game>200.0f)
 		timer_game=60.0f;
@@ -152,6 +158,7 @@ void State::render()const{
 
 State::State(){
 	running=false;
+	show_menu=true;
 
 	// world rectangle
 	renderer.rect.right=4.5f;

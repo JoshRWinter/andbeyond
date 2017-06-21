@@ -126,7 +126,7 @@ void destroy_ftfont(ftfont *font);
 float textlen(ftfont *font,const char *text);
 float textheight(ftfont *font,const char *text);
 void drawtext(ftfont *font,float xpos,float ypos,const char *output);
-void drawtextcentered(ftfont *font,float xpos,float ypos,const char *output);
+void drawtextcentered(const ftfont *font,float xpos,float ypos,const char *output);
 slesenv *initOpenSL(SL_CONFIG_FN fn);
 void termOpenSL(slesenv *soundengine);
 int sl_play(slesenv *engine,struct apacksound *sound);

@@ -4,11 +4,26 @@ struct Smasher;
 struct Base{
 	bool collide(const Base&,float)const;
 	bool collide_y(const Base&,float)const;
+	bool touching(const crosshair*)const;
 	int correct(const Base&);
 	bool too_close(const std::vector<Saw*>&,const std::vector<Electro*>&,const std::vector<Smasher*>&);
+	void background(const Renderer&);
 
 	float x,y,w,h,rot;
 	int count,frame; // <frame> of <count> in a sprite sheet
+};
+
+#define BUTTON_WIDTH 3.6f
+#define BUTTON_HEIGHT 1.3875f
+#define BUTTON_PUSH_DOWN 0.1f
+struct Button:Base{
+	void init(float,float,const char*);
+	bool process(State&);
+	void render(const Renderer&,float=0.0f)const;
+	void render_text(const Renderer&,const ftfont*,float=0.0f)const;
+
+	bool active;
+	const char *label;
 };
 
 #define PLAYER_WIDTH 1.075f

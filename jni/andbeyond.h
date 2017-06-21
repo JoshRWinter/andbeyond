@@ -6,12 +6,13 @@
 struct Renderer;
 struct State;
 #include "object/object.h"
-
+#include "menu/Menu.h"
 
 #define SHOW_FPS
 //#define INVINCIBLE
 //#define START_HIGH
 
+// gameplay assets
 #define TID_PLATFORM 0
 #define TID_PLAYER 1
 #define TID_BACKDROPGROUND 2
@@ -28,6 +29,10 @@ struct State;
 #define TID_SMASHER 18
 #define TID_SCENERY_BLIMP 19
 #define TID_SCENERY_MOON 20
+
+// ui assets
+#define TID_MENU 0
+#define TID_BUTTON 1
 
 #define TRANSITION_SPACE_HEIGHT 520.0f
 #define PLAYER_UPWARD_VELOCITY 0.26f
@@ -47,14 +52,11 @@ struct State;
 #define COLLIDE_RIGHT 3
 #define COLLIDE_BOTTOM 4
 
-struct state_s;
-struct renderer_s;
-
-
 struct Renderer{
 	void init(android_app*);
 	void term();
-	void draw(const Base&,bool)const;
+	void draw(const Base&,bool=false)const;
+	void draw(const Base&,float)const;
 
 	pack assets; // gameplay textures
 	pack uiassets; // ui textures
@@ -71,7 +73,7 @@ struct Renderer{
 	struct{int vector,size,rot,texcoords,rgba,projection;}uniform;
 
 	// fonts
-	struct{ftfont *main;}font;
+	struct{ftfont *main,*button;}font;
 
 	// opengl handles
 	unsigned vao,vbo,program;
@@ -92,10 +94,15 @@ struct State{
 	// renderer information
 	Renderer renderer;
 
-	bool running;
+	bool running,show_menu;
 	float tilt; // accelerometer
 	float timer_game;
 	float height;
+
+	// menus
+	struct{
+		MenuMain main;
+	}menu;
 
 	crosshair pointer[2]; // supports 2 fingers on the screen
 	jni_info jni; // java native interface

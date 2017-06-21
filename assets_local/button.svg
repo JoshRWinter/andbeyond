@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg4608"
+   inkscape:export-filename="/home/josh/android/andbeyond/assets_local/button.png"
+   inkscape:export-xdpi="84.745453"
+   inkscape:export-ydpi="84.745453"
+   inkscape:version="0.92.1 r"
+   sodipodi:docname="button.svg">
+  <defs
+     id="defs4602" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2"
+     inkscape:cx="239.49883"
+     inkscape:cy="448.61173"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1918"
+     inkscape:window-height="1042"
+     inkscape:window-x="0"
+     inkscape:window-y="18"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata4605">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#7d5536;stroke:#000000;stroke-width:0.865;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
+       d="m 35.52976,167.01994 v -6.99256 h -1.511903 v 6.80357 H 31.75 v -4.53571 h -1.511906 v 4.34673 h -3.590772 l -3.02381,-15.89688 3.02381,-15.89688 h 3.590772 v 4.34673 H 31.75 v -4.53571 h 2.267857 v 6.80357 h 1.511903 v -6.99256 h 30.813328 30.813328 v 6.99256 h 1.511903 v -6.80357 h 2.267861 v 4.53571 h 1.51191 v -4.34673 h 3.59078 l 3.02381,15.89688 -3.02381,15.89688 h -3.59078 v -4.34673 h -1.51191 v 4.53571 h -2.267861 v -6.80357 h -1.511903 v 6.99256 H 66.343088 Z"
+       id="path5221"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccc" />
+  </g>
+</svg>
