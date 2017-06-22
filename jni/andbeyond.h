@@ -33,6 +33,8 @@ struct State;
 // ui assets
 #define TID_MENU 0
 #define TID_BUTTON 1
+#define TID_FULL_WHITE 2
+#define TID_GAME_OVER 3
 
 #define TRANSITION_SPACE_HEIGHT 520.0f
 #define PLAYER_UPWARD_VELOCITY 0.26f
@@ -43,6 +45,7 @@ struct State;
 #define TILT_DIVISOR 20.0f
 #define GRAVITY 0.007f
 #define TERMINAL_VELOCITY 0.4f
+#define TIMER_GAME_OVER 100
 
 #define in_space(h) (h>TRANSITION_SPACE_HEIGHT)
 #define around(h,m) (h>m-1.0f&&h<m+1.0f)
@@ -94,14 +97,16 @@ struct State{
 	// renderer information
 	Renderer renderer;
 
-	bool running,show_menu;
+	bool running,show_menu,show_gameover;
 	float tilt; // accelerometer
 	float timer_game;
 	float height;
+	int timer_game_over;
 
 	// menus
 	struct{
 		MenuMain main;
+		MenuGameover gameover;
 	}menu;
 
 	crosshair pointer[2]; // supports 2 fingers on the screen

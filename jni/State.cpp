@@ -7,6 +7,12 @@ bool State::core(){
 		show_menu=false;
 	}
 
+	if(show_gameover){
+		show_gameover=false;
+		if(!menu.gameover.exec(*this))
+			return false;
+	}
+
 	timer_game+=1.0f;
 	if(timer_game>200.0f)
 		timer_game=60.0f;
@@ -31,9 +37,9 @@ bool State::core(){
 	Scenery::process(*this);
 
 	// proc backdrops
-	if(player.y<PLAYER_BASELINE){
-		backdrop_1.y+=PLAYER_BASELINE-player.y;
-		backdrop_2.y+=PLAYER_BASELINE-player.y;
+	if(player.alive_y<PLAYER_BASELINE){
+		backdrop_1.y+=PLAYER_BASELINE-player.alive_y;
+		backdrop_2.y+=PLAYER_BASELINE-player.alive_y;
 		if(backdrop_1.y>renderer.rect.bottom){
 			if(backdrop_2.tid!=TID_BACKDROP_TRANSITION&&backdrop_1.tid!=TID_BACKDROP_TRANSITION)
 				backdrop_1.y=backdrop_2.y-backdrop_1.h+0.05f;
@@ -51,7 +57,7 @@ bool State::core(){
 				backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
 		}
 		if(lower_backdrop.y<renderer.rect.bottom)
-			lower_backdrop.y+=(PLAYER_BASELINE-player.y)/22.5f;
+			lower_backdrop.y+=(PLAYER_BASELINE-player.alive_y)/22.5f;
 	}
 
 	// needs to be last
@@ -159,6 +165,7 @@ void State::render()const{
 State::State(){
 	running=false;
 	show_menu=true;
+	show_gameover=false;
 
 	// world rectangle
 	renderer.rect.right=4.5f;
@@ -222,7 +229,9 @@ void State::reset(){
 	player.yv=0.0f;
 	player.rot=0.0f;
 	player.apex=0.0f;
+	player.alive_y=player.y;
 	player.dead=false;
+	player.dead_first=true;
 	player.timer_frame=0.0f;
 
 	// backdrops
@@ -242,6 +251,7 @@ void State::reset(){
 
 	tilt=0.0f;
 	timer_game=0.0f;
+	timer_game_over=TIMER_GAME_OVER;
 #ifdef START_HIGH
 	height=320.0f;
 #else

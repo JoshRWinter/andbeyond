@@ -31,8 +31,8 @@ void Saw::process(State &state){
 	for(std::vector<Saw*>::iterator iter=state.saw_list.begin();iter!=state.saw_list.end();){
 		Saw *saw=*iter;
 
-		if(state.player.y<PLAYER_BASELINE)
-			saw->y+=PLAYER_BASELINE-state.player.y;
+		if(state.player.alive_y<PLAYER_BASELINE)
+			saw->y+=PLAYER_BASELINE-state.player.alive_y;
 
 		// the rail follows the saw
 		saw->rail.y=saw->y+(SAW_SIZE/2.0f)-(SAWRAIL_HEIGHT/2.0f);

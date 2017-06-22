@@ -34,7 +34,8 @@ struct Player:Base{
 
 	float xv,yv;
 	float apex; // highest point in the jump
-	bool dead;
+	float alive_y; // shadows Base::y while player is alive
+	bool dead,dead_first;
 	float timer_frame; // animation queues
 };
 

@@ -1,1 +1,1 @@
-menu_background.tga button.tga -o ../assets/uiassets
+menu_background.tga button.tga full_white.tga game_over.tga -o ../assets/uiassets

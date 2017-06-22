@@ -20,3 +20,18 @@ private:
 	float yoffset;
 	float slide;
 };
+
+#define FULL_WHITE_TARGET_ALPHA 0.8f
+#define FULL_WHITE_TRANSITION_SPEED 0.01f
+class MenuGameover:public Menu{
+public:
+	bool exec(State&);
+	virtual void render(const Renderer&)const;
+private:
+
+	Base background,full_white;
+	Button again,menu;
+	float full_white_alpha;
+	float yoffset;
+	float yoffset_target;
+};

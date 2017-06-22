@@ -59,9 +59,9 @@ void Smasher::process(State &state){
 			}
 		}
 
-		if(state.player.y<PLAYER_BASELINE){
-			smasher.left.y+=PLAYER_BASELINE-state.player.y;
-			smasher.right.y+=PLAYER_BASELINE-state.player.y;
+		if(state.player.alive_y<PLAYER_BASELINE){
+			smasher.left.y+=PLAYER_BASELINE-state.player.alive_y;
+			smasher.right.y+=PLAYER_BASELINE-state.player.alive_y;
 		}
 
 		// smash

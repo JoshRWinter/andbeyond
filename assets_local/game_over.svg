@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg4495"
+   inkscape:export-filename="/home/josh/android/andbeyond/assets_local/game_over.png"
+   inkscape:export-xdpi="203.20001"
+   inkscape:export-ydpi="203.20001"
+   inkscape:version="0.92.1 r"
+   sodipodi:docname="game_over.svg">
+  <defs
+     id="defs4489" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#6f6f6f"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="11.2"
+     inkscape:cx="263.7139"
+     inkscape:cy="906.77171"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-nodes="false"
+     inkscape:window-width="1918"
+     inkscape:window-height="1042"
+     inkscape:window-x="0"
+     inkscape:window-y="18"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata4492">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#b8b8b6;fill-opacity:1;stroke-width:0.87594986;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect5040"
+       width="82.5"
+       height="145"
+       x="66.88414"
+       y="52.758034" />
+    <rect
+       y="53.833828"
+       x="67.96804"
+       height="142.84842"
+       width="80.332199"
+       id="rect5685"
+       style="fill:#51413a;fill-opacity:1;stroke-width:0.85792792;stroke-miterlimit:4;stroke-dasharray:none" />
+  </g>
+</svg>

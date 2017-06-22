@@ -26,8 +26,8 @@ void Scenery::process(State &state){
 	for(std::vector<Scenery*>::iterator iter=state.scenery_list.begin();iter!=state.scenery_list.end();){
 		Scenery &scenery=**iter;
 
-		if(state.player.y<PLAYER_BASELINE)
-			scenery.y+=(PLAYER_BASELINE-state.player.y)/SCENERY_PARALLAX;
+		if(state.player.alive_y<PLAYER_BASELINE)
+			scenery.y+=(PLAYER_BASELINE-state.player.alive_y)/SCENERY_PARALLAX;
 
 		if(scenery.y>state.renderer.rect.bottom){
 			delete *iter;

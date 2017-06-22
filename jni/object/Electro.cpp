@@ -26,8 +26,8 @@ void Electro::process(State &state){
 	for(std::vector<Electro*>::iterator iter=state.electro_list.begin();iter!=state.electro_list.end();){
 		Electro *electro=*iter;
 
-		if(state.player.y<PLAYER_BASELINE)
-			electro->y+=PLAYER_BASELINE-state.player.y;
+		if(state.player.alive_y<PLAYER_BASELINE)
+			electro->y+=PLAYER_BASELINE-state.player.alive_y;
 
 		// update animation
 		electro->timer_frame-=1.0f;

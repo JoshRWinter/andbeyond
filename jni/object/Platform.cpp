@@ -151,8 +151,8 @@ void Platform::process(State &state){
 		Platform *platform=*iter;
 
 		// move the platforms down if player is above the baseline
-		if(state.player.y<PLAYER_BASELINE)
-			platform->y+=PLAYER_BASELINE-state.player.y;
+		if(state.player.alive_y<PLAYER_BASELINE)
+			platform->y+=PLAYER_BASELINE-state.player.alive_y;
 
 		// decide whether to delete a platform
 		if(platform->y>state.renderer.rect.bottom){
@@ -194,7 +194,7 @@ void Platform::process(State &state){
 		}
 
 		// check for platforms colliding with player
-		if(state.player.yv>0.0f&&platform->collide(state.player,0.0f)&&state.player.apex+PLAYER_HEIGHT<platform->y+0.15f&&state.player.y+(PLAYER_HEIGHT/1.5f)<platform->y){
+		if(state.player.yv>0.0f&&platform->collide(state.player,0.0f)&&state.player.apex+PLAYER_HEIGHT<platform->y+0.15f&&state.player.y+(PLAYER_HEIGHT/1.5f)<platform->y&&!state.player.dead){
 			if(state.timer_game>60.0f){
 				state.player.y=platform->y-PLAYER_HEIGHT;
 				state.player.yv=-PLAYER_UPWARD_VELOCITY;

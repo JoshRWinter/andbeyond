@@ -10,13 +10,21 @@ void Player::process(State &state){
 		state.height+=(PLAYER_BASELINE-y)*1.1675f;
 		y=PLAYER_BASELINE;
 	}
+
+	// affected by gravity
 	yv+=GRAVITY;
+
+	// find the apex of the jump
 	if(going_up&&yv>0.0f) // player has reached the apex of the jump
 		apex=y;
 
 	if(yv>TERMINAL_VELOCITY)
 		yv=TERMINAL_VELOCITY;
 	y+=yv;
+
+	// shadows Base::y while player is alive
+	if(!dead)
+		alive_y=y;
 
 	if(state.timer_game>60.0f){
 		targetf(&state.tilt,0.7f,state.accel.x);
@@ -33,12 +41,29 @@ void Player::process(State &state){
 #else
 		dead=true;
 #endif
-	if(dead)
+	if(dead){
 #ifdef INVINCIBLE
 		dead=false;
 #else
-		state.reset();
+	if(dead){
+		// handle the upward pan effect on player death
+		if(dead_first){
+			dead_first=false;
+			alive_y=PLAYER_BASELINE-1.3f;
+		}
+		else{
+			alive_y+=/*((PLAYER_BASELINE-alive_y)/40.0f)+0.01f;//*/0.04f;
+			if(alive_y>PLAYER_BASELINE-0.1f)
+				alive_y=PLAYER_BASELINE-0.1f;
+			y+=PLAYER_BASELINE-alive_y;
+
+			// game over menu
+			if(!--state.timer_game_over)
+				state.show_gameover=true;
+		}
+	}
 #endif
+}
 
 	// animation
 	if(onein(250))

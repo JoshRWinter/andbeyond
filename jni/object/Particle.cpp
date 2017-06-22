@@ -25,8 +25,8 @@ void Particle::process(State &state){
 			continue;
 		}
 
-		if(state.player.y<PLAYER_BASELINE)
-			particle->y+=PLAYER_BASELINE-state.player.y;
+		if(state.player.alive_y<PLAYER_BASELINE)
+			particle->y+=PLAYER_BASELINE-state.player.alive_y;
 
 		particle->x+=particle->xv;
 		particle->y+=particle->yv;
