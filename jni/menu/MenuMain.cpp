@@ -83,7 +83,7 @@ void MenuMain::render(const Renderer &renderer)const{
 	renderer.draw(entry,yoffset);
 
 	// draw the platforms during the transition
-	fake_render(renderer);
+	local->fake_render(yoffset+(renderer.rect.bottom*2.0f));
 
 	// buttons
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_BUTTON].object);
@@ -102,15 +102,4 @@ void MenuMain::render(const Renderer &renderer)const{
 	// player
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLAYER].object);
 	renderer.draw(player,yoffset);
-}
-
-// draw the odds and ends of the game world until the parent function returns and the real renderer can take over
-void MenuMain::fake_render(const Renderer &renderer)const{
-	// do the platforms
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLATFORM].object);
-	for(const Platform *p:local->platform_list)
-		renderer.draw(*p,yoffset+(renderer.rect.bottom*2.0f));
-	// player
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLAYER].object);
-	renderer.draw(local->player,yoffset+(renderer.rect.bottom*2.0f));
 }

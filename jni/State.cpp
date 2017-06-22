@@ -162,6 +162,17 @@ void State::render()const{
 #endif // SHOW_FPS
 }
 
+// draw the odds and ends of the game world until the parent function returns and the real renderer can take over
+void State::fake_render(float yoffset)const{
+	// do the platforms
+	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLATFORM].object);
+	for(const Platform *p:platform_list)
+		renderer.draw(*p,yoffset);
+	// player
+	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLAYER].object);
+	renderer.draw(player,yoffset);
+}
+
 State::State(){
 	running=false;
 	show_menu=true;

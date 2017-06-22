@@ -11,6 +11,18 @@ bool MenuGameover::exec(State &state){
 	background.count=1;
 	background.frame=0;
 
+	// attachment
+	attachment.x=state.renderer.rect.left;
+	attachment.y=state.renderer.rect.bottom;
+	attachment.w=state.renderer.rect.right*2.0f;
+	attachment.h=8.225f;
+	attachment.rot=0.0f;
+	attachment.count=1;
+	attachment.frame=0;
+
+	entry.background(state.renderer);
+	entry.y=ATTACHMENT_Y_TARGET+attachment.h;
+
 	// buttons
 	again.init(-BUTTON_WIDTH/2.0f,1.0f,"Play again");
 	menu.init(-BUTTON_WIDTH/2.0f,again.y+BUTTON_HEIGHT+0.2f,"Menu");
@@ -18,18 +30,23 @@ bool MenuGameover::exec(State &state){
 	yoffset_target=0.0f;
 	yoffset=state.renderer.rect.top*2.0f;
 	full_white_alpha=0.0f;
+	local=&state;
 
 	while(state.process()){
 		// handle transition
-		targetf(&yoffset,(fabsf(yoffset-yoffset_target)/20.0f)+0.1f,yoffset_target);
+		if(targetf(&yoffset,(fabsf(yoffset-yoffset_target)/20.0f)+0.1f,yoffset_target)==TRANSITION_OUT_TARGET)
+			return true;
+
+		// handle attachment animation
+		targetf(&attachment.y,ATTACHMENT_Y_SPEED,ATTACHMENT_Y_TARGET);
 
 		// make the background more opaque
 		targetf(&full_white_alpha,FULL_WHITE_TRANSITION_SPEED,FULL_WHITE_TARGET_ALPHA);
 
 		// process buttons
-		if(again.process(state)){
+		if(again.process(state)&&attachment.y==ATTACHMENT_Y_TARGET&&yoffset_target!=TRANSITION_OUT_TARGET){
 			state.reset();
-			return true;
+			yoffset_target=TRANSITION_OUT_TARGET;
 		}
 		if(menu.process(state)){
 			state.show_menu=true;
@@ -53,10 +70,35 @@ void MenuGameover::render(const Renderer &renderer)const{
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_FULL_WHITE].object);
 	renderer.draw(full_white);
 
-	// background
+	// entry + skyline
+	glUniform4f(renderer.uniform.rgba,0.0627f,0.7412f,0.9294f,1.0f);
+	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_FULL_WHITE].object);
+	if(yoffset_target==TRANSITION_OUT_TARGET)
+		renderer.draw(entry,yoffset);
+	else
+		renderer.draw(entry);
 	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
+	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_LOWERBACKDROP].object);
+	if(yoffset_target==TRANSITION_OUT_TARGET)
+		renderer.draw(entry,yoffset);
+	else
+		renderer.draw(entry);
+	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_BACKDROPGROUND].object);
+	if(yoffset_target==TRANSITION_OUT_TARGET)
+		renderer.draw(entry,yoffset);
+	else
+		renderer.draw(entry);
+
+	// background
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_GAME_OVER].object);
 	renderer.draw(background,yoffset);
+
+	// attachment
+	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_ATTACHMENT].object);
+	if(attachment.y==ATTACHMENT_Y_TARGET)
+		renderer.draw(attachment,yoffset);
+	else
+		renderer.draw(attachment);
 
 	// buttons
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_BUTTON].object);
@@ -71,4 +113,9 @@ void MenuGameover::render(const Renderer &renderer)const{
 	// header text
 	glBindTexture(GL_TEXTURE_2D,renderer.font.main->atlas);
 	drawtextcentered(renderer.font.main,0.0f,-3.0f+yoffset,"u ded");
+
+	if(attachment.y==ATTACHMENT_Y_TARGET){
+		glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
+		local->fake_render(yoffset+22.4f);
+	}
 }

@@ -35,6 +35,7 @@ struct State;
 #define TID_BUTTON 1
 #define TID_FULL_WHITE 2
 #define TID_GAME_OVER 3
+#define TID_ATTACHMENT 4
 
 #define TRANSITION_SPACE_HEIGHT 520.0f
 #define PLAYER_UPWARD_VELOCITY 0.26f
@@ -45,7 +46,7 @@ struct State;
 #define TILT_DIVISOR 20.0f
 #define GRAVITY 0.007f
 #define TERMINAL_VELOCITY 0.4f
-#define TIMER_GAME_OVER 100
+#define TIMER_GAME_OVER 55
 
 #define in_space(h) (h>TRANSITION_SPACE_HEIGHT)
 #define around(h,m) (h>m-1.0f&&h<m+1.0f)
@@ -92,6 +93,7 @@ struct State{
 	void reset();
 	bool core();
 	void render()const;
+	void fake_render(float)const;
 	int process();
 
 	// renderer information
