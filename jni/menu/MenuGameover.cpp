@@ -3,10 +3,10 @@
 bool MenuGameover::exec(State &state){
 	full_white.background(state.renderer);
 	const float x_inward=0.75f,y_inward=1.5f;
-	background.x=state.renderer.rect.left+x_inward;
-	background.y=state.renderer.rect.top+y_inward;
-	background.w=(state.renderer.rect.right*2.0f)-(x_inward*2.0f);
-	background.h=(state.renderer.rect.bottom*2.0f)-(y_inward*2.0f);
+	background.x=MENU_CARD_X;
+	background.y=MENU_CARD_Y;
+	background.w=MENU_CARD_W;
+	background.h=MENU_CARD_H;
 	background.rot=0.0f;
 	background.count=1;
 	background.frame=0;

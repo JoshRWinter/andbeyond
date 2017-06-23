@@ -3,6 +3,11 @@ public:
 	virtual void render(const Renderer&)const=0;
 };
 
+#define MENU_CARD_X (-4.5f+0.75f)
+#define MENU_CARD_Y (-8.0f+1.5f)
+#define MENU_CARD_W (9.0f-1.5f)
+#define MENU_CARD_H (16.0f-3.0f)
+
 #define PLAYER_BOUNCE_Y 0.4f
 #define MENU_SLIDE -0.7f
 #define MENU_SLIDE_RETARD 0.01498f;
@@ -38,4 +43,18 @@ private:
 	float yoffset;
 	float yoffset_target;
 	float attachment_target;
+};
+
+class MenuMessage:public Menu{
+public:
+	bool exec(State&,const Menu&,const char*,const char* =NULL);
+	virtual void render(const Renderer&)const;
+private:
+	Base background,full_white;
+	Button ok;
+	const char *text;
+	const char *header;
+	const Menu *local;
+	float full_white_alpha,full_white_alpha_target;
+	float yoffset,yoffset_target;
 };

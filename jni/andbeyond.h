@@ -109,6 +109,7 @@ struct State{
 	struct{
 		MenuMain main;
 		MenuGameover gameover;
+		MenuMessage message;
 	}menu;
 
 	crosshair pointer[2]; // supports 2 fingers on the screen

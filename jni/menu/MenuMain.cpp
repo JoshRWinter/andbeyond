@@ -1,5 +1,12 @@
 #include "../andbeyond.h"
 
+const char *about_text=
+"And Beyond!\n"
+"programming and art by\n"
+"josh winter\n\n"
+"bitbucket.org/joshrwinter/andbeyond"
+;
+
 bool MenuMain::exec(State &state){
 	// buttons
 	const float BUTTON_OFFSET=BUTTON_HEIGHT+0.2f;
@@ -38,8 +45,10 @@ bool MenuMain::exec(State &state){
 			}
 			if(settings.process(state))
 				;
-			if(about.process(state))
-				;
+			if(about.process(state)){
+				if(!state.menu.message.exec(state,*this,about_text,"Aboot"))
+					return false;
+			}
 			if(quit.process(state))
 				ANativeActivity_finish(state.app->activity);
 		}
