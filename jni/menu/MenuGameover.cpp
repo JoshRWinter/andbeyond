@@ -13,7 +13,7 @@ bool MenuGameover::exec(State &state){
 
 	// attachment
 	attachment.x=state.renderer.rect.left;
-	attachment.y=state.renderer.rect.bottom;
+	attachment.y=state.renderer.rect.bottom+0.5f;
 	attachment.w=state.renderer.rect.right*2.0f;
 	attachment.h=8.225f;
 	attachment.rot=0.0f;
@@ -24,7 +24,7 @@ bool MenuGameover::exec(State &state){
 	entry.y=ATTACHMENT_Y_TARGET+attachment.h;
 
 	// buttons
-	again.init(-BUTTON_WIDTH/2.0f,1.0f,"Play again");
+	again.init(-BUTTON_WIDTH/2.0f,2.0f,"Play again");
 	menu.init(-BUTTON_WIDTH/2.0f,again.y+BUTTON_HEIGHT+0.2f,"Menu");
 
 	yoffset_target=0.0f;
@@ -41,11 +41,12 @@ bool MenuGameover::exec(State &state){
 		targetf(&attachment.y,ATTACHMENT_Y_SPEED,ATTACHMENT_Y_TARGET);
 
 		// make the background more opaque
-		targetf(&full_white_alpha,FULL_WHITE_TRANSITION_SPEED,FULL_WHITE_TARGET_ALPHA);
+		targetf(&full_white_alpha,FULL_WHITE_TRANSITION_SPEED,yoffset_target==TRANSITION_OUT_TARGET?1.0f:FULL_WHITE_TARGET_ALPHA);
 
 		// process buttons
 		if(again.process(state)&&attachment.y==ATTACHMENT_Y_TARGET&&yoffset_target!=TRANSITION_OUT_TARGET){
 			state.reset();
+				Platform::process(state);
 			yoffset_target=TRANSITION_OUT_TARGET;
 		}
 		if(menu.process(state)){
@@ -54,8 +55,10 @@ bool MenuGameover::exec(State &state){
 			return state.core();
 		}
 
-		if(!state.core())
-			return false;
+		if(yoffset_target!=TRANSITION_OUT_TARGET){
+			if(!state.core())
+				return false;
+		}
 		state.render();
 		render(state.renderer);
 		eglSwapBuffers(state.renderer.display,state.renderer.surface);

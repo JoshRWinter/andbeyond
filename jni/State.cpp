@@ -168,6 +168,12 @@ void State::fake_render(float yoffset)const{
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLATFORM].object);
 	for(const Platform *p:platform_list)
 		renderer.draw(*p,yoffset);
+	// springs
+	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SPRING].object);
+	for(const Platform *p:platform_list){
+		if(p->has_spring)
+			renderer.draw(p->spring,yoffset);
+	}
 	// player
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLAYER].object);
 	renderer.draw(player,yoffset);
