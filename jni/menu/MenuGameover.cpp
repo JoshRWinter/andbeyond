@@ -44,7 +44,8 @@ bool MenuGameover::exec(State &state){
 		targetf(&full_white_alpha,FULL_WHITE_TRANSITION_SPEED,yoffset_target==TRANSITION_OUT_TARGET?1.0f:FULL_WHITE_TARGET_ALPHA);
 
 		// process buttons
-		if(again.process(state)&&attachment.y==ATTACHMENT_Y_TARGET&&yoffset_target!=TRANSITION_OUT_TARGET){
+		if((again.process(state)&&attachment.y==ATTACHMENT_Y_TARGET&&yoffset_target!=TRANSITION_OUT_TARGET)||state.back){
+			state.back=false;
 			state.reset();
 				Platform::process(state);
 			yoffset_target=TRANSITION_OUT_TARGET;

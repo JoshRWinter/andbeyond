@@ -30,7 +30,8 @@ bool MenuMessage::exec(State &state,const Menu &parent,const char *msg,const cha
 		if(targetf(&yoffset,(fabsf(yoffset-yoffset_target)/20.0f)+0.1f,yoffset_target)==state.renderer.rect.bottom*2.0f)
 			return true;
 
-		if(ok.process(state)){
+		if(ok.process(state)||state.back){
+			state.back=false;
 			yoffset_target=state.renderer.rect.bottom*2.0f;
 			full_white_alpha_target=0.0f;
 		}

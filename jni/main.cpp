@@ -13,7 +13,7 @@ int32_t inputproc(android_app *app,AInputEvent *event){
 		int32_t key=AKeyEvent_getKeyCode(event);
 		int32_t action=AKeyEvent_getAction(event);
 		if(key==AKEYCODE_BACK&&action==AKEY_EVENT_ACTION_UP){
-			ANativeActivity_finish(app->activity);
+			state->back=true;
 			return true;
 		}
 		else if(key==AKEYCODE_MENU&&action==AKEY_EVENT_ACTION_UP){

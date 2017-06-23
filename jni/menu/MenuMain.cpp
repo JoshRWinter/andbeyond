@@ -49,8 +49,10 @@ bool MenuMain::exec(State &state){
 				if(!state.menu.message.exec(state,*this,about_text,"Aboot"))
 					return false;
 			}
-			if(quit.process(state))
+			if(quit.process(state)||state.back){
+				state.back=false;
 				ANativeActivity_finish(state.app->activity);
+			}
 		}
 
 		// process bouncing player

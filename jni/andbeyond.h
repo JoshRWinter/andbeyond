@@ -99,7 +99,7 @@ struct State{
 	// renderer information
 	Renderer renderer;
 
-	bool running,show_menu,show_gameover;
+	bool running,back,show_menu,show_gameover;
 	float tilt; // accelerometer
 	float timer_game;
 	float height;

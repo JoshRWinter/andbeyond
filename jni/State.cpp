@@ -71,6 +71,14 @@ bool State::core(){
 			scenery_list.push_back(new Scenery(*this,SCENERY_MOON));
 	}
 
+	// check back button
+	if(back){
+		back=false;
+		show_menu=true;
+		reset();
+		return core();
+	}
+
 	return true;
 }
 
@@ -181,6 +189,7 @@ void State::fake_render(float yoffset)const{
 
 State::State(){
 	running=false;
+	back=false;
 	show_menu=true;
 	show_gameover=false;
 
