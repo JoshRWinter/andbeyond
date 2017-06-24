@@ -65,10 +65,11 @@ void MenuMessage::render(const Renderer &renderer)const{
 	ok.render_text(renderer,renderer.font.button,yoffset);
 
 	// header text
-	glBindTexture(GL_TEXTURE_2D,renderer.font.main->atlas);
+	glBindTexture(GL_TEXTURE_2D,renderer.font.header->atlas);
 	if(header!=NULL)
-		drawtextcentered(renderer.font.main,0.0f,-5.0f+yoffset,header);
+		drawtextcentered(renderer.font.header,0.0f,-5.0f+yoffset,header);
 
+	glBindTexture(GL_TEXTURE_2D,renderer.font.main->atlas);
 	// main text
 	drawtextcentered(renderer.font.main,0.0f,-2.0f+yoffset,text);
 }
