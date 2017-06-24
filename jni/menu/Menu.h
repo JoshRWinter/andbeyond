@@ -46,6 +46,21 @@ private:
 	bool play;
 };
 
+class MenuConfig:public Menu{
+public:
+	bool exec(State &state,const Menu &menu);
+	virtual void render(const Renderer &renderer)const;
+private:
+
+	const Menu *parent;
+	const State *local;
+	Base full_white,card;
+	Button vibrate,sounds,back;
+	float full_white_alpha,full_white_alpha_target;
+	float yoffset,yoffset_target;
+	bool changed; // config dirty
+};
+
 class MenuMessage:public Menu{
 public:
 	bool exec(State&,const Menu&,const char*,const char* =NULL);

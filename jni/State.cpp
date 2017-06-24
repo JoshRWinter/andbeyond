@@ -188,6 +188,8 @@ void State::fake_render(float yoffset)const{
 }
 
 State::State(){
+	read_config();
+
 	running=false;
 	back=false;
 	show_menu=true;
@@ -298,4 +300,37 @@ int State::process(){
 			return false;
 	}
 	return true;
+}
+
+void State::read_config(){
+	FILE *file=fopen(DATAPATH"/00","rb");
+	if(!file){
+		config.vibration=true;
+		config.sounds=true;
+		return;
+	}
+
+	uint8_t v,s;
+	fread(&v,sizeof(v),1,file);
+	fread(&s,sizeof(s),1,file);
+
+	config.vibration=v!=0;
+	config.sounds=s!=0;
+
+	fclose(file);
+}
+
+void State::write_config(){
+	FILE *file=fopen(DATAPATH"/00","wb");
+	if(!file){
+		logcat("couldn't open config file in write mode");
+		return;
+	}
+
+	uint8_t v=config.vibration?1:0;
+	uint8_t s=config.sounds?1:0;
+	fwrite(&v,sizeof(v),1,file);
+	fwrite(&s,sizeof(s),1,file);
+
+	fclose(file);
 }

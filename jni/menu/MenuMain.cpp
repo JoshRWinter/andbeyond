@@ -43,8 +43,11 @@ bool MenuMain::exec(State &state){
 				slide=MENU_SLIDE;
 				Platform::process(state); // ensure new platforms are generated
 			}
-			if(settings.process(state))
-				;
+			if(settings.process(state)){
+				if(!state.menu.config.exec(state,*this))
+					return false;
+			}
+
 			if(about.process(state)){
 				if(!state.menu.message.exec(state,*this,about_text,"Aboot"))
 					return false;

@@ -62,11 +62,13 @@ void Renderer::init(android_app *app){
 	set_ftfont_params(screen.w,screen.h,rect.right*2.0f,rect.bottom*2.0f,uniform.vector,uniform.size,uniform.texcoords);
 	font.main=create_ftfont(app->activity->assetManager,0.4f,"arial.ttf");
 	font.button=create_ftfont(app->activity->assetManager,0.6f,"arial.ttf");
+	font.header=create_ftfont(app->activity->assetManager,0.9f,"arial.ttf");
 }
 
 void Renderer::term(){
 	destroy_ftfont(font.main);
 	destroy_ftfont(font.button);
+	destroy_ftfont(font.header);
 	glDeleteBuffers(1,&vbo);
 	glDeleteVertexArrays(1,&vao);
 	glDeleteProgram(program);

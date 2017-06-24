@@ -8,6 +8,7 @@ struct State;
 #include "object/object.h"
 #include "menu/Menu.h"
 
+#define DATAPATH "/data/data/joshwinter.andbeyond/files"
 #define SHOW_FPS
 //#define INVINCIBLE
 //#define START_HIGH
@@ -77,7 +78,7 @@ struct Renderer{
 	struct{int vector,size,rot,texcoords,rgba,projection;}uniform;
 
 	// fonts
-	struct{ftfont *main,*button;}font;
+	struct{ftfont *main,*button,*header;}font;
 
 	// opengl handles
 	unsigned vao,vbo,program;
@@ -95,6 +96,8 @@ struct State{
 	void render()const;
 	void fake_render(float)const;
 	int process();
+	void read_config();
+	void write_config();
 
 	// renderer information
 	Renderer renderer;
@@ -109,8 +112,15 @@ struct State{
 	struct{
 		MenuMain main;
 		MenuGameover gameover;
+		MenuConfig config;
 		MenuMessage message;
 	}menu;
+
+	// settings
+	struct{
+		bool sounds;
+		bool vibration;
+	}config;
 
 	crosshair pointer[2]; // supports 2 fingers on the screen
 	jni_info jni; // java native interface
