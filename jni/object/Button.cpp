@@ -40,7 +40,7 @@ void Button::render(const Renderer &renderer,float yoffset)const{
 }
 
 void Button::render_text(const Renderer &renderer,const ftfont *font,float yoffset)const{
-	float ypos=y+(BUTTON_HEIGHT/2.0f)-(font->fontsize/2.0f);
+	float ypos=y+(BUTTON_HEIGHT/2.0f)-(font->fontsize/2.0f)+0.1f;
 
 	if(active)
 		ypos+=BUTTON_PUSH_DOWN;
