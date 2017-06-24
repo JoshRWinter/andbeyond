@@ -189,6 +189,7 @@ void State::fake_render(float yoffset)const{
 
 State::State(){
 	read_config();
+	read_score();
 
 	running=false;
 	back=false;
@@ -258,7 +259,7 @@ void State::reset(){
 	player.rot=0.0f;
 	player.apex=0.0f;
 	player.alive_y=player.y;
-	player.dead=false;
+	player.dead=0;
 	player.dead_first=true;
 	player.timer_frame=0.0f;
 
@@ -331,6 +332,30 @@ void State::write_config(){
 	uint8_t s=config.sounds?1:0;
 	fwrite(&v,sizeof(v),1,file);
 	fwrite(&s,sizeof(s),1,file);
+
+	fclose(file);
+}
+
+void State::read_score(){
+	FILE *file=fopen(DATAPATH"/01","rb");
+	if(!file){
+		memset(scoreboard,0,sizeof(scoreboard));
+		return;
+	}
+
+	fread(scoreboard,sizeof(int),SCOREBOARD_COUNT,file);
+
+	fclose(file);
+}
+
+void State::write_score(){
+	FILE *file=fopen(DATAPATH"/01","wb");
+	if(!file){
+		logcat("couldn't open score file in write mode");
+		return;
+	}
+
+	fwrite(scoreboard,sizeof(int),SCOREBOARD_COUNT,file);
 
 	fclose(file);
 }

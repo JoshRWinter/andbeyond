@@ -39,8 +39,8 @@ void Electro::process(State &state){
 		}
 
 		// check for electro colliding with player
-		if(electro->collide(state.player,0.6f)){
-			state.player.dead=true;
+		if(electro->collide(state.player,0.6f)&&!state.player.dead){
+			state.player.dead=PLAYER_KILLED_BY_ELECTRO;
 		}
 
 		// delete if it goes below screen

@@ -38,8 +38,8 @@ void Saw::process(State &state){
 		saw->rail.y=saw->y+(SAW_SIZE/2.0f)-(SAWRAIL_HEIGHT/2.0f);
 
 		// check for obstacles colliding with player
-		if(saw->collide(state.player,0.25f)){
-			state.player.dead=true;
+		if(saw->collide(state.player,0.25f)&&!state.player.dead){
+			state.player.dead=PLAYER_KILLED_BY_SAW;
 		}
 
 		// slide the saw down the rail

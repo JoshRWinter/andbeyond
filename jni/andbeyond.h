@@ -48,6 +48,7 @@ struct State;
 #define GRAVITY 0.007f
 #define TERMINAL_VELOCITY 0.4f
 #define TIMER_GAME_OVER 55
+#define SCOREBOARD_COUNT 5
 
 #define in_space(h) (h>TRANSITION_SPACE_HEIGHT)
 #define around(h,m) (h>m-1.0f&&h<m+1.0f)
@@ -98,6 +99,8 @@ struct State{
 	int process();
 	void read_config();
 	void write_config();
+	void read_score();
+	void write_score();
 
 	// renderer information
 	Renderer renderer;
@@ -107,6 +110,7 @@ struct State{
 	float timer_game;
 	float height;
 	int timer_game_over;
+	int scoreboard[SCOREBOARD_COUNT];
 
 	// menus
 	struct{

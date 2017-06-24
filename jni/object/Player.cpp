@@ -39,23 +39,29 @@ void Player::process(State &state){
 #ifdef INVINCIBLE
 		yv=-PLAYER_SUPER_UPWARD_VELOCITY*1.5f;
 #else
-		dead=true;
+		if(!dead)
+			dead=PLAYER_KILLED_BY_FALL;
 #endif
 	if(dead){
 #ifdef INVINCIBLE
-		dead=false;
+		dead=0;
 #else
 	if(dead){
 		// handle the upward pan effect on player death
 		if(dead_first){
 			dead_first=false;
-			alive_y=PLAYER_BASELINE-1.3f;
+			if(dead!=PLAYER_KILLED_BY_FALL)
+				alive_y=PLAYER_BASELINE-1.3f;
+			else
+				state.timer_game_over=1;
 		}
 		else{
-			alive_y+=/*((PLAYER_BASELINE-alive_y)/40.0f)+0.01f;//*/0.04f;
-			if(alive_y>PLAYER_BASELINE-0.1f)
-				alive_y=PLAYER_BASELINE-0.1f;
-			y+=PLAYER_BASELINE-alive_y;
+			if(dead!=PLAYER_KILLED_BY_FALL){
+				alive_y+=/*((PLAYER_BASELINE-alive_y)/40.0f)+0.01f;//*/0.04f;
+				if(alive_y>PLAYER_BASELINE-0.1f)
+					alive_y=PLAYER_BASELINE-0.1f;
+				y+=PLAYER_BASELINE-alive_y;
+			}
 
 			// game over menu
 			if(!--state.timer_game_over)

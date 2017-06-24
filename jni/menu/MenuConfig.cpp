@@ -1,5 +1,4 @@
 #include "../andbeyond.h"
-#include <string>
 
 bool MenuConfig::exec(State &state,const Menu &menu){
 	// backgrounds

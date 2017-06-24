@@ -28,6 +28,10 @@ struct Button:Base{
 
 #define PLAYER_WIDTH 1.075f
 #define PLAYER_HEIGHT 1.225f
+#define PLAYER_KILLED_BY_FALL 1
+#define PLAYER_KILLED_BY_SAW 2
+#define PLAYER_KILLED_BY_ELECTRO 3
+#define PLAYER_KILLED_BY_SMASHER 4
 struct Player:Base{
 	void process(State&);
 	void render(const Renderer&)const;
@@ -35,7 +39,8 @@ struct Player:Base{
 	float xv,yv;
 	float apex; // highest point in the jump
 	float alive_y; // shadows Base::y while player is alive
-	bool dead,dead_first;
+	int dead;
+	bool dead_first; // first process flag
 	float timer_frame; // animation queues
 };
 

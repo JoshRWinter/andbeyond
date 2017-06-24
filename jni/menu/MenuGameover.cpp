@@ -1,5 +1,7 @@
 #include "../andbeyond.h"
 
+void selection(int*);
+
 bool MenuGameover::exec(State &state){
 	full_white.background(state.renderer);
 	const float x_inward=0.75f,y_inward=1.5f;
@@ -27,11 +29,59 @@ bool MenuGameover::exec(State &state){
 	again.init(-BUTTON_WIDTH/2.0f,2.0f,"Play again");
 	menu.init(-BUTTON_WIDTH/2.0f,again.y+BUTTON_HEIGHT+0.2f,"Menu");
 
+	// header text
+	switch(state.player.dead){
+	case PLAYER_KILLED_BY_FALL:
+		header="SPLATTERED";
+		break;
+	case PLAYER_KILLED_BY_SAW:
+		header="SLICED";
+		break;
+	case PLAYER_KILLED_BY_ELECTRO:
+		header="ELECTROCUTED";
+		break;
+	case PLAYER_KILLED_BY_SMASHER:
+		header="SMASHED";
+		break;
+	}
+
 	yoffset_target=0.0f;
 	yoffset=state.renderer.rect.top*2.0f;
 	full_white_alpha=0.0f;
 	local=&state;
 	play=false;
+	score=state.height;
+
+	// highscore processing
+	scoreboard=state.scoreboard;
+	scoreboard_index=-1;
+	if(score>state.scoreboard[0]){
+		state.scoreboard[0]=score;
+		selection(state.scoreboard);
+		// find the index
+		for(int i=0;i<SCOREBOARD_COUNT;++i){
+			if(state.scoreboard[i]==score){
+				scoreboard_index=i;
+				break;
+			}
+		}
+
+		state.write_score();
+	}
+
+	// find longest scoreboard line
+	float len=0.0f;
+	for(int i=0;i<SCOREBOARD_COUNT;++i){
+		char entry[20];
+		if(scoreboard[i]==0)
+			sprintf(entry,"%d: -",SCOREBOARD_COUNT-i);
+		else
+			sprintf(entry,"%d: %dm",SCOREBOARD_COUNT-i,scoreboard[i]);
+		const float this_entry=textlen(state.renderer.font.main,entry);
+		if(this_entry>len)
+			len=this_entry;
+	}
+	scoreboard_x=-len/2.0f;
 
 	while(state.process()){
 		// handle transition
@@ -121,11 +171,59 @@ void MenuGameover::render(const Renderer &renderer)const{
 	menu.render_text(renderer,renderer.font.button,yoffset);
 
 	// header text
+	glBindTexture(GL_TEXTURE_2D,renderer.font.header->atlas);
+	drawtextcentered(renderer.font.header,0.0f,-5.0f+yoffset,header);
+
+	// scoreboard
+	const float newline=0.45f;
+	float entry_offset=-1.5f;
 	glBindTexture(GL_TEXTURE_2D,renderer.font.main->atlas);
-	drawtextcentered(renderer.font.main,0.0f,-3.0f+yoffset,"u ded");
+	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
+	for(int i=SCOREBOARD_COUNT-1;i>=0;--i){
+		char entry[20];
+		if(scoreboard[i]==0)
+			sprintf(entry,"%d: -",SCOREBOARD_COUNT-i);
+		else
+			sprintf(entry,"%d: %dm",SCOREBOARD_COUNT-i,scoreboard[i]);
+		if(i==scoreboard_index){
+			glUniform4f(renderer.uniform.rgba,1.0f,1.0f,0.0f,1.0f);
+			drawtext(renderer.font.main,scoreboard_x,entry_offset+yoffset,entry);
+			glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
+		}
+		else
+			drawtext(renderer.font.main,scoreboard_x,entry_offset+yoffset,entry);
+
+		entry_offset+=newline;
+	}
+
+	// your score
+	char your_score[50];
+	sprintf(your_score,"Your score: %dm",score);
+	drawtextcentered(renderer.font.main,0.0f,-3.0f+yoffset,your_score);
 
 	if(attachment.y==ATTACHMENT_Y_TARGET){
 		glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
 		local->fake_render(yoffset+22.4f);
+	}
+}
+
+static void swap(int *i,int *j){
+	int temp=*i;
+	*i=*j;
+	*j=temp;
+}
+void selection(int *a){
+	const int n=5;
+	int	i,j;
+	for(j=0;j<n-1;j++){
+		int min=j;
+		for(i=j+1;i<n;i++){
+			if(a[i]<a[min]){
+				min=i;
+			}
+		}
+		if(min!=j){
+			swap(a+j,a+min);
+		}
 	}
 }

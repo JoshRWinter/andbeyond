@@ -43,6 +43,11 @@ private:
 	float yoffset;
 	float yoffset_target;
 	float attachment_target;
+	const char *header;
+	int scoreboard_index;
+	const int *scoreboard;
+	float scoreboard_x;
+	int score;
 	bool play;
 };
 

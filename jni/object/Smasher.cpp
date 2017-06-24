@@ -36,8 +36,8 @@ void Smasher::process(State &state){
 		// check for smasher colliding with player
 		int left_collide=state.player.correct(smasher.left);
 		int right_collide=state.player.correct(smasher.right);
-		if(left_collide&&right_collide&&!smasher.smashed&&!smasher.retracting)
-			state.player.dead=true;
+		if(left_collide&&right_collide&&!smasher.smashed&&!smasher.retracting&&!state.player.dead)
+			state.player.dead=PLAYER_KILLED_BY_SMASHER;
 		else if(left_collide){
 			if(left_collide==COLLIDE_BOTTOM)
 				state.player.yv=0.0f;
