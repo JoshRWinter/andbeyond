@@ -43,6 +43,7 @@ private:
 	float yoffset;
 	float yoffset_target;
 	float attachment_target;
+	bool play;
 };
 
 class MenuMessage:public Menu{

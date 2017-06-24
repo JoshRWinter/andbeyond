@@ -31,6 +31,7 @@ bool MenuGameover::exec(State &state){
 	yoffset=state.renderer.rect.top*2.0f;
 	full_white_alpha=0.0f;
 	local=&state;
+	play=false;
 
 	while(state.process()){
 		// handle transition
@@ -43,12 +44,16 @@ bool MenuGameover::exec(State &state){
 		// make the background more opaque
 		targetf(&full_white_alpha,FULL_WHITE_TRANSITION_SPEED,yoffset_target==TRANSITION_OUT_TARGET?1.0f:FULL_WHITE_TARGET_ALPHA);
 
-		// process buttons
-		if((again.process(state)&&attachment.y==ATTACHMENT_Y_TARGET&&yoffset_target!=TRANSITION_OUT_TARGET)||state.back){
-			state.back=false;
+		if(play&&attachment.y==ATTACHMENT_Y_TARGET&&yoffset_target!=TRANSITION_OUT_TARGET){
 			state.reset();
-				Platform::process(state);
+			Platform::process(state);
 			yoffset_target=TRANSITION_OUT_TARGET;
+		}
+
+		// process buttons
+		if(again.process(state)||state.back){
+			state.back=false;
+			play=true;
 		}
 		if(menu.process(state)){
 			state.show_menu=true;
@@ -60,6 +65,7 @@ bool MenuGameover::exec(State &state){
 			if(!state.core())
 				return false;
 		}
+
 		state.render();
 		render(state.renderer);
 		eglSwapBuffers(state.renderer.display,state.renderer.surface);
