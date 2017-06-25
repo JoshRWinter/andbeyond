@@ -66,6 +66,18 @@ private:
 	bool changed; // config dirty
 };
 
+class MenuPause:public Menu{
+public:
+	bool exec(State&);
+	virtual void render(const Renderer&)const;
+private:
+	Base full_white;
+	const State *local;
+	Button menu,settings,back;
+	bool no_fingers;
+	float alpha;
+};
+
 class MenuMessage:public Menu{
 public:
 	bool exec(State&,const Menu&,const char*,const char* =NULL);

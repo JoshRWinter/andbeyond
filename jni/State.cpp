@@ -72,11 +72,10 @@ bool State::core(){
 	}
 
 	// check back button
-	if(back){
+	if(back||(pointer[0].active&&pointer[1].active)){
 		back=false;
-		show_menu=true;
-		reset();
-		return core();
+		if(!menu.pause.exec(*this))
+			return false;
 	}
 
 	return true;
@@ -195,6 +194,7 @@ State::State(){
 	back=false;
 	show_menu=true;
 	show_gameover=false;
+	memset(pointer,0,sizeof(pointer));
 
 	// world rectangle
 	renderer.rect.right=4.5f;

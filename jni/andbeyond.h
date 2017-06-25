@@ -117,6 +117,7 @@ struct State{
 		MenuMain main;
 		MenuGameover gameover;
 		MenuConfig config;
+		MenuPause pause;
 		MenuMessage message;
 	}menu;
 
