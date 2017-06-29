@@ -72,7 +72,7 @@ bool State::core(){
 	}
 
 	// check back button
-	if(back||(pointer[0].active&&pointer[1].active)){
+	if((back||(pointer[0].active&&pointer[1].active))&&!player.dead){
 		back=false;
 		if(!menu.pause.exec(*this))
 			return false;
