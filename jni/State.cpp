@@ -1,16 +1,15 @@
+#include <stdio.h>
 #include "andbeyond.h"
 
-bool State::core(){
+void State::core(){
 	if(show_menu){
-		if(!menu.main.exec(*this))
-			return false;
+		menu.main.exec(*this);
 		show_menu=false;
 	}
 
 	if(show_gameover){
 		show_gameover=false;
-		if(!menu.gameover.exec(*this))
-			return false;
+		menu.gameover.exec(*this);
 	}
 
 	timer_game+=1.0f;
@@ -74,11 +73,8 @@ bool State::core(){
 	// check back button
 	if((back||(pointer[0].active&&pointer[1].active))&&!player.dead){
 		back=false;
-		if(!menu.pause.exec(*this))
-			return false;
+		menu.pause.exec(*this);
 	}
-
-	return true;
 }
 
 void State::render()const{

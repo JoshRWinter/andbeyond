@@ -1,3 +1,12 @@
+#include <exception>
+
+class need_to_exit:public std::exception{
+public:
+	virtual const char *what()const _GABIXX_NOEXCEPT{
+		return "system exit requested";
+	}
+};
+
 class Menu{
 public:
 	virtual void render(const Renderer&)const=0;
@@ -13,7 +22,7 @@ public:
 #define MENU_SLIDE_RETARD 0.01498f;
 class MenuMain:public Menu{
 public:
-	bool exec(State&);
+	void exec(State&);
 	virtual void render(const Renderer&)const;
 private:
 	Base background,entry_skyline,entry;
@@ -31,7 +40,7 @@ private:
 #define TRANSITION_OUT_TARGET -22.5f
 class MenuGameover:public Menu{
 public:
-	bool exec(State&);
+	void exec(State&);
 	virtual void render(const Renderer&)const;
 private:
 	State *local;
@@ -53,7 +62,7 @@ private:
 
 class MenuConfig:public Menu{
 public:
-	bool exec(State &state,const Menu &menu);
+	void exec(State &state,const Menu &menu);
 	virtual void render(const Renderer &renderer)const;
 private:
 
@@ -68,7 +77,7 @@ private:
 
 class MenuPause:public Menu{
 public:
-	bool exec(State&);
+	void exec(State&);
 	virtual void render(const Renderer&)const;
 private:
 	Base full_white;
@@ -80,7 +89,7 @@ private:
 
 class MenuMessage:public Menu{
 public:
-	bool exec(State&,const Menu&,const char*,const char* =NULL);
+	void exec(State&,const Menu&,const char*,const char* =NULL);
 	virtual void render(const Renderer&)const;
 private:
 	Base background,full_white;

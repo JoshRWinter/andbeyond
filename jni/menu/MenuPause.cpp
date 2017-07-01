@@ -1,6 +1,6 @@
 #include "../andbeyond.h"
 
-bool MenuPause::exec(State &state){
+void MenuPause::exec(State &state){
 	// full_white
 	full_white.background(state.renderer);
 
@@ -25,15 +25,15 @@ bool MenuPause::exec(State &state){
 			if(menu.process(state)){
 				state.show_menu=true;
 				state.reset();
-				return state.core();
+				state.core();
+				return;
 			}
 			if(settings.process(state)){
-				if(!state.menu.config.exec(state,*this))
-					return false;
+				state.menu.config.exec(state,*this);
 			}
 			if(back.process(state)||state.back){
 				state.back=false;
-				return true;
+				return;
 			}
 		}
 
@@ -41,7 +41,7 @@ bool MenuPause::exec(State &state){
 		eglSwapBuffers(state.renderer.display,state.renderer.surface);
 	}
 
-	return false;
+	throw need_to_exit();
 }
 
 void MenuPause::render(const Renderer &renderer)const{

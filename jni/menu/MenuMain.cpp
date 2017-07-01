@@ -7,7 +7,7 @@ const char *about_text=
 "bitbucket.org/joshrwinter/andbeyond"
 ;
 
-bool MenuMain::exec(State &state){
+void MenuMain::exec(State &state){
 	// buttons
 	const float BUTTON_OFFSET=BUTTON_HEIGHT+0.2f;
 	play.init(-BUTTON_WIDTH/2.0f,1.0f,"Play");
@@ -44,13 +44,11 @@ bool MenuMain::exec(State &state){
 				Platform::process(state); // ensure new platforms are generated
 			}
 			if(settings.process(state)){
-				if(!state.menu.config.exec(state,*this))
-					return false;
+				state.menu.config.exec(state,*this);
 			}
 
 			if(about.process(state)){
-				if(!state.menu.message.exec(state,*this,about_text,"Aboot"))
-					return false;
+				state.menu.message.exec(state,*this,about_text,"Aboot");
 			}
 			if(quit.process(state)||state.back){
 				state.back=false;
@@ -74,14 +72,14 @@ bool MenuMain::exec(State &state){
 
 			yoffset+=slide;
 			if(yoffset<state.renderer.rect.top*2.0f)
-				return true;
+				return;
 		}
 
 		render(state.renderer);
 		eglSwapBuffers(state.renderer.display,state.renderer.surface);
 	}
 
-	return false;
+	throw need_to_exit();
 }
 
 void MenuMain::render(const Renderer &renderer)const{

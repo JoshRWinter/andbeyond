@@ -73,7 +73,14 @@ void android_main(android_app *app){
 	// state.process() -- synchronously dispatch system messages (onStart(), onResume(), touch input events etc)
 	// state.core() -- allow entities to "think"
 	// state.render() -- draw everything
-	while(state.process()&&state.core()){
+	while(state.process()){
+
+		try{
+			state.core();
+		}catch(const need_to_exit &e){
+			break;
+		}
+
 		state.render();
 		eglSwapBuffers(state.renderer.display,state.renderer.surface);
 	}

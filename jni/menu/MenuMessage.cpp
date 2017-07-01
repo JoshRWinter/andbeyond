@@ -1,6 +1,6 @@
 #include "../andbeyond.h"
 
-bool MenuMessage::exec(State &state,const Menu &parent,const char *msg,const char *hdr){
+void MenuMessage::exec(State &state,const Menu &parent,const char *msg,const char *hdr){
 	// backgrounds
 	background.x=MENU_CARD_X;
 	background.y=MENU_CARD_Y;
@@ -28,7 +28,7 @@ bool MenuMessage::exec(State &state,const Menu &parent,const char *msg,const cha
 
 		// yoffset transition
 		if(targetf(&yoffset,(fabsf(yoffset-yoffset_target)/20.0f)+0.1f,yoffset_target)==state.renderer.rect.bottom*2.0f)
-			return true;
+			return;
 
 		if(ok.process(state)||state.back){
 			state.back=false;
@@ -40,7 +40,7 @@ bool MenuMessage::exec(State &state,const Menu &parent,const char *msg,const cha
 		eglSwapBuffers(state.renderer.display,state.renderer.surface);
 	}
 
-	return false;
+	throw need_to_exit();
 }
 
 void MenuMessage::render(const Renderer &renderer)const{

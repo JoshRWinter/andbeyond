@@ -1,6 +1,7 @@
+#include <stdio.h>
 #include "../andbeyond.h"
 
-bool MenuConfig::exec(State &state,const Menu &menu){
+void MenuConfig::exec(State &state,const Menu &menu){
 	// backgrounds
 	full_white.background(state.renderer);
 	card.x=MENU_CARD_X;
@@ -29,7 +30,7 @@ bool MenuConfig::exec(State &state,const Menu &menu){
 
 		// yoffset slide
 		if(targetf(&yoffset,(fabsf(yoffset_target-yoffset)/20.0f)+0.1f,yoffset_target)==state.renderer.rect.bottom*2.0f)
-			return true;
+			return;
 
 		// buttons
 		if(vibrate.process(state)){
@@ -52,7 +53,7 @@ bool MenuConfig::exec(State &state,const Menu &menu){
 		eglSwapBuffers(state.renderer.display,state.renderer.surface);
 	}
 
-	return false;
+	throw need_to_exit();
 }
 
 void MenuConfig::render(const Renderer &renderer)const{

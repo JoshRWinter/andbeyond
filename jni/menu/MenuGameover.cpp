@@ -1,8 +1,9 @@
+#include <stdio.h>
 #include "../andbeyond.h"
 
 void selection(int*);
 
-bool MenuGameover::exec(State &state){
+void MenuGameover::exec(State &state){
 	full_white.background(state.renderer);
 	const float x_inward=0.75f,y_inward=1.5f;
 	background.x=MENU_CARD_X;
@@ -86,7 +87,7 @@ bool MenuGameover::exec(State &state){
 	while(state.process()){
 		// handle transition
 		if(targetf(&yoffset,(fabsf(yoffset-yoffset_target)/20.0f)+0.1f,yoffset_target)==TRANSITION_OUT_TARGET)
-			return true;
+			return;
 
 		// handle attachment animation
 		targetf(&attachment.y,ATTACHMENT_Y_SPEED,ATTACHMENT_Y_TARGET);
@@ -108,12 +109,12 @@ bool MenuGameover::exec(State &state){
 		if(menu.process(state)){
 			state.show_menu=true;
 			state.reset();
-			return state.core();
+			state.core();
+			return;
 		}
 
 		if(yoffset_target!=TRANSITION_OUT_TARGET){
-			if(!state.core())
-				return false;
+			state.core();
 		}
 
 		state.render();
@@ -121,7 +122,7 @@ bool MenuGameover::exec(State &state){
 		eglSwapBuffers(state.renderer.display,state.renderer.surface);
 	}
 
-	return false;
+	throw need_to_exit();
 }
 
 void MenuGameover::render(const Renderer &renderer)const{

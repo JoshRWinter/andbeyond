@@ -93,7 +93,7 @@ struct Renderer{
 struct State{
 	State();
 	void reset();
-	bool core();
+	void core();
 	void render()const;
 	void fake_render(float)const;
 	int process();
