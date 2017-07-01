@@ -77,7 +77,7 @@ Platform::Platform(const State &state,float highest,int platform_type){
 	w=PLATFORM_WIDTH;
 	h=PLATFORM_HEIGHT;
 	rot=0.0f;
-	count=3;
+	count=6;
 	frame=type;
 	xflip=randomint(0,1)==0;
 	yv=0.0f;
@@ -95,6 +95,10 @@ Platform::Platform(const State &state,float highest,int platform_type){
 	}
 	else
 		has_spring=false;
+
+	// handle space platform textures
+	if(in_space(state.height-10))
+		frame+=3;
 
 	// move platform to the side if it is near an electro
 	if(type!=PLATFORM_SLIDING){

@@ -275,14 +275,18 @@ void State::reset(){
 	backdrop_2=backdrop_1;
 	backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
 	backdrop_2.y=backdrop_1.y-backdrop_2.h;
+#ifdef START_HIGH
+	lower_backdrop.y=renderer.rect.bottom;
+#else
 	lower_backdrop.y=renderer.rect.top;
+#endif
 	upper_backdrop.y=renderer.rect.top;
 
 	tilt=0.0f;
 	timer_game=0.0f;
 	timer_game_over=TIMER_GAME_OVER;
 #ifdef START_HIGH
-	height=320.0f;
+	height=START_HIGH;
 #else
 	height=0.0f;
 #endif

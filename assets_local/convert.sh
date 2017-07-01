@@ -12,8 +12,11 @@ done
 rm *.png
 
 # combine some textures into sprite sheets
-convert platform_normal.tga platform_sliding.tga platform_disappearing.tga +append platform.tga
+# platforms
+convert platform_normal.tga platform_sliding.tga platform_disappearing.tga platform_space_normal.tga platform_space_sliding.tga platform_space_disappearing.tga +append platform.tga
 
+# player
 convert player_normal.tga player_midblink.tga player_blink.tga +append player.tga
 
+# electro
 convert electro_1.tga electro_2.tga electro_3.tga electro_4.tga electro_5.tga +append electro.tga
