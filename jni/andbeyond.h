@@ -11,7 +11,7 @@ struct State;
 #define DATAPATH "/data/data/joshwinter.andbeyond/files"
 #define SHOW_FPS
 //#define INVINCIBLE
-#define START_HIGH 540.0f
+//#define START_HIGH 540.0f
 
 // gameplay assets
 #define TID_PLATFORM 0
