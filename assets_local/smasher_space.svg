@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:export-filename="/home/josh/android/andbeyond/assets_local/smasher_space.png"
+   inkscape:export-xdpi="92.060249"
+   inkscape:export-ydpi="92.060249"
+   inkscape:version="0.92.1 r"
+   sodipodi:docname="smasher_space.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.0000001"
+     inkscape:cx="552.16444"
+     inkscape:cy="625.32354"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-nodes="false"
+     inkscape:window-width="1918"
+     inkscape:window-height="1042"
+     inkscape:window-x="0"
+     inkscape:window-y="18"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#607c83;fill-opacity:1;stroke:#000000;stroke-width:0.9;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1482"
+       width="74.272316"
+       height="5.8586307"
+       x="120.95238"
+       y="119.16219" />
+    <rect
+       style="fill:#9a9a9a;fill-opacity:1;stroke:#000000;stroke-width:0.89999992;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1478"
+       width="34.613213"
+       height="32.208748"
+       x="106.72738"
+       y="104.84328" />
+    <rect
+       y="104.84328"
+       x="191.16327"
+       height="32.208748"
+       width="14.016616"
+       id="rect1490"
+       style="fill:#9a9a9a;fill-opacity:1;stroke:#000000;stroke-width:0.9;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       style="fill:#9a9a9a;fill-opacity:1;stroke:#000000;stroke-width:0.9;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1492"
+       width="14.016616"
+       height="32.208748"
+       x="169.99689"
+       y="104.84328" />
+    <rect
+       y="104.84328"
+       x="148.30135"
+       height="32.208748"
+       width="14.016616"
+       id="rect1494"
+       style="fill:#9a9a9a;fill-opacity:1;stroke:#000000;stroke-width:0.9;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+</svg>

@@ -6,8 +6,11 @@ Smasher::Smasher(const State &state){
 	left.x=state.renderer.rect.left-SMASHER_RETRACT;
 	left.y=state.renderer.rect.top-8.0f;
 	left.rot=0.0f;
-	left.count=1;
-	left.frame=0;
+	left.count=2;
+	if(in_space(state.height-10.0f))
+		left.frame=1;
+	else
+		left.frame=0;
 	retracting=true;
 	smashed=false;
 	timer=SMASHER_SMASH_TIMER;
