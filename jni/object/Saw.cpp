@@ -7,8 +7,11 @@ Saw::Saw(const State &state){
 	y=state.renderer.rect.top-SAW_SIZE-5.0f;
 	xv=SAW_VELOCITY;
 	rot=0.0f;
-	count=1;
-	frame=0;
+	count=2;
+	if(in_space(state.height-10.0f))
+		frame=1;
+	else
+		frame=0;
 
 	// the saw will slide down a rail
 	rail.w=state.renderer.rect.right*2.0f;
@@ -16,8 +19,8 @@ Saw::Saw(const State &state){
 	rail.rot=0.0f;
 	rail.x=state.renderer.rect.left;
 	rail.y=y+(SAW_SIZE/2.0f)-(SAWRAIL_HEIGHT/2.0f);
-	rail.count=1.0f;
-	rail.frame=0.0f;
+	rail.count=1;
+	rail.frame=0;
 
 	bool result;
 	do{

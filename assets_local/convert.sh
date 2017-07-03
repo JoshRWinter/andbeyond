@@ -25,3 +25,6 @@ convert electro_space_1.tga electro_space_2.tga electro_space_3.tga electro_spac
 
 # smasher
 convert smasher_normal.tga smasher_space.tga +append smasher.tga
+
+# saw
+convert obstacle_normal.tga obstacle_space.tga +append obstacle.tga
