@@ -95,6 +95,7 @@ struct Electro:Base{
 	static void clear_all_ahead(std::vector<Electro*>&,float);
 
 	float timer_frame;
+	bool space;
 };
 
 #define SMASHER_WIDTH 4.5f

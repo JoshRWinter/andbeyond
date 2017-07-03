@@ -10,6 +10,11 @@ Electro::Electro(const State &state){
 	frame=0;
 	timer_frame=0.0f;
 
+	if(in_space(state.height-10.0f))
+		space=true;
+	else
+		space=false;
+
 	bool result;
 	do{
 		result=too_close(state.saw_list,state.electro_list,state.smasher_list);
@@ -67,7 +72,23 @@ void Electro::clear_all_ahead(std::vector<Electro*> &electro_list,float level){
 }
 
 void Electro::render(const Renderer &renderer,const std::vector<Electro*> &electro_list){
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_ELECTRO].object);
-	for(const Electro *electro:electro_list)
+	const int SPACE_ELECTRO=1,NORMAL_ELECTRO=2;
+	int bound=0;
+	for(const Electro *electro:electro_list){
+		// figure out the proper texture to bind
+		if(!electro->space){
+			if(bound!=NORMAL_ELECTRO){
+				glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_ELECTRO].object);
+				bound=NORMAL_ELECTRO;
+			}
+		}
+		else{
+			if(bound!=SPACE_ELECTRO){
+				glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_ELECTRO_SPACE].object);
+				bound=SPACE_ELECTRO;
+			}
+		}
+
 		renderer.draw(*electro,false);
+	}
 }

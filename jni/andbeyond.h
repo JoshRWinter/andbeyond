@@ -27,9 +27,10 @@ struct State;
 #define TID_PARTICLE 15
 #define TID_UPPERBACKDROP 16
 #define TID_ELECTRO 17
-#define TID_SMASHER 18
-#define TID_SCENERY_BLIMP 19
-#define TID_SCENERY_MOON 20
+#define TID_ELECTRO_SPACE 18
+#define TID_SMASHER 19
+#define TID_SCENERY_BLIMP 20
+#define TID_SCENERY_MOON 21
 
 // ui assets
 #define TID_MENU 0
