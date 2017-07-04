@@ -599,7 +599,6 @@ unsigned screenshotblur(int w,int h,int resize,int intensity){
 			float sumr=0;
 			float sumg=0;
 			float sumb=0;
-			int index;
 			weightindex=0;
 			for(int j=-blur;j<=blur;j++){
 				int index=((a==0)?i+(4*j):(i+(j*shrinkw*4)));

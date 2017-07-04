@@ -28,8 +28,8 @@ MENU_FILES := $(wildcard $(LOCAL_PATH)/menu/*.cpp)
 FILES := $(wildcard $(LOCAL_PATH)/*.cpp)
 LOCAL_SRC_FILES := glesutil.c $(FILES:$(LOCAL_PATH)/%=%) $(OBJECT_FILES:$(LOCAL_PATH)/%=%) $(MENU_FILES:$(LOCAL_PATH)/%=%)
 LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv2 -lz -lOpenSLES
-LOCAL_CFLAGS := -O3
-LOCAL_CPPFLAGS := -std=c++11 -fexceptions
+LOCAL_CFLAGS := -std=c99 -Wall -pedantic
+LOCAL_CPPFLAGS := -std=c++11 -fexceptions -Wall -pedantic
 LOCAL_STATIC_LIBRARIES := android_native_app_glue freetype ogg-vorbis
 include $(BUILD_SHARED_LIBRARY)
 $(call import-module,android/native_app_glue)
