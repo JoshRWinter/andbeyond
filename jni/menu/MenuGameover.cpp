@@ -5,7 +5,6 @@ void selection(int*);
 
 void MenuGameover::exec(State &state){
 	full_white.background(state.renderer);
-	const float x_inward=0.75f,y_inward=1.5f;
 	background.x=MENU_CARD_X;
 	background.y=MENU_CARD_Y;
 	background.w=MENU_CARD_W;

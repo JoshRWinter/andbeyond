@@ -51,7 +51,6 @@ private:
 	float full_white_alpha;
 	float yoffset;
 	float yoffset_target;
-	float attachment_target;
 	const char *header;
 	int scoreboard_index;
 	const int *scoreboard;
