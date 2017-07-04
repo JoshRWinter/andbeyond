@@ -61,6 +61,7 @@ void MenuMessage::render(const Renderer &renderer)const{
 	ok.render(renderer,yoffset);
 
 	// button label
+	glUniform4f(renderer.uniform.rgba,TEXT_COLOR,1.0f);
 	glBindTexture(GL_TEXTURE_2D,renderer.font.button->atlas);
 	ok.render_text(renderer,renderer.font.button,yoffset);
 

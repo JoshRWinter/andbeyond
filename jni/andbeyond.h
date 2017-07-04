@@ -50,6 +50,7 @@ struct State;
 #define TERMINAL_VELOCITY 0.4f
 #define TIMER_GAME_OVER 55
 #define SCOREBOARD_COUNT 5
+#define TEXT_COLOR 0.7816f,0.7816f,0.7237f
 
 #define in_space(h) (h>TRANSITION_SPACE_HEIGHT)
 #define around(h,m) (h>m-1.0f&&h<m+1.0f)

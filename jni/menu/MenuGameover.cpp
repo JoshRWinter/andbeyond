@@ -167,6 +167,7 @@ void MenuGameover::render(const Renderer &renderer)const{
 	menu.render(renderer,yoffset);
 
 	// button labels
+	glUniform4f(renderer.uniform.rgba,TEXT_COLOR,1.0f);
 	glBindTexture(GL_TEXTURE_2D,renderer.font.button->atlas);
 	again.render_text(renderer,renderer.font.button,yoffset);
 	menu.render_text(renderer,renderer.font.button,yoffset);
@@ -179,7 +180,6 @@ void MenuGameover::render(const Renderer &renderer)const{
 	const float newline=0.45f;
 	float entry_offset=-1.5f;
 	glBindTexture(GL_TEXTURE_2D,renderer.font.main->atlas);
-	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
 	for(int i=SCOREBOARD_COUNT-1;i>=0;--i){
 		char entry[20];
 		if(scoreboard[i]==0)
@@ -189,7 +189,7 @@ void MenuGameover::render(const Renderer &renderer)const{
 		if(i==scoreboard_index){
 			glUniform4f(renderer.uniform.rgba,1.0f,1.0f,0.0f,1.0f);
 			drawtext(renderer.font.main,scoreboard_x,entry_offset+yoffset,entry);
-			glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
+			glUniform4f(renderer.uniform.rgba,TEXT_COLOR,1.0f);
 		}
 		else
 			drawtext(renderer.font.main,scoreboard_x,entry_offset+yoffset,entry);

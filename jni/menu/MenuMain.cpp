@@ -105,6 +105,7 @@ void MenuMain::render(const Renderer &renderer)const{
 	quit.render(renderer,yoffset);
 
 	// button labels
+	glUniform4f(renderer.uniform.rgba,TEXT_COLOR,1.0f);
 	glBindTexture(GL_TEXTURE_2D,renderer.font.button->atlas);
 	play.render_text(renderer,renderer.font.button,yoffset);
 	settings.render_text(renderer,renderer.font.button,yoffset);
@@ -112,6 +113,7 @@ void MenuMain::render(const Renderer &renderer)const{
 	quit.render_text(renderer,renderer.font.button,yoffset);
 
 	// player
+	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLAYER].object);
 	renderer.draw(player,yoffset);
 }

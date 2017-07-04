@@ -61,6 +61,7 @@ void MenuPause::render(const Renderer &renderer)const{
 	back.render(renderer);
 
 	// button labels
+	glUniform4f(renderer.uniform.rgba,TEXT_COLOR,1.0f);
 	glBindTexture(GL_TEXTURE_2D,renderer.font.button->atlas);
 	menu.render_text(renderer,renderer.font.button);
 	settings.render_text(renderer,renderer.font.button);

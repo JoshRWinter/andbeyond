@@ -77,6 +77,7 @@ void MenuConfig::render(const Renderer &renderer)const{
 	back.render(renderer,yoffset);
 
 	// button labels
+	glUniform4f(renderer.uniform.rgba,TEXT_COLOR,1.0f);
 	glBindTexture(GL_TEXTURE_2D,renderer.font.button->atlas);
 	vibrate.render_text(renderer,renderer.font.button,yoffset);
 	sounds.render_text(renderer,renderer.font.button,yoffset);
