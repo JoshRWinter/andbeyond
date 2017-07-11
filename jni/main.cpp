@@ -57,7 +57,6 @@ void cmdproc(android_app *app, int32_t cmd){
 // entry point
 void android_main(android_app *app){
 	logcat("--- BEGIN NEW LOG ---");
-	app_dummy();
 	srand48(time(NULL));
 	State state;
 	state.reset();

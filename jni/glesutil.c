@@ -1210,7 +1210,11 @@ void hidenavbars(struct jni_info *jni_info){
 
 void init_accel(struct android_app *app,struct accel_info *accel_info){
 	accel_info->app=app;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+	// this function is marked deprecated, but there is no replacement function lol
 	accel_info->manager=ASensorManager_getInstance();
+#pragma GCC diagnostic pop
 	accel_info->sensor=ASensorManager_getDefaultSensor(accel_info->manager,ASENSOR_TYPE_ACCELEROMETER);
 	accel_info->queue=ASensorManager_createEventQueue(accel_info->manager,app->looper,LOOPER_ID_USER,NULL,NULL);
 	accel_info->x=0.0f;
