@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:export-filename="/home/josh/android/andbeyond/assets_local/light_1.png"
+   inkscape:export-xdpi="31.925426"
+   inkscape:export-ydpi="31.925426"
+   inkscape:version="0.92.1 r"
+   sodipodi:docname="light_1.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#8e8e94"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.6731746"
+     inkscape:cx="169.09901"
+     inkscape:cy="655.67636"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-nodes="false"
+     inkscape:window-width="1918"
+     inkscape:window-height="1042"
+     inkscape:window-x="0"
+     inkscape:window-y="18"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       id="rect111"
+       width="20.08283"
+       height="70.5271"
+       x="90.293671"
+       y="63.912655"
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.22419234" />
+    <path
+       sodipodi:type="star"
+       id="path115"
+       sodipodi:sides="3"
+       sodipodi:cx="102.31175"
+       sodipodi:cy="-160.78021"
+       sodipodi:r1="24.171528"
+       sodipodi:r2="12.085764"
+       sodipodi:arg1="0.52359878"
+       sodipodi:arg2="1.5707963"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 123.24491,-148.69445 -20.93316,0 -20.933155,0 10.466579,-18.12864 10.466576,-18.12865 10.46658,18.12865 z"
+       inkscape:transform-center-y="6.191775"
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+       transform="matrix(0.47968314,0,0,-1.0246406,51.257869,-18.14376)" />
+  </g>
+</svg>

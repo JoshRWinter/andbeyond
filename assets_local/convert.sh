@@ -28,3 +28,6 @@ convert smasher_normal.tga smasher_space.tga +append smasher.tga
 
 # saw
 convert obstacle_normal.tga obstacle_space.tga +append obstacle.tga
+
+# light strips
+convert light_1.tga light_2.tga light_3.tga light_4.tga +append light.tga

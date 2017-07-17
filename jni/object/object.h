@@ -148,6 +148,24 @@ struct Particle:Base{
 	float ttl;
 };
 
+#define LIGHT_WIDTH 0.3125f
+#define LIGHT_HEIGHT 1.6875f
+#define LIGHT_START_HEIGHT 600
+#define LIGHT_STEADY_HEIGHT 800
+#define LIGHT_STOP_HEIGHT 900
+struct Light:Base{
+	Light(const State&);
+	static void process(State&);
+	static void render(const Renderer&,const std::vector<Light>&);
+
+	float yv;
+	float rgb[3];
+
+private:
+	void choose_color();
+	static int probability(int);
+};
+
 struct Backdrop:Base{
 	int tid; // texture id
 };

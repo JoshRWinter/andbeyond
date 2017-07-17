@@ -35,6 +35,9 @@ void State::core(){
 	// proc scenery
 	Scenery::process(*this);
 
+	// process lights
+	Light::process(*this);
+
 	// proc backdrops
 	if(player.alive_y<PLAYER_BASELINE){
 		backdrop_1.y+=PLAYER_BASELINE-player.alive_y;
@@ -107,6 +110,11 @@ void State::render()const{
 		renderer.draw(backdrop_1,false);
 		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[backdrop_2.tid].object);
 		renderer.draw(backdrop_2,false);
+	}
+
+	// draw lights
+	if(light_list.size()!=0){
+		Light::render(renderer,light_list);
 	}
 
 	// render particles
@@ -246,6 +254,7 @@ void State::reset(){
 	for(std::vector<Particle*>::iterator iter=particle_list.begin();iter!=particle_list.end();++iter)
 		delete *iter;
 	particle_list.clear();
+	light_list.clear();
 
 	// player
 	player.x=-PLAYER_WIDTH/2.0f;

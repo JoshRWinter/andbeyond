@@ -31,6 +31,7 @@ struct State;
 #define TID_SMASHER 19
 #define TID_SCENERY_BLIMP 20
 #define TID_SCENERY_MOON 21
+#define TID_LIGHT 22
 
 // ui assets
 #define TID_MENU 0
@@ -143,6 +144,7 @@ struct State{
 	std::vector<Electro*> electro_list;
 	std::vector<Smasher*> smasher_list;
 	std::vector<Scenery*> scenery_list;
+	std::vector<Light> light_list;
 };
 
 int32_t inputproc(android_app*,AInputEvent*);
