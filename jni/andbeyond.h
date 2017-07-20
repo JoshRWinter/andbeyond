@@ -33,6 +33,40 @@ struct State;
 #define TID_SCENERY_MOON 21
 #define TID_LIGHT 22
 
+// gameplay atlas
+#define AID_PLATFORM_NORMAL 0
+#define AID_PLATFORM_DISAPPEARING 1
+#define AID_PLATFORM_SLIDING 2
+#define AID_PLATFORM_SPACE_NORMAL 3
+#define AID_PLATFORM_SPACE_DISAPPEARING 4
+#define AID_PLATFORM_SPACE_SLIDING 5
+#define AID_ELECTRO_1 6
+#define AID_ELECTRO_2 7
+#define AID_ELECTRO_3 8
+#define AID_ELECTRO_4 9
+#define AID_ELECTRO_5 10
+#define AID_ELECTRO_SPACE_1 11
+#define AID_ELECTRO_SPACE_2 12
+#define AID_ELECTRO_SPACE_3 13
+#define AID_ELECTRO_SPACE_4 14
+#define AID_ELECTRO_SPACE_5 15
+#define AID_BLIMP 16
+#define AID_LIGHT_1 17
+#define AID_LIGHT_2 18
+#define AID_LIGHT_3 19
+#define AID_LIGHT_4 20
+#define AID_MOON_5 21
+#define AID_OBSTACLE_NORMAL 22
+#define AID_OBSTACLE_SPACE 23
+#define AID_RAIL 24
+#define AID_PARTICLE 25
+#define AID_PLAYER_NORMAL 26
+#define AID_PLAYER_MIDBLINK 27
+#define AID_PLAYER_BLINK 28
+#define AID_SMASHER_NORMAL 29
+#define AID_SMASHER_SPACE 30
+#define AID_SPRING 31
+
 // ui assets
 #define TID_MENU 0
 #define TID_BUTTON 1
@@ -70,6 +104,7 @@ struct Renderer{
 	pack assets; // gameplay textures
 	pack uiassets; // ui textures
 	apack aassets; // sound effects
+	Atlas atlas;
 
 	// world rectangle
 	struct{float left,right,bottom,top;}rect;

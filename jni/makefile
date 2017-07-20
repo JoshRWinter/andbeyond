@@ -1,6 +1,6 @@
 activity=andbeyond
 
-all:../assets/assets ../assets/uiassets
+all:../assets/assets ../assets/uiassets ../assets/atlas
 	NDK_DEBUG=1 ndk-build -C ..
 	ant debug -f ../build.xml
 	adb install -r $(CURDIR)/../bin/$(activity)-debug.apk
@@ -13,6 +13,10 @@ all:../assets/assets ../assets/uiassets
 ../assets/uiassets:../assets_local/uibuild.txt ../assets_local/*
 	cd ../assets_local && ./convert.sh
 	cd ../assets_local/ && pack --build uibuild.txt
+
+../assets/atlas:../assets_local/atlas.txt ../assets_local/*
+	cd ../assets_local && ./convert.sh
+	cd ../assets_local && atlas ../assets/atlas `cat atlas.txt`
 
 #../assets/aassets:../assets_local/apack.txt ../assets_local/*.ogg
 #	cd ../assets_local/ && apack --build

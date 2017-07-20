@@ -27,6 +27,9 @@ void Renderer::init(android_app *app){
 	// load ui textures
 	if(!loadpack(&uiassets,app->activity->assetManager,"uiassets",NULL))
 		logcat("ui texture init error");
+	// atlases
+	if(!atlas.load(app->activity->assetManager,"atlas"))
+		logcat("atlas init error");
 
 	// shader uniforms
 	program=initshaders(vertexshader,fragmentshader);
@@ -74,6 +77,7 @@ void Renderer::term(){
 	glDeleteProgram(program);
 	destroypack(&assets);
 	destroypack(&uiassets);
+	atlas.unload();
 
 	eglMakeCurrent(display,EGL_NO_SURFACE,EGL_NO_SURFACE,EGL_NO_CONTEXT);
 	eglDestroyContext(display,context);

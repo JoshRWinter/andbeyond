@@ -5,6 +5,7 @@ local.properties
 assets/assets
 assets/uiassets
 assets/aassets
+assets/atlas
 .*.swp
 project.sh
 

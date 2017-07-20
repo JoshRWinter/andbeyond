@@ -16,6 +16,7 @@
 #define onein(n) (randomint(0,n-1)==0)
 
 #ifdef __cplusplus
+#include "Atlas.h"
 extern "C" {
 #endif
 
