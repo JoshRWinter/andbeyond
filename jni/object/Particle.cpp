@@ -8,8 +8,7 @@ Particle::Particle(const State &state,float x,float y,bool right){
 	rot=(right?M_PI+0.6f:(M_PI+2.5f))+(randomint(-20,20)*(M_PI/180.0f));//randomint(1,360)*(M_PI/180.0f);
 	xv=-cosf(rot)*PARTICLE_SPEED;
 	yv=-sinf(rot)*PARTICLE_SPEED;
-	count=1;
-	frame=0;
+	texture=AID_PARTICLE;
 	ttl=onein(20)?150.0f:randomint(PARTICLE_TTL);
 }
 
@@ -78,7 +77,6 @@ void Particle::process(State &state){
 }
 
 void Particle::render(const Renderer &renderer,const std::vector<Particle*> &particle_list){
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PARTICLE].object);
 	for(const Particle *particle:particle_list)
-		renderer.draw(*particle,false);
+		renderer.draw(*particle,&renderer.atlas,false);
 }

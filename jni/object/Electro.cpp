@@ -6,14 +6,16 @@ Electro::Electro(const State &state){
 	x=randomint(state.renderer.rect.left*10.0f,(state.renderer.rect.right-w)*10.0f)/10.0f;
 	y=state.renderer.rect.top-8.0f;
 	rot=0.0f;
-	count=5;
-	frame=0;
 	timer_frame=0.0f;
 
-	if(in_space(state.height-10.0f))
+	if(in_space(state.height-10.0f)){
 		space=true;
-	else
+		texture=AID_ELECTRO_SPACE_1;
+	}
+	else{
 		space=false;
+		texture=AID_ELECTRO_1;
+	}
 
 	bool result;
 	do{
@@ -35,12 +37,14 @@ void Electro::process(State &state){
 			electro->y+=PLAYER_BASELINE-state.player.alive_y;
 
 		// update animation
+		const int base_frame=electro->space?AID_ELECTRO_SPACE_1:AID_ELECTRO_1;
+		const int top_frame=electro->space?AID_ELECTRO_SPACE_5:AID_ELECTRO_5;
 		electro->timer_frame-=1.0f;
 		if(electro->timer_frame<=0.0f){
 			electro->timer_frame=2.0f;
-			++electro->frame;
-			if(electro->frame>4)
-				electro->frame=0;
+			++electro->texture;
+			if(electro->texture>top_frame)
+				electro->texture=base_frame;
 		}
 
 		// check for electro colliding with player
@@ -72,23 +76,7 @@ void Electro::clear_all_ahead(std::vector<Electro*> &electro_list,float level){
 }
 
 void Electro::render(const Renderer &renderer,const std::vector<Electro*> &electro_list){
-	const int SPACE_ELECTRO=1,NORMAL_ELECTRO=2;
-	int bound=0;
 	for(const Electro *electro:electro_list){
-		// figure out the proper texture to bind
-		if(!electro->space){
-			if(bound!=NORMAL_ELECTRO){
-				glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_ELECTRO].object);
-				bound=NORMAL_ELECTRO;
-			}
-		}
-		else{
-			if(bound!=SPACE_ELECTRO){
-				glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_ELECTRO_SPACE].object);
-				bound=SPACE_ELECTRO;
-			}
-		}
-
-		renderer.draw(*electro,false);
+		renderer.draw(*electro,&renderer.atlas,false);
 	}
 }

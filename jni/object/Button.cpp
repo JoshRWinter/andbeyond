@@ -6,8 +6,7 @@ void Button::init(float x,float y,const char *label){
 	w=BUTTON_WIDTH;
 	h=BUTTON_HEIGHT;
 	rot=0.0f;
-	count=1;
-	frame=0;
+	texture=-1;
 
 	active=false;
 	this->label=label;
@@ -36,7 +35,7 @@ void Button::render(const Renderer &renderer,float yoffset)const{
 	if(active)
 		copy.y+=BUTTON_PUSH_DOWN;
 
-	renderer.draw(copy,yoffset);
+	renderer.draw(copy,NULL,yoffset);
 }
 
 void Button::render_text(const Renderer &renderer,const ftfont *font,float yoffset)const{

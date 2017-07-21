@@ -10,7 +10,7 @@ struct Base{
 	void background(const Renderer&);
 
 	float x,y,w,h,rot;
-	int count,frame; // <frame> of <count> in a sprite sheet
+	int texture;
 };
 
 #define BUTTON_WIDTH 3.6f

@@ -3,24 +3,21 @@
 
 #include <vector>
 
-struct AtlasCoords{
-	float left;
-	float right;
-	float bottom;
-	float top;
-};
-
 class Atlas{
 public:
 	Atlas();
 	bool load(AAssetManager*,const char*);
 	void unload();
-	unsigned texture(){return object;}
-	void coords(int i,AtlasCoords &ac){ac=tex_coords[i];}
+	unsigned texture()const{return object;}
+	// never store or save result
+	// lifetime of return is lifetime of Atlas object
+	const float *coords(int i)const{return &tex_coords[i*4];}
+	const char *error()const{return last_error;}
 
 private:
-	std::vector<AtlasCoords> tex_coords;
+	std::vector<float> tex_coords;
 	unsigned object; // texture object;
+	const char *last_error;
 };
 
 #endif // ATLAS_H

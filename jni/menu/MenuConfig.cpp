@@ -9,8 +9,7 @@ void MenuConfig::exec(State &state,const Menu &menu){
 	card.w=MENU_CARD_W;
 	card.h=MENU_CARD_H;
 	card.rot=0.0f;
-	card.count=1;
-	card.frame=0;
+	card.texture=-1;
 
 	// buttons
 	vibrate.init(-BUTTON_WIDTH/2.0f,1.0f,"Vibration");
@@ -63,12 +62,12 @@ void MenuConfig::render(const Renderer &renderer)const{
 	// full white
 	glUniform4f(renderer.uniform.rgba,0.0f,0.0f,0.0f,full_white_alpha);
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_FULL_WHITE].object);
-	renderer.draw(full_white);
+	renderer.draw(full_white,NULL);
 
 	// menu card
 	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_GAME_OVER].object);
-	renderer.draw(card,yoffset);
+	renderer.draw(card,NULL,yoffset);
 
 	// buttons
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_BUTTON].object);

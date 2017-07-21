@@ -21,8 +21,7 @@ void MenuMain::exec(State &state){
 	player.x=-PLAYER_WIDTH/2.0f;
 	player.y=PLAYER_BOUNCE_Y-PLAYER_HEIGHT;
 	player.rot=0.0f;
-	player.count=3;
-	player.frame=0;
+	player.texture=-1;
 	player.xv=0.0f;
 	player.yv=1.0f;
 
@@ -88,11 +87,11 @@ void MenuMain::render(const Renderer &renderer)const{
 	// backgrounds
 	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_LOWERBACKDROP].object);
-	renderer.draw(entry_skyline);
+	renderer.draw(entry_skyline,NULL);
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_MENU].object);
-	renderer.draw(background,yoffset);
+	renderer.draw(background,NULL,yoffset);
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_BACKDROPGROUND].object);
-	renderer.draw(entry,yoffset);
+	renderer.draw(entry,NULL,yoffset);
 
 	// draw the platforms during the transition
 	local->fake_render(yoffset+(renderer.rect.bottom*2.0f));
@@ -115,5 +114,5 @@ void MenuMain::render(const Renderer &renderer)const{
 	// player
 	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLAYER].object);
-	renderer.draw(player,yoffset);
+	renderer.draw(player,NULL,yoffset);
 }

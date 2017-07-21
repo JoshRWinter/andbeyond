@@ -5,23 +5,21 @@
 
 #include "Atlas.h"
 
-#define logcat(...) ((void)__android_log_print(ANDROID_LOG_INFO, "winter", __VA_ARGS__))
-
 Atlas::Atlas(){
 	object=0;
+	last_error="atlas: no error";
 }
 
 bool Atlas::load(AAssetManager *mgr,const char *name){
 	AAsset *asset=AAssetManager_open(mgr,name,AASSET_MODE_UNKNOWN);
 	if(!asset){
-		logcat("atlas: couldn't open file");
+		last_error="atlas: couldn't open file";
 		return false;
 	}
 
 	// find size of file
 	int filesize=AAsset_seek(asset,0,SEEK_END);
 	AAsset_seek(asset,0,SEEK_SET);
-	logcat("filesize==%u",filesize);
 
 	// check magic
 	unsigned char magic[3]={0,0,0};
@@ -29,17 +27,16 @@ bool Atlas::load(AAssetManager *mgr,const char *name){
 	bool pass=magic[0]=='J'&&magic[1]=='R'&&magic[2]=='W';
 	if(!pass){
 		AAsset_close(asset);
-		logcat("atlas: didn't pass magic");
+		last_error="atlas: didn't pass magic";
 		return false;
 	}
 
 	// read uncompressed size
 	uLongf uncomp_size=0;
 	AAsset_read(asset,&uncomp_size,sizeof(uLongf));
-	logcat("uncompressed size: %lu",uncomp_size);
 	if(uncomp_size==0){
 		AAsset_close(asset);
-		logcat("atlas: uncomp_size was zero");
+		last_error="atlas: uncomp_size was zero";
 		return false;
 	}
 
@@ -60,7 +57,7 @@ bool Atlas::load(AAssetManager *mgr,const char *name){
 	int z_result=uncompress(uncompressed,&uncomp_size,compressed,compressed_size);
 	delete[] compressed;
 	if(z_result!=Z_OK){
-		logcat("decompression failed");
+		last_error="atlas: decompression failed";
 		delete[] uncompressed;
 		return false;
 	}
@@ -69,27 +66,25 @@ bool Atlas::load(AAssetManager *mgr,const char *name){
 	const int expected_header_length=2+2+2;
 	if(uncomp_size<expected_header_length){
 		delete[] uncompressed;
-		logcat("failed expected header length check");
+		last_error="atlas: failed expected header length check";
 		return false;
 	}
 
 	// read number of textures present in atlas data
 	unsigned short texture_count;
 	memcpy(&texture_count,uncompressed,2);
-	logcat("found %d textures",texture_count);
 
 	// read atlas bitmap dimensions
 	unsigned short canvas_width;
 	unsigned short canvas_height;
 	memcpy(&canvas_width,uncompressed+2,2);
 	memcpy(&canvas_height,uncompressed+4,2);
-	logcat("canvas dimensions are %hux%hu",canvas_width,canvas_height);
 
 	// comprehensive size consistency check
 	const int expected_length=2+2+2+(texture_count*sizeof(unsigned short)*4)+(canvas_width*canvas_height*4);
 	if(expected_length!=uncomp_size){
 		delete[] uncompressed;
-		logcat("size mismatch: expected=%d, actual=%lu",expected_length,uncomp_size);
+		last_error="atlas: corrupted chunk";
 		return false;
 	}
 
@@ -102,14 +97,10 @@ bool Atlas::load(AAssetManager *mgr,const char *name){
 		memcpy(&height,uncompressed+2+2+2+(i*sizeof(unsigned short)*4)+6,2);
 
 		// convert to texture coordinates
-		AtlasCoords ac;
-		ac.left=(float)xpos/canvas_width;
-		ac.right=(float)(xpos+width)/canvas_width;
-		ac.bottom=(float)ypos/canvas_height;
-		ac.top=(float)(ypos+height)/canvas_height;
-		logcat("coords for texture %d are left: %.3f, right: %.3f, bottom: %.3f, top: %.3f",i,ac.left,ac.right,ac.bottom,ac.top);
-
-		tex_coords.push_back(ac);
+		tex_coords.push_back((float)xpos/canvas_width);
+		tex_coords.push_back((float)(xpos+width)/canvas_width);
+		tex_coords.push_back((float)ypos/canvas_height);
+		tex_coords.push_back((float)(ypos+height)/canvas_height);
 	}
 
 	// texturize for opengl
@@ -124,7 +115,6 @@ bool Atlas::load(AAssetManager *mgr,const char *name){
 
 	// not needed anymore
 	delete[] uncompressed;
-	logcat("made it to the end");
 
 	return true;
 }

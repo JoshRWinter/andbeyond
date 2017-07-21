@@ -77,8 +77,7 @@ Platform::Platform(const State &state,float highest,int platform_type){
 	w=PLATFORM_WIDTH;
 	h=PLATFORM_HEIGHT;
 	rot=0.0f;
-	count=6;
-	frame=type;
+	texture=AID_PLATFORM_NORMAL+type;
 	xflip=randomint(0,1)==0;
 	yv=0.0f;
 	// sliding platforms move side to side
@@ -98,7 +97,7 @@ Platform::Platform(const State &state,float highest,int platform_type){
 
 	// handle space platform textures
 	if(in_space(state.height-10))
-		frame+=3;
+		texture+=3;
 
 	// move platform to the side if it is near an electro
 	if(type!=PLATFORM_SLIDING){
@@ -134,8 +133,7 @@ Spring::Spring(){
 	w=SPRING_WIDTH;
 	h=SPRING_HEIGHT;
 	rot=0.0f;
-	frame=0.0f;
-	count=1.0f;
+	texture=AID_SPRING;
 	xoffset=randomint(1,((PLATFORM_WIDTH-SPRING_WIDTH-0.1f))*10.0f)/10.0f;
 }
 
@@ -225,13 +223,11 @@ void Platform::process(State &state){
 }
 
 void Platform::render(const Renderer &renderer,const std::vector<Platform*> &platform_list){
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLATFORM].object);
 	for(const Platform *platform:platform_list)
-		renderer.draw(*platform,platform->xflip);
+		renderer.draw(*platform,&renderer.atlas,platform->xflip);
 	// render springs
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SPRING].object);
 	for(const Platform *platform:platform_list){
 		if(platform->has_spring)
-			renderer.draw(platform->spring,false);
+			renderer.draw(platform->spring,&renderer.atlas,false);
 	}
 }

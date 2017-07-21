@@ -51,7 +51,7 @@ void MenuPause::render(const Renderer &renderer)const{
 	// background
 	glUniform4f(renderer.uniform.rgba,0.0f,0.0f,0.0f,alpha);
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_FULL_WHITE].object);
-	renderer.draw(full_white);
+	renderer.draw(full_white,NULL);
 
 	// buttons
 	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);

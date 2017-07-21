@@ -6,11 +6,10 @@ Smasher::Smasher(const State &state){
 	left.x=state.renderer.rect.left-SMASHER_RETRACT;
 	left.y=state.renderer.rect.top-8.0f;
 	left.rot=0.0f;
-	left.count=2;
 	if(in_space(state.height-10.0f))
-		left.frame=1;
+		left.texture=AID_SMASHER_SPACE;
 	else
-		left.frame=0;
+		left.texture=AID_SMASHER_NORMAL;
 	retracting=true;
 	smashed=false;
 	timer=SMASHER_SMASH_TIMER;
@@ -112,10 +111,9 @@ void Smasher::process(State &state){
 }
 
 void Smasher::render(const Renderer &renderer,const std::vector<Smasher*> &smasher_list){
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SMASHER].object);
 	for(std::vector<Smasher*>::const_iterator iter=smasher_list.begin();iter!=smasher_list.end();++iter){
-		renderer.draw((*iter)->left,false);
-		renderer.draw((*iter)->right,true);
+		renderer.draw((*iter)->left,&renderer.atlas,false);
+		renderer.draw((*iter)->right,&renderer.atlas,true);
 	}
 }
 

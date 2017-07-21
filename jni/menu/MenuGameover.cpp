@@ -10,8 +10,7 @@ void MenuGameover::exec(State &state){
 	background.w=MENU_CARD_W;
 	background.h=MENU_CARD_H;
 	background.rot=0.0f;
-	background.count=1;
-	background.frame=0;
+	background.texture=-1;
 
 	// attachment
 	attachment.x=state.renderer.rect.left;
@@ -19,8 +18,7 @@ void MenuGameover::exec(State &state){
 	attachment.w=state.renderer.rect.right*2.0f;
 	attachment.h=8.225f;
 	attachment.rot=0.0f;
-	attachment.count=1;
-	attachment.frame=0;
+	attachment.texture=-1;
 
 	entry.background(state.renderer);
 	entry.y=ATTACHMENT_Y_TARGET+attachment.h;
@@ -128,37 +126,37 @@ void MenuGameover::render(const Renderer &renderer)const{
 	// full white background
 	glUniform4f(renderer.uniform.rgba,0.0f,0.0f,0.0f,full_white_alpha);
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_FULL_WHITE].object);
-	renderer.draw(full_white);
+	renderer.draw(full_white,NULL);
 
 	// entry + skyline
 	glUniform4f(renderer.uniform.rgba,0.0627f,0.7412f,0.9294f,1.0f);
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_FULL_WHITE].object);
 	if(yoffset_target==TRANSITION_OUT_TARGET)
-		renderer.draw(entry,yoffset);
+		renderer.draw(entry,NULL,yoffset);
 	else
-		renderer.draw(entry);
+		renderer.draw(entry,NULL);
 	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_LOWERBACKDROP].object);
 	if(yoffset_target==TRANSITION_OUT_TARGET)
-		renderer.draw(entry,yoffset);
+		renderer.draw(entry,NULL,yoffset);
 	else
-		renderer.draw(entry);
+		renderer.draw(entry,NULL);
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_BACKDROPGROUND].object);
 	if(yoffset_target==TRANSITION_OUT_TARGET)
-		renderer.draw(entry,yoffset);
+		renderer.draw(entry,NULL,yoffset);
 	else
-		renderer.draw(entry);
+		renderer.draw(entry,NULL);
 
 	// background
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_GAME_OVER].object);
-	renderer.draw(background,yoffset);
+	renderer.draw(background,NULL,yoffset);
 
 	// attachment
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_ATTACHMENT].object);
 	if(attachment.y==ATTACHMENT_Y_TARGET)
-		renderer.draw(attachment,yoffset);
+		renderer.draw(attachment,NULL,yoffset);
 	else
-		renderer.draw(attachment);
+		renderer.draw(attachment,NULL);
 
 	// buttons
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_BUTTON].object);

@@ -17,8 +17,7 @@ Scenery::Scenery(const State &state,int scenery_type){
 	y=state.renderer.rect.top-h;
 	xflip=(onein(2));
 	rot=0.0f;
-	count=1;
-	frame=0;
+	texture=-1;
 	type=scenery_type;
 }
 
@@ -42,6 +41,6 @@ void Scenery::process(State &state){
 void Scenery::render(const Renderer &renderer,const std::vector<Scenery*> &scenery_list){
 	for(std::vector<Scenery*>::const_iterator iter=scenery_list.begin();iter!=scenery_list.end();++iter){
 		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[(*iter)->tid].object);
-		renderer.draw(**iter,(*iter)->xflip);
+		renderer.draw(**iter,NULL,(*iter)->xflip);
 	}
 }

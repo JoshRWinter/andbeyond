@@ -85,15 +85,16 @@ void Renderer::term(){
 	eglTerminate(display);
 }
 
-void Renderer::draw(const Base &base,bool xflip)const{
-	const float size=1.0f/base.count;
-	const float left=size*base.frame;
-	const float right=left+size;
+void Renderer::draw(const Base &base,const Atlas *atlas,bool xflip)const{
+	static const float standard_texcoords[4]={0.0f,1.0f,0.0f,1.0f};
+	const float *coords=standard_texcoords;
+	if(atlas!=NULL)
+		coords=atlas->coords(base.texture);
 
 	if(xflip)
-		glUniform4f(uniform.texcoords,right,left,0.0f,1.0f);
+		glUniform4f(uniform.texcoords,coords[1],coords[0],coords[2],coords[3]);
 	else
-		glUniform4f(uniform.texcoords,left,right,0.0f,1.0f);
+		glUniform4fv(uniform.texcoords,1,coords);
 	glUniform2f(uniform.vector,base.x,base.y);
 	glUniform2f(uniform.size,base.w,base.h);
 	glUniform1f(uniform.rot,base.rot);
@@ -101,12 +102,13 @@ void Renderer::draw(const Base &base,bool xflip)const{
 	glDrawArrays(GL_TRIANGLE_STRIP,0,4);
 }
 
-void Renderer::draw(const Base &base,float yoffset)const{
-	const float size=1.0f/base.count;
-	const float left=size*base.frame;
-	const float right=left+size;
+void Renderer::draw(const Base &base,const Atlas *atlas,float yoffset)const{
+	static const float standard_texcoords[4]={0.0f,1.0f,0.0f,1.0f};
+	const float *coords=standard_texcoords;
+	if(atlas!=NULL)
+		coords=atlas->coords(base.texture);
 
-	glUniform4f(uniform.texcoords,left,right,0.0f,1.0f);
+	glUniform4fv(uniform.texcoords,1,coords);
 	glUniform2f(uniform.vector,base.x,base.y+yoffset);
 	glUniform2f(uniform.size,base.w,base.h);
 	glUniform1f(uniform.rot,base.rot);

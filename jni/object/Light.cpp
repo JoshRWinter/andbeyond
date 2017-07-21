@@ -6,8 +6,7 @@ Light::Light(const State &state){
 	x=randomint(state.renderer.rect.left*10.0f,(state.renderer.rect.right-LIGHT_WIDTH)*10.0f)/10.0f;
 	y=state.renderer.rect.top-LIGHT_HEIGHT;
 	rot=0.0f;
-	count=4;
-	frame=randomint(0,3);
+	texture=AID_LIGHT_1+randomint(0,3);
 
 	yv=0.6f;
 	choose_color();
@@ -44,11 +43,9 @@ void Light::process(State &state){
 }
 
 void Light::render(const Renderer &renderer,const std::vector<Light> &light_list){
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_LIGHT].object);
-
 	for(const Light &light:light_list){
 		glUniform4f(renderer.uniform.rgba,light.rgb[0],light.rgb[1],light.rgb[2],1.0f);
-		renderer.draw(light);
+		renderer.draw(light,&renderer.atlas);
 	}
 
 	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);

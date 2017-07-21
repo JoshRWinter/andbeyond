@@ -75,13 +75,13 @@ void Player::process(State &state){
 	if(onein(250))
 		timer_frame=15.0f;
 	if(timer_frame>10.0f)
-		frame=1;
+		texture=AID_PLAYER_MIDBLINK;
 	else if(timer_frame>5.0)
-		frame=2;
+		texture=AID_PLAYER_BLINK;
 	else if(timer_frame>0.0f)
-		frame=1;
+		texture=AID_PLAYER_MIDBLINK;
 	else
-		frame=0;
+		texture=AID_PLAYER_NORMAL;
 	if(timer_frame>0.0f){
 		timer_frame-=1.0f;
 		if(timer_frame<0.0f)
@@ -91,14 +91,13 @@ void Player::process(State &state){
 
 void Player::render(const Renderer &renderer)const{
 	// render player
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLAYER].object);
-	renderer.draw(*this,false);
+	renderer.draw(*this,&renderer.atlas,false);
 	if(x+PLAYER_WIDTH>renderer.rect.right){
-		Base copy={renderer.rect.left-(renderer.rect.right-x),y,PLAYER_WIDTH,PLAYER_HEIGHT,0.0f,3,frame};
-		renderer.draw(copy,false);
+		Base copy={renderer.rect.left-(renderer.rect.right-x),y,PLAYER_WIDTH,PLAYER_HEIGHT,0.0f,texture};
+		renderer.draw(copy,&renderer.atlas,false);
 	}
 	else if(x<renderer.rect.left){
-		Base copy={renderer.rect.right+(x-renderer.rect.left),y,PLAYER_WIDTH,PLAYER_HEIGHT,0.0f,3,frame};
-		renderer.draw(copy,false);
+		Base copy={renderer.rect.right+(x-renderer.rect.left),y,PLAYER_WIDTH,PLAYER_HEIGHT,0.0f,texture};
+		renderer.draw(copy,&renderer.atlas,false);
 	}
 }

@@ -7,8 +7,7 @@ void MenuMessage::exec(State &state,const Menu &parent,const char *msg,const cha
 	background.w=MENU_CARD_W;
 	background.h=MENU_CARD_H;
 	background.rot=0.0f;
-	background.count=1;
-	background.frame=0;
+	background.texture=-1;
 	full_white.background(state.renderer);
 
 	// button
@@ -49,12 +48,12 @@ void MenuMessage::render(const Renderer &renderer)const{
 	// full white
 	glUniform4f(renderer.uniform.rgba,0.0f,0.0f,0.0f,full_white_alpha);
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_FULL_WHITE].object);
-	renderer.draw(full_white);
+	renderer.draw(full_white,NULL);
 
 	// menu card
 	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_GAME_OVER].object);
-	renderer.draw(background,yoffset);
+	renderer.draw(background,NULL,yoffset);
 
 	// buttons
 	glBindTexture(GL_TEXTURE_2D,renderer.uiassets.texture[TID_BUTTON].object);

@@ -14,24 +14,15 @@ struct State;
 //#define START_HIGH 540.0f
 
 // gameplay assets
-#define TID_PLATFORM 0
-#define TID_PLAYER 1
-#define TID_BACKDROPGROUND 2
-#define TID_BACKDROP_FIRST 3
-#define TID_BACKDROP_LAST 9
-#define TID_BACKDROP_TRANSITION 10
-#define TID_LOWERBACKDROP 11
-#define TID_SPRING 12
-#define TID_SAW 13
-#define TID_SAWRAIL 14
-#define TID_PARTICLE 15
-#define TID_UPPERBACKDROP 16
-#define TID_ELECTRO 17
-#define TID_ELECTRO_SPACE 18
-#define TID_SMASHER 19
-#define TID_SCENERY_BLIMP 20
-#define TID_SCENERY_MOON 21
-#define TID_LIGHT 22
+#define TID_PLAYER 0
+#define TID_BACKDROPGROUND 1
+#define TID_BACKDROP_FIRST 2
+#define TID_BACKDROP_LAST 8
+#define TID_BACKDROP_TRANSITION 9
+#define TID_LOWERBACKDROP 10
+#define TID_UPPERBACKDROP 11
+#define TID_SCENERY_BLIMP 12
+#define TID_SCENERY_MOON 13
 
 // gameplay atlas
 #define AID_PLATFORM_NORMAL 0
@@ -50,22 +41,20 @@ struct State;
 #define AID_ELECTRO_SPACE_3 13
 #define AID_ELECTRO_SPACE_4 14
 #define AID_ELECTRO_SPACE_5 15
-#define AID_BLIMP 16
-#define AID_LIGHT_1 17
-#define AID_LIGHT_2 18
-#define AID_LIGHT_3 19
-#define AID_LIGHT_4 20
-#define AID_MOON_5 21
-#define AID_OBSTACLE_NORMAL 22
-#define AID_OBSTACLE_SPACE 23
-#define AID_RAIL 24
-#define AID_PARTICLE 25
-#define AID_PLAYER_NORMAL 26
-#define AID_PLAYER_MIDBLINK 27
-#define AID_PLAYER_BLINK 28
-#define AID_SMASHER_NORMAL 29
-#define AID_SMASHER_SPACE 30
-#define AID_SPRING 31
+#define AID_LIGHT_1 16
+#define AID_LIGHT_2 17
+#define AID_LIGHT_3 18
+#define AID_LIGHT_4 19
+#define AID_OBSTACLE_NORMAL 20
+#define AID_OBSTACLE_SPACE 21
+#define AID_RAIL 22
+#define AID_PARTICLE 23
+#define AID_PLAYER_NORMAL 24
+#define AID_PLAYER_MIDBLINK 25
+#define AID_PLAYER_BLINK 26
+#define AID_SMASHER_NORMAL 27
+#define AID_SMASHER_SPACE 28
+#define AID_SPRING 29
 
 // ui assets
 #define TID_MENU 0
@@ -98,8 +87,8 @@ struct State;
 struct Renderer{
 	void init(android_app*);
 	void term();
-	void draw(const Base&,bool=false)const;
-	void draw(const Base&,float)const;
+	void draw(const Base&,const Atlas*,bool=false)const;
+	void draw(const Base&,const Atlas*,float)const;
 
 	pack assets; // gameplay textures
 	pack uiassets; // ui textures

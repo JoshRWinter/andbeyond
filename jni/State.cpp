@@ -88,14 +88,14 @@ void State::render()const{
 	// draw the lower backdrop
 	if(lower_backdrop.y<renderer.rect.bottom){
 		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_LOWERBACKDROP].object);
-		renderer.draw(lower_backdrop,false);
+		renderer.draw(lower_backdrop,NULL,false);
 	}
 	// draw the upper backdrop
 	else{
 		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_UPPERBACKDROP].object);
 		const float alpha=(height-UPPER_BACKDROP_START_TRANSITION)/UPPER_BACKDROP_FULL_TRANSITION;
 		glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,alpha>1.0f?1.0f:alpha);
-		renderer.draw(upper_backdrop,false);
+		renderer.draw(upper_backdrop,NULL,false);
 		glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
 	}
 
@@ -107,40 +107,30 @@ void State::render()const{
 	// draw the backdrops
 	if(height<TRANSITION_SPACE_HEIGHT+90.0f){
 		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[backdrop_1.tid].object);
-		renderer.draw(backdrop_1,false);
+		renderer.draw(backdrop_1,NULL,false);
 		glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[backdrop_2.tid].object);
-		renderer.draw(backdrop_2,false);
+		renderer.draw(backdrop_2,NULL,false);
 	}
+
+	glBindTexture(GL_TEXTURE_2D,renderer.atlas.texture());
 
 	// draw lights
-	if(light_list.size()!=0){
-		Light::render(renderer,light_list);
-	}
+	Light::render(renderer,light_list);
 
 	// render particles
-	if(particle_list.size()!=0){
-		Particle::render(renderer,particle_list);
-	}
+	Particle::render(renderer,particle_list);
 
 	// render electros
-	if(electro_list.size()!=0){
-		Electro::render(renderer,electro_list);
-	}
+	Electro::render(renderer,electro_list);
 
 	// render saws
-	if(saw_list.size()!=0){
-		Saw::render(renderer,saw_list);
-	}
+	Saw::render(renderer,saw_list);
 
 	// render platforms
-	if(platform_list.size()!=0){
-		Platform::render(renderer,platform_list);
-	}
+	Platform::render(renderer,platform_list);
 
 	// render smashers
-	if(smasher_list.size()!=0){
-		Smasher::render(renderer,smasher_list);
-	}
+	Smasher::render(renderer,smasher_list);
 
 	// render player
 	player.render(renderer);
@@ -175,19 +165,17 @@ void State::render()const{
 
 // draw the odds and ends of the game world until the parent function returns and the real renderer can take over
 void State::fake_render(float yoffset)const{
+	glBindTexture(GL_TEXTURE_2D,renderer.atlas.texture());
 	// do the platforms
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLATFORM].object);
 	for(const Platform *p:platform_list)
-		renderer.draw(*p,yoffset);
+		renderer.draw(*p,&renderer.atlas,yoffset);
 	// springs
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SPRING].object);
 	for(const Platform *p:platform_list){
 		if(p->has_spring)
-			renderer.draw(p->spring,yoffset);
+			renderer.draw(p->spring,&renderer.atlas,yoffset);
 	}
 	// player
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLAYER].object);
-	renderer.draw(player,yoffset);
+	renderer.draw(player,&renderer.atlas,yoffset);
 }
 
 State::State(){
@@ -211,22 +199,19 @@ State::State(){
 	lower_backdrop.w=renderer.rect.right*2.0f;
 	lower_backdrop.h=renderer.rect.bottom*2.0f;
 	lower_backdrop.rot=0.0f;
-	lower_backdrop.count=1;
-	lower_backdrop.frame=0;
+	lower_backdrop.texture=-1;
 
 	// upper backdrop
 	upper_backdrop.x=renderer.rect.left;
 	upper_backdrop.w=renderer.rect.right*2.0f;
 	upper_backdrop.h=renderer.rect.bottom*2.0f;
 	upper_backdrop.rot=0.0f;
-	upper_backdrop.count=1;
-	upper_backdrop.frame=0;
+	upper_backdrop.texture=-1;
 
 	// player
 	player.w=PLAYER_WIDTH;
 	player.h=PLAYER_HEIGHT;
-	player.count=3;
-	player.frame=0;
+	player.texture=AID_PLAYER_NORMAL;
 }
 
 void State::reset(){
@@ -275,8 +260,7 @@ void State::reset(){
 	backdrop_1.w=renderer.rect.right*2.0f;
 	backdrop_1.h=renderer.rect.bottom*2.0f;
 	backdrop_1.rot=0.0f;
-	backdrop_1.count=1;
-	backdrop_1.frame=0;
+	backdrop_1.texture=-1;
 	backdrop_2=backdrop_1;
 	backdrop_2.tid=randomint(TID_BACKDROP_FIRST,TID_BACKDROP_LAST);
 	backdrop_2.y=backdrop_1.y-backdrop_2.h;

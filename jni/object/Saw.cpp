@@ -7,11 +7,10 @@ Saw::Saw(const State &state){
 	y=state.renderer.rect.top-SAW_SIZE-5.0f;
 	xv=SAW_VELOCITY;
 	rot=0.0f;
-	count=2;
 	if(in_space(state.height-10.0f))
-		frame=1;
+		texture=AID_OBSTACLE_SPACE;
 	else
-		frame=0;
+		texture=AID_OBSTACLE_NORMAL;
 
 	// the saw will slide down a rail
 	rail.w=state.renderer.rect.right*2.0f;
@@ -19,8 +18,7 @@ Saw::Saw(const State &state){
 	rail.rot=0.0f;
 	rail.x=state.renderer.rect.left;
 	rail.y=y+(SAW_SIZE/2.0f)-(SAWRAIL_HEIGHT/2.0f);
-	rail.count=1;
-	rail.frame=0;
+	rail.texture=AID_RAIL;
 
 	bool result;
 	do{
@@ -90,10 +88,9 @@ void Saw::clear_all_ahead(std::vector<Saw*> &saw_list,float boundary){
 
 void Saw::render(const Renderer &renderer,const std::vector<Saw*> &saw_list){
 	// render rails
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SAWRAIL].object);
 	for(std::vector<Saw*>::const_iterator iter=saw_list.begin();iter!=saw_list.end();++iter)
-		renderer.draw((*iter)->rail,false);
-	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_SAW].object);
+		renderer.draw((*iter)->rail,&renderer.atlas,false);
+	// render saw
 	for(std::vector<Saw*>::const_iterator iter=saw_list.begin();iter!=saw_list.end();++iter)
-		renderer.draw(**iter,(*iter)->xv>0.0f?true:false);
+		renderer.draw(**iter,&renderer.atlas,(*iter)->xv>0.0f?true:false);
 }
