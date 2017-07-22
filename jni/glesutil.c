@@ -388,7 +388,7 @@ void destroy_ftfont(ftfont *font){
 }
 #define alignx(xf) ((((int)((xf/ftglobal_fscreenwidth)*ftglobal_iscreenwidth))/(float)ftglobal_iscreenwidth)*ftglobal_fscreenwidth)
 #define aligny(yf) ((((int)((yf/ftglobal_fscreenheight)*ftglobal_iscreenheight))/(float)ftglobal_iscreenheight)*ftglobal_fscreenheight)
-void drawtext(ftfont *font,float xpos,float ypos,const char *output){
+void drawtext(const ftfont *font,float xpos,float ypos,const char *output){
 	glUniform2f(ftglobal_size,font->fontsize,font->fontsize);
 	float xoffset=0.0f,yoffset=0.0f;
 	int character=0;
