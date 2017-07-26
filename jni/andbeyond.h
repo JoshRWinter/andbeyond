@@ -52,6 +52,7 @@ struct State;
 #define AID_SMASHER_NORMAL 23
 #define AID_SMASHER_SPACE 24
 #define AID_SPRING 25
+#define AID_SCOREBOARD 26
 
 // light atlas
 #define AID_LIGHT_1 0
@@ -164,6 +165,7 @@ struct State{
 
 	// entities
 	Backdrop lower_backdrop,upper_backdrop,backdrop_1,backdrop_2;
+	Base scorecounter;
 	Player player;
 	std::vector<Platform*> platform_list;
 	std::vector<Saw*> saw_list;

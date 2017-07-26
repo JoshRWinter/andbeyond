@@ -1,6 +1,10 @@
 struct Saw;
 struct Electro;
 struct Smasher;
+
+#define SCORECOUNTER_WIDTH 1.8f
+#define SCORECOUNTER_HEIGHT 0.8625f
+
 struct Base{
 	bool collide(const Base&,float)const;
 	bool collide_y(const Base&,float)const;

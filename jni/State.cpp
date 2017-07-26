@@ -138,16 +138,19 @@ void State::render()const{
 	// render player
 	player.render(renderer);
 
+	// render scoreboard
+	renderer.draw(scorecounter,&renderer.atlas);
 	// render hud
-	glUniform4f(renderer.uniform.rgba,0.0f,0.0f,0.0f,1.0f);
+	glUniform4f(renderer.uniform.rgba,0.75f,0.75f,0.75f,0.6f);
 	glBindTexture(GL_TEXTURE_2D,renderer.font.main->atlas);
 	char height_string[20];
-	sprintf(height_string,"%um",(unsigned)height);
-	drawtextcentered(renderer.font.main,0.0f,renderer.rect.top+0.1f,height_string);
+	sprintf(height_string,"%05um",(unsigned)height);
+	drawtext(renderer.font.main,-0.7f,renderer.rect.top-0.05f,height_string);
 
 #ifdef SHOW_FPS
 	// fps counter
 	{
+		glUniform4f(renderer.uniform.rgba,0.0f,0.0f,0.0f,1.0f);
 		glBindTexture(GL_TEXTURE_2D,renderer.font.main->atlas);
 		static char msg[30];
 		static int last_time=0;
@@ -155,7 +158,7 @@ void State::render()const{
 		int current_time=time(NULL);
 		if(current_time!=last_time){
 			last_time=current_time;
-			sprintf(msg,"[and beyond] fps: %d",fps);
+			sprintf(msg,"fps: %d",fps);
 			fps=0;
 		}
 		else
@@ -215,6 +218,14 @@ State::State(){
 	player.w=PLAYER_WIDTH;
 	player.h=PLAYER_HEIGHT;
 	player.texture=AID_PLAYER_NORMAL;
+
+	// scorecounter
+	scorecounter.x=-SCORECOUNTER_WIDTH/2.0f;
+	scorecounter.y=renderer.rect.top-0.3f;
+	scorecounter.w=SCORECOUNTER_WIDTH;
+	scorecounter.h=SCORECOUNTER_HEIGHT;
+	scorecounter.rot=0.0f;
+	scorecounter.texture=AID_SCOREBOARD;
 }
 
 void State::reset(){
