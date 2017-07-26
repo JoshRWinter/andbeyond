@@ -68,9 +68,11 @@ void State::core(){
 
 	if(scenery_list.size()==0){
 		if(around(height,150.0f))
-			scenery_list.push_back(new Scenery(*this,SCENERY_BLIMP));
+			scenery_list.push_back(Scenery(*this,SCENERY_BLIMP));
 		else if(around(height,500.0f))
-			scenery_list.push_back(new Scenery(*this,SCENERY_MOON));
+			scenery_list.push_back(Scenery(*this,SCENERY_MOON));
+		else if(around(height,1000.0f))
+			scenery_list.push_back(Scenery(*this,SCENERY_STARBABY));
 	}
 
 	// check back button
@@ -99,6 +101,10 @@ void State::render()const{
 		glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
 	}
 
+	glBindTexture(GL_TEXTURE_2D,renderer.atlas_light.texture());
+	// draw lights
+	Light::render(renderer,light_list);
+
 	// render scenery
 	if(scenery_list.size()!=0){
 		Scenery::render(renderer,scenery_list);
@@ -113,9 +119,6 @@ void State::render()const{
 	}
 
 	glBindTexture(GL_TEXTURE_2D,renderer.atlas.texture());
-
-	// draw lights
-	Light::render(renderer,light_list);
 
 	// render particles
 	Particle::render(renderer,particle_list);
@@ -232,8 +235,6 @@ void State::reset(){
 		delete *iter;
 	smasher_list.clear();
 	// clear scenery
-	for(std::vector<Scenery*>::iterator iter=scenery_list.begin();iter!=scenery_list.end();++iter)
-		delete *iter;
 	scenery_list.clear();
 	// clear particles
 	for(std::vector<Particle*>::iterator iter=particle_list.begin();iter!=particle_list.end();++iter)

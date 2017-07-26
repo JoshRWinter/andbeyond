@@ -6,6 +6,7 @@ assets/assets
 assets/uiassets
 assets/aassets
 assets/atlas
+assets/atlas_light
 .*.swp
 project.sh
 

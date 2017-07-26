@@ -120,13 +120,16 @@ struct Smasher{
 #define SCENERY_PARALLAX 15.0f
 #define SCENERY_BLIMP 1
 #define SCENERY_MOON 2
+#define SCENERY_STARBABY 3
 #define SCENERY_BLIMP_WIDTH 2.75f
 #define SCENERY_BLIMP_HEIGHT 1.025f
 #define SCENERY_MOON_SIZE 3.5f
+#define SCENERY_STARBABY_WIDTH 9.0f
+#define SCENERY_STARBABY_HEIGHT 12.8f
 struct Scenery:Base{
 	Scenery(const State&,int);
 	static void process(State&);
-	static void render(const Renderer&,const std::vector<Scenery*>&);
+	static void render(const Renderer&,const std::vector<Scenery>&);
 
 	int type;
 	int tid; // texture id
@@ -150,9 +153,9 @@ struct Particle:Base{
 
 #define LIGHT_WIDTH 0.3125f
 #define LIGHT_HEIGHT 1.6875f
-#define LIGHT_START_HEIGHT 600
-#define LIGHT_STEADY_HEIGHT 800
-#define LIGHT_STOP_HEIGHT 900
+#define LIGHT_START_HEIGHT 700
+#define LIGHT_STEADY_HEIGHT 900
+#define LIGHT_STOP_HEIGHT 1315
 struct Light:Base{
 	Light(const State&);
 	static void process(State&);

@@ -4,7 +4,10 @@ Light::Light(const State &state){
 	w=LIGHT_WIDTH;
 	h=LIGHT_HEIGHT;
 	x=randomint(state.renderer.rect.left*10.0f,(state.renderer.rect.right-LIGHT_WIDTH)*10.0f)/10.0f;
-	y=state.renderer.rect.top-LIGHT_HEIGHT;
+	if(state.scenery_list.size()>0&&state.scenery_list[0].tid==TID_SCENERY_STARBABY)
+		y=state.scenery_list[0].y+SCENERY_STARBABY_HEIGHT-LIGHT_HEIGHT;
+	else
+		y=state.renderer.rect.top-LIGHT_HEIGHT;
 	rot=0.0f;
 	texture=AID_LIGHT_1+randomint(0,3);
 
@@ -45,7 +48,7 @@ void Light::process(State &state){
 void Light::render(const Renderer &renderer,const std::vector<Light> &light_list){
 	for(const Light &light:light_list){
 		glUniform4f(renderer.uniform.rgba,light.rgb[0],light.rgb[1],light.rgb[2],1.0f);
-		renderer.draw(light,&renderer.atlas);
+		renderer.draw(light,&renderer.atlas_light);
 	}
 
 	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);

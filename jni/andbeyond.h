@@ -23,6 +23,7 @@ struct State;
 #define TID_UPPERBACKDROP 11
 #define TID_SCENERY_BLIMP 12
 #define TID_SCENERY_MOON 13
+#define TID_SCENERY_STARBABY 14
 
 // gameplay atlas
 #define AID_PLATFORM_NORMAL 0
@@ -41,20 +42,22 @@ struct State;
 #define AID_ELECTRO_SPACE_3 13
 #define AID_ELECTRO_SPACE_4 14
 #define AID_ELECTRO_SPACE_5 15
-#define AID_LIGHT_1 16
-#define AID_LIGHT_2 17
-#define AID_LIGHT_3 18
-#define AID_LIGHT_4 19
-#define AID_OBSTACLE_NORMAL 20
-#define AID_OBSTACLE_SPACE 21
-#define AID_RAIL 22
-#define AID_PARTICLE 23
-#define AID_PLAYER_NORMAL 24
-#define AID_PLAYER_MIDBLINK 25
-#define AID_PLAYER_BLINK 26
-#define AID_SMASHER_NORMAL 27
-#define AID_SMASHER_SPACE 28
-#define AID_SPRING 29
+#define AID_OBSTACLE_NORMAL 16
+#define AID_OBSTACLE_SPACE 17
+#define AID_RAIL 18
+#define AID_PARTICLE 19
+#define AID_PLAYER_NORMAL 20
+#define AID_PLAYER_MIDBLINK 21
+#define AID_PLAYER_BLINK 22
+#define AID_SMASHER_NORMAL 23
+#define AID_SMASHER_SPACE 24
+#define AID_SPRING 25
+
+// light atlas
+#define AID_LIGHT_1 0
+#define AID_LIGHT_2 1
+#define AID_LIGHT_3 2
+#define AID_LIGHT_4 3
 
 // ui assets
 #define TID_MENU 0
@@ -93,7 +96,7 @@ struct Renderer{
 	pack assets; // gameplay textures
 	pack uiassets; // ui textures
 	apack aassets; // sound effects
-	Atlas atlas;
+	Atlas atlas,atlas_light;
 
 	// world rectangle
 	struct{float left,right,bottom,top;}rect;
@@ -167,7 +170,7 @@ struct State{
 	std::vector<Particle*> particle_list;
 	std::vector<Electro*> electro_list;
 	std::vector<Smasher*> smasher_list;
-	std::vector<Scenery*> scenery_list;
+	std::vector<Scenery> scenery_list;
 	std::vector<Light> light_list;
 };
 
