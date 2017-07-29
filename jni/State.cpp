@@ -75,6 +75,10 @@ void State::core(){
 			scenery_list.push_back(Scenery(*this,SCENERY_STARBABY));
 	}
 
+	// process scorecounter y position
+	if(height>10)
+		targetf(&scorecounter.y,0.01f,renderer.rect.bottom-scorecounter.h+0.25f);
+
 	// check back button
 	if((back||(pointer[0].active&&pointer[1].active))&&!player.dead){
 		back=false;
@@ -141,11 +145,11 @@ void State::render()const{
 	// render scoreboard
 	renderer.draw(scorecounter,&renderer.atlas);
 	// render hud
-	glUniform4f(renderer.uniform.rgba,0.75f,0.75f,0.75f,0.6f);
+	glUniform4f(renderer.uniform.rgba,TEXT_COLOR,0.9f);
 	glBindTexture(GL_TEXTURE_2D,renderer.font.main->atlas);
 	char height_string[20];
 	sprintf(height_string,"%05um",(unsigned)height);
-	drawtext(renderer.font.main,-0.7f,renderer.rect.top-0.05f,height_string);
+	drawtext(renderer.font.main,-0.7f,scorecounter.y-0.01f,height_string);
 
 #ifdef SHOW_FPS
 	// fps counter
@@ -220,10 +224,9 @@ State::State(){
 	player.texture=AID_PLAYER_NORMAL;
 
 	// scorecounter
-	scorecounter.x=-SCORECOUNTER_WIDTH/2.0f;
-	scorecounter.y=renderer.rect.top-0.3f;
 	scorecounter.w=SCORECOUNTER_WIDTH;
 	scorecounter.h=SCORECOUNTER_HEIGHT;
+	scorecounter.x=-SCORECOUNTER_WIDTH/2.0f;
 	scorecounter.rot=0.0f;
 	scorecounter.texture=AID_SCOREBOARD;
 }
@@ -291,6 +294,9 @@ void State::reset(){
 #else
 	height=0.0f;
 #endif
+
+	// scorecounter position
+	scorecounter.y=renderer.rect.bottom;
 }
 
 int State::process(){
