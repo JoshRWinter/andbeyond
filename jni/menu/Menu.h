@@ -25,6 +25,8 @@ public:
 	void exec(State&);
 	virtual void render(const Renderer&)const;
 private:
+	void show_highscores(State&);
+
 	Base background,entry_skyline,entry;
 	Player player;
 	Button play,settings,quit,about;

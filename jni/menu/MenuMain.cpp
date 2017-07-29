@@ -1,3 +1,5 @@
+#include <string>
+
 #include "../andbeyond.h"
 
 const char *about_text=
@@ -35,6 +37,9 @@ void MenuMain::exec(State &state){
 	slide=0.0f;
 	local=&state;
 
+	#define TIMER_HIGHSCORE 30
+	int timer_highscore=0;
+
 	while(state.process()){
 		if(yoffset==0.0f){
 			// buttons
@@ -42,6 +47,7 @@ void MenuMain::exec(State &state){
 				slide=MENU_SLIDE;
 				Platform::process(state); // ensure new platforms are generated
 			}
+
 			if(settings.process(state)){
 				state.menu.config.exec(state,*this);
 			}
@@ -54,6 +60,16 @@ void MenuMain::exec(State &state){
 				ANativeActivity_finish(state.app->activity);
 			}
 		}
+
+		if(play.active){
+			++timer_highscore;
+			if(timer_highscore>TIMER_HIGHSCORE){
+				timer_highscore=0;
+				show_highscores(state);
+			}
+		}
+		else
+			timer_highscore=0;
 
 		// process bouncing player
 		player.y+=player.yv;
@@ -115,4 +131,16 @@ void MenuMain::render(const Renderer &renderer)const{
 	glUniform4f(renderer.uniform.rgba,1.0f,1.0f,1.0f,1.0f);
 	glBindTexture(GL_TEXTURE_2D,renderer.assets.texture[TID_PLAYER].object);
 	renderer.draw(player,NULL,yoffset);
+}
+
+void MenuMain::show_highscores(State &state){
+	std::string table;
+	for(int i=SCOREBOARD_COUNT-1;i>=0;--i){
+		char line[50];
+		sprintf(line,"%d: %d\n",SCOREBOARD_COUNT-i,local->scoreboard[i]);
+		table+=line;
+	}
+
+	// show message menu
+	state.menu.message.exec(state,*this,table.c_str(),"HIGHSCORES");
 }
