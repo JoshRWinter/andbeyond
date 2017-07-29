@@ -9,7 +9,7 @@ struct State;
 #include "menu/Menu.h"
 
 #define DATAPATH "/data/data/joshwinter.andbeyond/files"
-#define SHOW_FPS
+//#define SHOW_FPS
 //#define INVINCIBLE
 //#define START_HIGH 540.0f
 
